@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Kachok.Entities
+namespace Kachok.Model
 {
     public class Muscle
     {
