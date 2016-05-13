@@ -10,6 +10,7 @@ namespace Kachok.Model
     {
         public int Id { get; set; }
         public int PlanWorkoutExerciseId { get; set; }
+        public int SequenceNumber { get; set; }
         public int NumberOfSets { get; set; }
         public int UnitMin { get; set; }
         public int UnitMax { get; set; }

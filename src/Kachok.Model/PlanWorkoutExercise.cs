@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kachok.Model.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Kachok.Model
 
         public int ExerciseId { get; set; }
         public Exercise Exercise { get; set; }
+
+        public Status Status { get; set; }
 
         public int SequenceNumber { get; set; }
         //Used for SuperSet

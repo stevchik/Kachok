@@ -15,6 +15,8 @@ namespace Kachok.Model
         public string Description { get; set; }
         public Status Status { get; set; }
 
+        public ExerciseUom DefaultExerciseUom { get; set; }
+
         [Required]
         public MuscleGroup TargetMuscleGroup { get; set; }
         public Experience Experience { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kachok.Model.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Kachok.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public int NumberOfDays { get; set; }
+        public Status Status { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

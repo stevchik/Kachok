@@ -9,6 +9,7 @@ namespace Kachok.Model.Enum
     {
         Unknown = 0,
         Reps = 1,
-        Minutes = 2
+        RepsAndWeight = 2,
+        Minutes = 3
     }
 }
