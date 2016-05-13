@@ -8,9 +8,10 @@ using Kachok.Data;
 namespace Kachok.Data.Migrations
 {
     [DbContext(typeof(KachokContext))]
-    partial class KachokContextModelSnapshot : ModelSnapshot
+    [Migration("20160513042718_V1")]
+    partial class V1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")

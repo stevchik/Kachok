@@ -10,8 +10,7 @@ namespace Kachok.Model
     {
         public int Id { get; set; }
         public int ExerciseId { get; set;}
-        public Exercise Exercise { get; set; }
-
+       
         public string ImageUrl{get;set;}
       
         public string Caption { get; set; }

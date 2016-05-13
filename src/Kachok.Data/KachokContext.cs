@@ -1,6 +1,7 @@
 ﻿using System;
 using Kachok.Model;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Metadata;
 
 namespace Kachok.Data
 {
@@ -16,6 +17,12 @@ namespace Kachok.Data
         public DbSet<ExerciseTag> ExerciseTags { get; set; }
         public DbSet<ExerciseImage> ExerciseImages { get; set; }
 
+        public DbSet<PlanWorkoutExerciseStep> PlanWorkoutExerciseSteps { get; set; }
+        public DbSet<PlanWorkoutExercise> PlanWorkoutExercises { get; set; }
+        public DbSet<PlanWorkout> PlanWorkouts { get; set; }
+        public DbSet<PlanDay> PlanDays { get; set; }
+        public DbSet<Plan> Plans { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -27,6 +34,120 @@ namespace Kachok.Data
             setupExerciseTagModel(modelBuilder);
             setupExerciseImageModel(modelBuilder);
             setupExerciseModel(modelBuilder);
+
+            setupPlanWorkoutExerciseStepModel(modelBuilder);
+            setupPlanWorkoutExerciseModel(modelBuilder);
+            setupPlanWorkoutModel(modelBuilder);
+            setupPlanDayModel(modelBuilder);
+            setupPlanModel(modelBuilder);
+        }
+
+        private void setupPlanModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Plan>()
+              .ToTable("Plan")
+              .Property(p => p.Id)
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<Plan>()
+              .Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Plan>()
+              .Property(p => p.Description)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            modelBuilder.Entity<Plan>()
+              .Property(p => p.CreatedDate)
+                  .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Plan>()
+             .Property(p => p.UpdatedDate)
+                 .ValueGeneratedOnAddOrUpdate()
+                 .IsConcurrencyToken();
+
+            modelBuilder.Entity<Plan>()                
+                .HasMany(pt => pt.PlanWorkouts)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Plan>()
+               .HasMany(pt => pt.PlanDays)
+               .WithOne()
+               .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        private void setupPlanDayModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanDay>()
+                 .ToTable("PlanDay")
+              .Property(p => p.Id)
+                .UseSqlServerIdentityColumn();
+
+             modelBuilder.Entity<PlanDay>()
+                 .HasOne(pt => pt.PlanWorkout)
+                 .WithOne()
+                 .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private void setupPlanWorkoutModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanWorkout>()
+                 .ToTable("PlanWorkout")
+              .Property(p => p.Id)
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<PlanWorkout>()
+              .Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<PlanWorkout>()
+              .Property(p => p.Description)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+           modelBuilder.Entity<PlanWorkout>()               
+                .HasMany(pt => pt.PlanWorkoutExercises)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        private void setupPlanWorkoutExerciseModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanWorkoutExercise>()
+              .ToTable("PlanWorkoutExercise")
+              .Property(p => p.Id)
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<PlanWorkoutExercise>()
+             .Property(p => p.SpecialInstructions)
+               .HasMaxLength(1000);
+
+            modelBuilder.Entity<PlanWorkoutExercise>()
+                .HasMany(pt => pt.PlanWorkoutExerciseSteps)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        private void setupPlanWorkoutExerciseStepModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanWorkoutExerciseStep>()
+              .ToTable("PlanWorkoutExerciseStep")
+              .Property(p => p.Id)
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<PlanWorkoutExerciseStep>()
+             .Property(p => p.SpecialInstructions)
+               .IsRequired()
+               .HasMaxLength(1000);
+
+            modelBuilder.Entity<PlanWorkoutExerciseStep>()
+                .HasOne(pt => pt.ExerciseTechnique)
+                .WithOne()
+                .OnDelete(DeleteBehavior.SetNull);
         }
 
         private void setupExerciseModel(ModelBuilder modelBuilder)
@@ -56,18 +177,29 @@ namespace Kachok.Data
              .Property(p => p.UpdatedDate)
                  .ValueGeneratedOnAddOrUpdate()
                  .IsConcurrencyToken();
-            
+
+            modelBuilder.Entity<Exercise>()
+               .HasMany(pt => pt.ExerciseImages)
+               .WithOne()
+               .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Exercise>()
+              .HasMany(pt => pt.ExerciseTags)
+              .WithOne()
+              .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Exercise>()
+             .HasMany(pt => pt.ExerciseEquipments)
+             .WithOne()
+             .OnDelete(DeleteBehavior.Cascade);
+
         }
 
         private void setupExerciseImageModel(ModelBuilder modelBuilder)
         {
              modelBuilder.Entity<ExerciseImage>()
-                .HasKey(k => k.Id);
-            modelBuilder.Entity<ExerciseImage>()
-                .ToTable("ExerciseImage")
-                .HasOne(pt => pt.Exercise)
-                .WithMany(p => p.ExerciseImages)
-                .HasForeignKey(pt => pt.ExerciseId);
+                 .ToTable("ExerciseImage")
+                .HasKey(k => k.Id);           
             modelBuilder.Entity<ExerciseImage>()
                 .Property(p => p.Caption)
                     .IsRequired()
@@ -84,29 +216,19 @@ namespace Kachok.Data
         private void setupExerciseTagModel(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ExerciseTag>()
+                 .ToTable("ExerciseTag")
                 .HasAlternateKey(k => new { k.ExerciseId, k.TagId });
             modelBuilder.Entity<ExerciseTag>()
                 .HasKey(k => k.Id);
-            modelBuilder.Entity<ExerciseTag>()
-                .ToTable("ExerciseTag")
-                .HasOne(pt => pt.Exercise)
-                .WithMany(p => p.ExerciseTags)
-                .HasForeignKey(pt => pt.ExerciseId);
-
         }
 
         private void setupExerciseEquipmentModel(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ExerciseEquipment>()                
+            modelBuilder.Entity<ExerciseEquipment>()
+                 .ToTable("ExerciseEquipment")
                 .HasAlternateKey(k => new { k.ExerciseId, k.EquipmentId });
             modelBuilder.Entity<ExerciseEquipment>()
-                .HasKey(k => k.Id);
-            modelBuilder.Entity<ExerciseEquipment>()
-                .ToTable("ExerciseEquipment")
-                .HasOne(pt => pt.Exercise)
-                .WithMany(p => p.ExerciseEquipments)
-                .HasForeignKey(pt => pt.ExerciseId);
-
+                .HasKey(k => k.Id);           
         }
 
         private void setupMuscleGroupModel(ModelBuilder modelBuilder)
