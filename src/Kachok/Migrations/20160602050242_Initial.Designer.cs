@@ -1,19 +1,20 @@
-using System;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Kachok.Data;
 
-namespace Kachok.Data.Migrations
+namespace kachok.Migrations
 {
     [DbContext(typeof(KachokContext))]
-    partial class KachokContextModelSnapshot : ModelSnapshot
+    [Migration("20160602050242_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
+                .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Kachok.Model.Equipment", b =>
@@ -27,7 +28,7 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "Equipment");
+                    b.ToTable("Equipment");
                 });
 
             modelBuilder.Entity("Kachok.Model.Exercise", b =>
@@ -40,6 +41,8 @@ namespace Kachok.Data.Migrations
 
                     b.Property<int>("CreatedDate")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DefaultExerciseUom");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -65,6 +68,10 @@ namespace Kachok.Data.Migrations
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TargetMuscleGroupId");
+
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseEquipment", b =>
@@ -80,7 +87,11 @@ namespace Kachok.Data.Migrations
 
                     b.HasAlternateKey("ExerciseId", "EquipmentId");
 
-                    b.HasAnnotation("Relational:TableName", "ExerciseEquipment");
+                    b.HasIndex("EquipmentId");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("ExerciseEquipment");
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseImage", b =>
@@ -102,7 +113,9 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "ExerciseImage");
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("ExerciseImage");
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseTag", b =>
@@ -118,7 +131,11 @@ namespace Kachok.Data.Migrations
 
                     b.HasAlternateKey("ExerciseId", "TagId");
 
-                    b.HasAnnotation("Relational:TableName", "ExerciseTag");
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ExerciseTag");
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseTechnique", b =>
@@ -133,6 +150,58 @@ namespace Kachok.Data.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.ToTable("ExerciseTechnique");
+                });
+
+            modelBuilder.Entity("Kachok.Model.KachokUser", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Kachok.Model.MuscleGroup", b =>
@@ -146,7 +215,7 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "MuscleGroup");
+                    b.ToTable("MuscleGroup");
                 });
 
             modelBuilder.Entity("Kachok.Model.Plan", b =>
@@ -170,6 +239,8 @@ namespace Kachok.Data.Migrations
 
                     b.Property<int>("NumberOfDays");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("UpdatedBy");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -178,7 +249,7 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "Plan");
+                    b.ToTable("Plan");
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanDay", b =>
@@ -195,7 +266,11 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "PlanDay");
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("PlanWorkoutId");
+
+                    b.ToTable("PlanDay");
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkout", b =>
@@ -218,7 +293,9 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "PlanWorkout");
+                    b.HasIndex("PlanId");
+
+                    b.ToTable("PlanWorkout");
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkoutExercise", b =>
@@ -236,11 +313,17 @@ namespace Kachok.Data.Migrations
                     b.Property<string>("SpecialInstructions")
                         .HasAnnotation("MaxLength", 1000);
 
+                    b.Property<int>("Status");
+
                     b.Property<int?>("SubSequenceNumber");
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "PlanWorkoutExercise");
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("PlanWorkoutId");
+
+                    b.ToTable("PlanWorkoutExercise");
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkoutExerciseStep", b =>
@@ -257,6 +340,8 @@ namespace Kachok.Data.Migrations
 
                     b.Property<int>("RestInterval");
 
+                    b.Property<int>("SequenceNumber");
+
                     b.Property<string>("SpecialInstructions")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 1000);
@@ -269,7 +354,11 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "PlanWorkoutExerciseStep");
+                    b.HasIndex("ExerciseTechniqueId");
+
+                    b.HasIndex("PlanWorkoutExerciseId");
+
+                    b.ToTable("PlanWorkoutExerciseStep");
                 });
 
             modelBuilder.Entity("Kachok.Model.Tag", b =>
@@ -283,50 +372,164 @@ namespace Kachok.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAnnotation("Relational:TableName", "Tag");
+                    b.ToTable("Tag");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Kachok.Model.Exercise", b =>
                 {
                     b.HasOne("Kachok.Model.MuscleGroup")
                         .WithMany()
-                        .HasForeignKey("TargetMuscleGroupId");
+                        .HasForeignKey("TargetMuscleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseEquipment", b =>
                 {
                     b.HasOne("Kachok.Model.Equipment")
                         .WithMany()
-                        .HasForeignKey("EquipmentId");
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kachok.Model.Exercise")
                         .WithMany()
-                        .HasForeignKey("ExerciseId");
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseImage", b =>
                 {
                     b.HasOne("Kachok.Model.Exercise")
                         .WithMany()
-                        .HasForeignKey("ExerciseId");
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.ExerciseTag", b =>
                 {
                     b.HasOne("Kachok.Model.Exercise")
                         .WithMany()
-                        .HasForeignKey("ExerciseId");
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kachok.Model.Tag")
                         .WithMany()
-                        .HasForeignKey("TagId");
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanDay", b =>
                 {
                     b.HasOne("Kachok.Model.Plan")
                         .WithMany()
-                        .HasForeignKey("PlanId");
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kachok.Model.PlanWorkout")
                         .WithOne()
@@ -337,29 +540,71 @@ namespace Kachok.Data.Migrations
                 {
                     b.HasOne("Kachok.Model.Plan")
                         .WithMany()
-                        .HasForeignKey("PlanId");
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkoutExercise", b =>
                 {
                     b.HasOne("Kachok.Model.Exercise")
                         .WithMany()
-                        .HasForeignKey("ExerciseId");
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kachok.Model.PlanWorkout")
                         .WithMany()
-                        .HasForeignKey("PlanWorkoutId");
+                        .HasForeignKey("PlanWorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkoutExerciseStep", b =>
                 {
                     b.HasOne("Kachok.Model.ExerciseTechnique")
                         .WithOne()
-                        .HasForeignKey("Kachok.Model.PlanWorkoutExerciseStep", "ExerciseTechniqueId");
+                        .HasForeignKey("Kachok.Model.PlanWorkoutExerciseStep", "ExerciseTechniqueId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Kachok.Model.PlanWorkoutExercise")
                         .WithMany()
-                        .HasForeignKey("PlanWorkoutExerciseId");
+                        .HasForeignKey("PlanWorkoutExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Kachok.Model.KachokUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Kachok.Model.KachokUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Kachok.Model.KachokUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

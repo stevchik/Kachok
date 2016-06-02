@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Data.Entity;
-using Kachok.Data;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Kachok.Model;
+using Kachok.Data;
 
 namespace Kachok
 {
@@ -16,9 +16,10 @@ namespace Kachok
     {
         IConfiguration configuration { get; set; }
 
-        public Startup()
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appConfig.json");
 
             configuration = builder.Build();
@@ -30,23 +31,36 @@ namespace Kachok
         {
             string connection = configuration["databases:Kachok"];
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<KachokContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<KachokContext>(options => options.UseSqlServer(connection));
+
+            services.AddIdentity<KachokUser, IdentityRole>()
+                .AddEntityFrameworkStores<KachokContext>()
+                .AddDefaultTokenProviders();
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            app.UseIISPlatformHandler();
+            
 
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
             });
         }
-
+             
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+              .UseKestrel()
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration()
+              .UseStartup<Startup>()
+              .Build();
+
+            host.Run();
+        }
     }
 }

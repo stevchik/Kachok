@@ -1,11 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using Kachok.Model;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Metadata;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Kachok.Data
 {
-    public class KachokContext : DbContext
+    public class KachokContext : IdentityDbContext<KachokUser>
     {
      
         public DbSet<Equipment> Equipments { get; set; }
@@ -22,6 +23,11 @@ namespace Kachok.Data
         public DbSet<PlanWorkout> PlanWorkouts { get; set; }
         public DbSet<PlanDay> PlanDays { get; set; }
         public DbSet<Plan> Plans { get; set; }
+
+        public KachokContext(DbContextOptions<KachokContext> options)
+             : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

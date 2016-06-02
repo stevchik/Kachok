@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Kachok.Model.Enum
+﻿namespace Kachok.Model.Enum
 {
     public enum ExerciseUom : int
     {
