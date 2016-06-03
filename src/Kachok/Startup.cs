@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Kachok.Data;
+using Kachok.Data.Logging;
+using Kachok.Model;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.IO;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Kachok.Model;
-using Kachok.Data;
 
 namespace Kachok
 {
@@ -36,19 +38,56 @@ namespace Kachok
             services.AddIdentity<KachokUser, IdentityRole>()
                 .AddEntityFrameworkStores<KachokContext>()
                 .AddDefaultTokenProviders();
-                
+
+            // Add MVC services to the services container
+            services.AddMvc()
+                .AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
+
+            services.AddLogging();
+
+            services.AddTransient<KachokContextSeedData>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<ILoggingRepository, LoggingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env, KachokContextSeedData seeder, IServiceProvider serviceProvider)
         {
+            if (env.IsDevelopment())
+            {
+                //loggerFactory.AddConsole();
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                //loggerFactory.AddDebug(LogLevel.Information);
+            }
+            loggerFactory.AddProvider(new DBLoggerProvider(serviceProvider));
 
             app.UseIdentity();
 
-            app.Run(async (context) =>
+            // Add static files to the request pipeline
+            app.UseStaticFiles();
+
+            // Add MVC to the request pipeline
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
+
+                routes.MapRoute(
+                    name: "api",
+                    template: "{controller}/{id?}");
             });
+
+            await seeder.EnsureSeedDataAsync();
         }
              
         // Entry point for the application.

@@ -4,7 +4,6 @@
     "emitEntryPoint": true,
     "preserveCompilationContext": true
   },
-
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0-rc2-3002702",
@@ -37,9 +36,10 @@
       "type": "build"
     },
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final"
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc2-final",
   },
-
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview1-final",
@@ -67,9 +67,7 @@
         "portable-net45+win8"
       ]
     }
-
   },
-
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
@@ -78,11 +76,9 @@
       ]
     }
   },
-
   "runtimeOptions": {
     "gcServer": true
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
