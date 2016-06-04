@@ -2,9 +2,9 @@
 
 namespace Kachok.Data.Logging
 {
-    public interface ILoggingRepository: IDisposable
+    public interface IRequestLoggingRepository
     {
-        void AddLog();
+        void AddLog(RequestLog log);
         bool SaveAll();
     }
 }

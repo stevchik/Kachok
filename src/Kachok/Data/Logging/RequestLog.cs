@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kachok.Data.Logging
 {
-    public class Log
+    [Table("ApplicationLog")]
+    public class RequestLog
     {
         public const int MaximumExceptionLength = 2000;
         public const int MaximumMessageLength = 4000;
@@ -46,5 +48,6 @@ namespace Kachok.Data.Logging
         [StringLength(100)]
         public string Url { get; set; }
 
+        public string RequestID { get; set; }
     }
 }

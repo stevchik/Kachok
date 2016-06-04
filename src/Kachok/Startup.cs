@@ -32,8 +32,10 @@ namespace Kachok
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = configuration["databases:Kachok"];
+            string connectionAudit = configuration["databases:KachokAudit"];
 
             services.AddDbContext<KachokContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<KachokLoggingContext>(options => options.UseSqlServer(connectionAudit));
 
             services.AddIdentity<KachokUser, IdentityRole>()
                 .AddEntityFrameworkStores<KachokContext>()
@@ -50,7 +52,7 @@ namespace Kachok
 
             services.AddTransient<KachokContextSeedData>();
             services.AddScoped<IAdminRepository, AdminRepository>();
-            services.AddScoped<ILoggingRepository, LoggingRepository>();
+            services.AddScoped<IRequestLoggingRepository, RequestLoggingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +69,18 @@ namespace Kachok
             {
                 //loggerFactory.AddDebug(LogLevel.Information);
             }
-            loggerFactory.AddProvider(new DBLoggerProvider(serviceProvider));
+
+            var filterLoggerFactory = loggerFactory.WithFilter(new FilterLoggerSettings
+                 {
+                     { "Microsoft", LogLevel.Warning }, 
+                     { "System", LogLevel.Warning }, 
+                     { "Kachok", LogLevel.Debug }
+                });
+
+
+            filterLoggerFactory.AddProvider(new RequestLoggerProvider(serviceProvider));
+
+            app.UseRequestLogging(filterLoggerFactory);
 
             app.UseIdentity();
 

@@ -1,27 +1,33 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Kachok.Data.Logging
 {
-    public class DBLoggerProvider : ILoggerProvider
+    public class RequestLoggerProvider : ILoggerProvider
     {
 
-        public DBLoggerProvider(IServiceProvider serviceProvider)
+
+        public RequestLoggerProvider(IServiceProvider serviceProvider)
         {
             this._serviceProvider = serviceProvider;
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            return new DBLogger(_serviceProvider);
+            //if (categoryName.StartsWith("Kachok"))
+            //{
+                return new RequestLogger(categoryName, _serviceProvider);
+            //}
+            //else
+            //{
+            //    return new NullLogger();
+            //}
         }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
         private IServiceProvider _serviceProvider;
+        private readonly Func<LogLevel, bool> _filter;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -54,5 +60,7 @@ namespace Kachok.Data.Logging
             // GC.SuppressFinalize(this);
         }
         #endregion
+
+
     }
 }
