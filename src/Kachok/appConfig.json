@@ -1,0 +1,6 @@
+﻿{
+  "databases": {
+    "Kachok": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Kachok",
+    "KachokAudit": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Kachok"
+  }
+}
