@@ -67,7 +67,7 @@ namespace Kachok
             }
             else
             {
-                //loggerFactory.AddDebug(LogLevel.Information);
+                app.UseExceptionHandler("/Error");
             }
 
             var filterLoggerFactory = loggerFactory.WithFilter(new FilterLoggerSettings
