@@ -60,7 +60,7 @@ namespace Kachok
         {
             if (env.IsDevelopment())
             {
-                //loggerFactory.AddConsole();
+                app.UseRuntimeInfoPage("/info");
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
