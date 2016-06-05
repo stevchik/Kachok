@@ -2,19 +2,14 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
 
-namespace Kachok.Data.Logging
+namespace Kachok.Data.Infrastructure.Logging
 {
     public class RequestLogger : ILogger
     {
         private IServiceProvider _serviceProvider;
         private string _categoryName = string.Empty;
-        private readonly Func<LogLevel, bool> _filter;
 
         public RequestLogger(string categoryName, IServiceProvider serviceProvider)
         {

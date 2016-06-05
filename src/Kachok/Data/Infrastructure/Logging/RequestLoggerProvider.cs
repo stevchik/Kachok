@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace Kachok.Data.Logging
+namespace Kachok.Data.Infrastructure.Logging
 {
     public class RequestLoggerProvider : ILoggerProvider
     {
@@ -27,7 +27,6 @@ namespace Kachok.Data.Logging
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
         private IServiceProvider _serviceProvider;
-        private readonly Func<LogLevel, bool> _filter;
 
         protected virtual void Dispose(bool disposing)
         {

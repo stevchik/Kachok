@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
-namespace Kachok.Data.Logging
+namespace Kachok.Data.Infrastructure.Logging
 {
     public class RequestLoggingMiddleware
     {

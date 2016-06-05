@@ -1,9 +1,9 @@
-﻿using Kachok.Model;
+﻿using Kachok.Data.Interfaces;
+using Kachok.Model;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Kachok.Data
 {

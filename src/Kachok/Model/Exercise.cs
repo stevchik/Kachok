@@ -1,10 +1,12 @@
-﻿using Kachok.Model.Enum;
+﻿using Kachok.Data.Infrastructure;
+using Kachok.Model.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Kachok.Model
 {
-    public class Exercise
+    public class Exercise : IHaveId
     {
         public int Id { get; set; }
         [Required]
@@ -27,8 +29,8 @@ namespace Kachok.Model
         public List<ExerciseImage> ExerciseImages { get; set; }
 
         public string CreatedBy { get; set; }
-        public DataType CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
-        public DataType UpdatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

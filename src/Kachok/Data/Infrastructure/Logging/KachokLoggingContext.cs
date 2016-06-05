@@ -1,7 +1,6 @@
-﻿using Kachok.Data.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Kachok.Data.Logging
+namespace Kachok.Data.Infrastructure.Logging
 {
     public class KachokLoggingContext : DbContext
     {

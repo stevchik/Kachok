@@ -1,6 +1,8 @@
 ﻿using Kachok.Data;
-using Kachok.Data.Logging;
+using Kachok.Data.Infrastructure.Logging;
+using Kachok.Data.Interfaces;
 using Kachok.Model;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Kachok
 {
@@ -37,9 +41,30 @@ namespace Kachok
             services.AddDbContext<KachokContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<KachokLoggingContext>(options => options.UseSqlServer(connectionAudit));
 
-            services.AddIdentity<KachokUser, IdentityRole>()
-                .AddEntityFrameworkStores<KachokContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<KachokUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 5;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = ctx =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") &&
+                            ctx.Response.StatusCode == (int)HttpStatusCode.OK)
+                        {
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                        return Task.FromResult(0);
+                    }
+                };
+            })
+            .AddEntityFrameworkStores<KachokContext>()
+            .AddDefaultTokenProviders();
 
             // Add MVC services to the services container
             services.AddMvc()
@@ -52,6 +77,8 @@ namespace Kachok
 
             services.AddTransient<KachokContextSeedData>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
             services.AddScoped<IRequestLoggingRepository, RequestLoggingRepository>();
         }
 
@@ -72,8 +99,8 @@ namespace Kachok
 
             var filterLoggerFactory = loggerFactory.WithFilter(new FilterLoggerSettings
                  {
-                     { "Microsoft", LogLevel.Warning }, 
-                     { "System", LogLevel.Warning }, 
+                     { "Microsoft", LogLevel.Warning },
+                     { "System", LogLevel.Warning },
                      { "Kachok", LogLevel.Debug }
                 });
 
@@ -102,7 +129,7 @@ namespace Kachok
 
             await seeder.EnsureSeedDataAsync();
         }
-             
+
         // Entry point for the application.
         public static void Main(string[] args)
         {

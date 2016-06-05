@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Kachok.Data.Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Kachok.Data;
-using Kachok.Data.Logging;
+using System;
 
 namespace kachok.Migrations.KachokLogging
 {

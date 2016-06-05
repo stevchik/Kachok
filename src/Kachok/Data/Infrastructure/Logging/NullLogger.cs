@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace Kachok.Data.Logging
+namespace Kachok.Data.Infrastructure.Logging
 {
     public class NullLogger : ILogger
     {

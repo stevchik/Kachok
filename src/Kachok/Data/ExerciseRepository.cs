@@ -1,22 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Kachok.Data.Infrastructure;
+using Kachok.Data.Interfaces;
+using Kachok.Model;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Kachok.Data
 {
-    public class ExerciseRepository
+    public class ExerciseRepository : RepositoryBase<Exercise, KachokContext>, IExerciseRepository
     {
-        private KachokContext _context;
-
-        public ExerciseRepository(KachokContext context)
+        public ExerciseRepository(IDbFactory<KachokContext> dbFactory)
+            : base(dbFactory)
         {
-            this._context = context;
         }
-                
-        public bool SaveAll()
+
+        public Exercise GetExerciseByName(string exerciseName)
         {
-            return _context.SaveChanges() > 0;
+            var category = this.DbContext.Exercises.Where(c => c.Name == exerciseName).FirstOrDefault();
+
+            return category;
+        }
+
+        public override void Update(Exercise entity)
+        {
+            entity.UpdatedDate = DateTime.Now;
+            base.Update(entity);
         }
     }
 }

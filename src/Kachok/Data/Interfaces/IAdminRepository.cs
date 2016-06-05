@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Kachok.Model;
 
-namespace Kachok.Data
+namespace Kachok.Data.Interfaces
 {
     public interface IAdminRepository
     {

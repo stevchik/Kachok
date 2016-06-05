@@ -1,4 +1,4 @@
-using Kachok.Data;
+using Kachok.Data.Interfaces;
 using Kachok.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
