@@ -1,10 +1,11 @@
-﻿using Kachok.Data.Infrastructure.Logging;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Kachok.Infrastructure.Logging;
 
-namespace kachok.Migrations.KachokLogging
+namespace Kachok.Migrations.KachokLogging
 {
     [DbContext(typeof(KachokLoggingContext))]
     partial class KachokLoggingContextModelSnapshot : ModelSnapshot
@@ -15,7 +16,7 @@ namespace kachok.Migrations.KachokLogging
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Kachok.Data.Logging.RequestLog", b =>
+            modelBuilder.Entity("Kachok.Infrastructure.Logging.RequestLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

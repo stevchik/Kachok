@@ -1,4 +1,4 @@
-﻿using Kachok.Data.Infrastructure;
+﻿using Kachok.Infrastructure;
 using Kachok.Model;
 
 namespace Kachok.Data.Interfaces

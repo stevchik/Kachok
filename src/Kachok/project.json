@@ -40,7 +40,9 @@
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc2-final",
-    "Microsoft.Extensions.Logging.Filter": "1.0.0-rc2-final"
+    "Microsoft.Extensions.Logging.Filter": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
+    "AutoMapper":  "4.2.1"
   },
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {

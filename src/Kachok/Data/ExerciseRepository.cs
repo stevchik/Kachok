@@ -1,4 +1,4 @@
-﻿using Kachok.Data.Infrastructure;
+﻿using Kachok.Infrastructure;
 using Kachok.Data.Interfaces;
 using Kachok.Model;
 using System;

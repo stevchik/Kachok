@@ -1,4 +1,4 @@
-﻿using Kachok.Data.Infrastructure;
+﻿using Kachok.Infrastructure;
 using Kachok.Model.Enum;
 using System;
 using System.Collections.Generic;

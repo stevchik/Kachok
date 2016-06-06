@@ -5,3 +5,7 @@
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="respond.js" />
+/// <reference path="../wwwroot/lib/bootstrap/dist/js/bootstrap.js" />
+/// <reference path="../wwwroot/lib/jquery/dist/jquery.js" />
+/// <reference path="../wwwroot/lib/jquery-validation/dist/jquery.validate.js" />
+/// <reference path="../wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />

@@ -1,5 +1,5 @@
 ﻿using Kachok.Data;
-using Kachok.Data.Infrastructure.Logging;
+using Kachok.Infrastructure.Logging;
 using Kachok.Data.Interfaces;
 using Kachok.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,6 +15,9 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using mapper = AutoMapper;
+using Kachok.ViewModel;
+using Kachok.Infrastructure;
 
 namespace Kachok
 {
@@ -45,6 +48,8 @@ namespace Kachok
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 5;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireNonAlphanumeric = false;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
                 config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
                 {
@@ -67,7 +72,12 @@ namespace Kachok
             .AddDefaultTokenProviders();
 
             // Add MVC services to the services container
-            services.AddMvc()
+            services.AddMvc(config =>
+            {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
                 .AddJsonOptions(opt =>
                 {
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -76,6 +86,8 @@ namespace Kachok
             services.AddLogging();
 
             services.AddTransient<KachokContextSeedData>();
+
+            services.AddScoped<IDbFactory<KachokContext>, DbFactory<KachokContext>>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
@@ -88,7 +100,7 @@ namespace Kachok
             if (env.IsDevelopment())
             {
                 app.UseRuntimeInfoPage("/info");
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -103,16 +115,27 @@ namespace Kachok
                      { "System", LogLevel.Warning },
                      { "Kachok", LogLevel.Debug }
                 });
-
-
             filterLoggerFactory.AddProvider(new RequestLoggerProvider(serviceProvider));
-
             app.UseRequestLogging(filterLoggerFactory);
+
+            var filterLoggerFactoryDebug = loggerFactory.WithFilter(new FilterLoggerSettings
+                 {
+                     { "Microsoft.EntityFrameworkCore", LogLevel.Debug },
+                     { "Microsoft", LogLevel.Warning },
+                     { "System", LogLevel.Warning },
+                     { "Kachok", LogLevel.Debug }
+                });
+            filterLoggerFactoryDebug.AddProvider(new CustomLoggerProvider());
 
             app.UseIdentity();
 
             // Add static files to the request pipeline
             app.UseStaticFiles();
+
+            mapper.Mapper.Initialize(config =>
+            {
+                config.CreateMap<Exercise, ExerciseViewModel>().ReverseMap();
+            });
 
             // Add MVC to the request pipeline
             app.UseMvc(routes =>
@@ -120,7 +143,7 @@ namespace Kachok
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Site", action = "Index" });
 
                 routes.MapRoute(
                     name: "api",

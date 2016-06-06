@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Kachok.Data;
 
-namespace kachok.Migrations
+namespace Kachok.Migrations
 {
     [DbContext(typeof(KachokContext))]
     partial class KachokContextModelSnapshot : ModelSnapshot
@@ -38,7 +38,7 @@ namespace kachok.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<int>("CreatedDate")
+                    b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("DefaultExerciseUom");
@@ -62,7 +62,7 @@ namespace kachok.Migrations
 
                     b.Property<string>("UpdatedBy");
 
-                    b.Property<int>("UpdatedDate")
+                    b.Property<DateTime>("UpdatedDate")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
