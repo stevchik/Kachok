@@ -1,7 +1,8 @@
 ﻿using Kachok.Data;
-using Kachok.Infrastructure.Logging;
 using Kachok.Data.Interfaces;
+using Kachok.Infrastructure.Logging;
 using Kachok.Model;
+using Kachok.ViewModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,9 +16,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using mapper = AutoMapper;
-using Kachok.ViewModel;
-using Kachok.Infrastructure;
 
 namespace Kachok
 {
@@ -87,7 +85,6 @@ namespace Kachok
 
             services.AddTransient<KachokContextSeedData>();
 
-            services.AddScoped<IDbFactory<KachokContext>, DbFactory<KachokContext>>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
@@ -132,10 +129,7 @@ namespace Kachok
             // Add static files to the request pipeline
             app.UseStaticFiles();
 
-            mapper.Mapper.Initialize(config =>
-            {
-                config.CreateMap<Exercise, ExerciseViewModel>().ReverseMap();
-            });
+            AutoMapperBootstrap.Initialize(serviceProvider);
 
             // Add MVC to the request pipeline
             app.UseMvc(routes =>

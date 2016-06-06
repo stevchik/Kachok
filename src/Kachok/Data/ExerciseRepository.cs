@@ -8,8 +8,8 @@ namespace Kachok.Data
 {
     public class ExerciseRepository : RepositoryBase<Exercise, KachokContext>, IExerciseRepository
     {
-        public ExerciseRepository(IDbFactory<KachokContext> dbFactory)
-            : base(dbFactory)
+        public ExerciseRepository(KachokContext dbContext)
+            : base(dbContext)
         {
         }
 

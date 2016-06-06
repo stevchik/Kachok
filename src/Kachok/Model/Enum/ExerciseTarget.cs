@@ -4,6 +4,7 @@
     {
         Unknown = 0,
         Compound = 1,
-        Isolation = 2
+        Isolation = 2,
+        Cardio = 3
     }
 }

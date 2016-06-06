@@ -22,8 +22,9 @@ namespace Kachok.ViewModel
         public ExerciseUom DefaultExerciseUom { get; set; }
 
         [Required]
-        public MuscleGroup TargetMuscleGroup { get; set; }
+        public string TargetMuscleGroupName { get; set; }
         public Experience Experience { get; set; }
+        [Required]
         public ExerciseTarget ExerciseTarget { get; set; }
 
         public List<ExerciseEquipment> ExerciseEquipments { get; set; }

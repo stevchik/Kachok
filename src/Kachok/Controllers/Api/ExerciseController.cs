@@ -10,6 +10,7 @@ using AutoMapper;
 using System;
 using Microsoft.Extensions.Logging;
 using Kachok.Data.Interfaces;
+using Kachok.Infrastructure;
 
 namespace Kachok.Controllers.Api
 {
@@ -48,16 +49,25 @@ namespace Kachok.Controllers.Api
             }
             catch (Exception ex)
             {
-                ex.LogException(_logger, "Exception posting exercise");
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Errors = ex.GetViewModelErrors() });
-            }
+                Exception exx = ex.InnerException;
 
+                if (exx!= null && exx is FieldMappingException)
+                {
+                    FieldMappingException fme = (FieldMappingException)ex.InnerException;
+                    fme.LogException(_logger, $"TargetMuscleGroup({fme.FieldName}) - {fme.Message}");
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Errors = fme.GetViewModelErrors() });
+                }
+                else
+                {
+                    ex.LogException(_logger, "Exception posting exercise");
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Errors = ex.GetViewModelErrors() });
+                }
+            }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Errors = ModelState.GetViewModelErrors() });
-
-
         }
     }
 }

@@ -16,21 +16,16 @@ namespace Kachok.Infrastructure
         private DContext _dataContext;
         private readonly DbSet<T> _dbSet;
 
-        protected IDbFactory<DContext> DbFactory
-        {
-            get;
-            private set;
-        }
-
+       
         protected DContext DbContext
         {
-            get { return _dataContext ?? (_dataContext = DbFactory.Init()); }
+            get { return _dataContext; }
         }
         #endregion
 
-        protected RepositoryBase(IDbFactory<DContext> dbFactory)
+        protected RepositoryBase(DContext dataContext)
         {
-            DbFactory = dbFactory;
+            _dataContext = dataContext;
             _dbSet = DbContext.Set<T>();
         }
 
