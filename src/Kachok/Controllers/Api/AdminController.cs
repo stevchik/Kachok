@@ -1,5 +1,6 @@
 using Kachok.Data.Interfaces;
 using Kachok.Model;
+using Kachok.Model.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -66,6 +67,22 @@ namespace Kachok.Controllers
                 _logger.LogError("Failed to get Muscle Group list", ex);
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new List<MuscleGroup>();
+            }
+        }
+
+        [HttpGet("Status")]
+        public IEnumerable<string> GetStatus()
+        {
+            try
+            {
+                return Enum.GetNames(typeof(Status));
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to get Status list", ex);
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new List<string>();
             }
         }
     }

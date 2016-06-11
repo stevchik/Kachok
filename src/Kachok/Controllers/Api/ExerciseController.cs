@@ -34,6 +34,17 @@ namespace Kachok.Controllers.Api
             return new List<Exercise>();
         }
 
+        [HttpGet("Exercise")]
+        public JsonResult Get(int ExerciseId)
+        {
+            return Json(new ExerciseViewModel()
+            {
+                Id = ExerciseId,
+                Status=Model.Enum.Status.Active.ToString(),
+                TargetMuscleGroupName="Chest"
+            });
+        }
+
         [HttpPost]
         public JsonResult Post([FromBody]ExerciseViewModel vm)
         {

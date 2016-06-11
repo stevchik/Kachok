@@ -17,7 +17,7 @@ namespace Kachok.ViewModel
         [Required]
         [MaxLength(2000)]
         public string Description { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
 
         public ExerciseUom DefaultExerciseUom { get; set; }
 
