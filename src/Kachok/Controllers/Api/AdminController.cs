@@ -70,17 +70,34 @@ namespace Kachok.Controllers
             }
         }
 
-        [HttpGet("Status")]
-        public IEnumerable<string> GetStatus()
+        //[HttpGet("Status")]
+        //public IEnumerable<string> GetStatus()
+        //{
+        //    try
+        //    {
+        //        return Enum.GetNames(typeof(Status));
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError("Failed to get Status list", ex);
+        //        Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //        return new List<string>();
+        //    }
+        //}
+
+        [HttpGet("Options/{type:regex(Status|ExerciseUom|Experience|ExerciseTarget)}")]
+        public IEnumerable<string> GetOptions(string type)
         {
             try
             {
-                return Enum.GetNames(typeof(Status));
-                
+                type = $"Kachok.Model.Enum.{type}";
+                return Enum.GetNames(Type.GetType(type));
+
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get Status list", ex);
+                _logger.LogError($"Failed to get Options for {type}", ex);
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new List<string>();
             }

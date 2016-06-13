@@ -34,14 +34,18 @@ namespace Kachok.Controllers.Api
             return new List<Exercise>();
         }
 
-        [HttpGet("Exercise")]
-        public JsonResult Get(int ExerciseId)
+        [HttpGet("{id}")]
+        public JsonResult Get(int id)
         {
+            List<ExerciseEquipmentViewModel> list = new List<ExerciseEquipmentViewModel>();
+            list.Add(new ExerciseEquipmentViewModel() { Id = 1, EquipmentName = "test" });
+            list.Add(new ExerciseEquipmentViewModel() { Id = 2, EquipmentName = "test2" });
             return Json(new ExerciseViewModel()
             {
-                Id = ExerciseId,
+                Id = id,
                 Status=Model.Enum.Status.Active.ToString(),
-                TargetMuscleGroupName="Chest"
+                TargetMuscleGroupName="Chest",
+                ExerciseEquipments = list
             });
         }
 

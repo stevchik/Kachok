@@ -39,6 +39,8 @@ namespace Kachok
             string connection = configuration["databases:Kachok"];
             string connectionAudit = configuration["databases:KachokAudit"];
 
+            services.AddMemoryCache();
+
             services.AddDbContext<KachokContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<KachokLoggingContext>(options => options.UseSqlServer(connectionAudit));
 
@@ -141,7 +143,8 @@ namespace Kachok
 
                 routes.MapRoute(
                     name: "api",
-                    template: "{controller}/{id?}");
+                    template: "{controller}/{id:int?}");
+                
             });
 
             await seeder.EnsureSeedDataAsync();

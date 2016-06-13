@@ -8,5 +8,6 @@ namespace Kachok.Data.Interfaces
         IEnumerable<Equipment> GetAllEquipment();
         IEnumerable<MuscleGroup> GetAllMuscleGroups();
         bool SaveAll();
+        IEnumerable<Tag> GetAllTags();
     }
 }
