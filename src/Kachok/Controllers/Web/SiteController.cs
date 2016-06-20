@@ -14,5 +14,10 @@ namespace Kachok.Controllers
         {
             return View();
         }
+
+        public IActionResult Exercise()
+        {
+            return View(@"Views/Exercise/Exercise.cshtml");
+        }
     }
 }
