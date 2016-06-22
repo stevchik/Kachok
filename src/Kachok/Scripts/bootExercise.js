@@ -1,8 +1,4 @@
 /// <reference path="_all.ts" />
-var KachokApp;
-(function (KachokApp) {
-    angular.module('kachokApp', ['ngMaterial']);
-})(KachokApp || (KachokApp = {}));
 var ExerciseManagerApp;
 (function (ExerciseManagerApp) {
     angular.module('exerciseManagerApp', ['ngMaterial'])

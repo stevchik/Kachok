@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var del = require('del');
 var ngAnnotate = require("gulp-ng-annotate");
 
+//TODO see if System.js is needed
 var paths = {
     scripts: ['scripts/dist/boot.js', 'scripts/dist/**/*.js'],
     libs: ['wwwroot/lib/angular/Angular.js',
@@ -23,10 +24,10 @@ gulp.task('default', ['lib'], function () {
     gulp.src(paths.scripts).pipe(gulp.dest('wwwroot/scripts'))
 });
 
-
+//TODO test if annotate is needed
 gulp.task('minify', function () {
     return gulp.src(["wwwroot/js/*.js"])
-        .pipe(ngAnnotate())
+        .pipe(ngAnnotate())//may not need this
         .pipe(uglify())
         .pipe(gulp.dest("wwwroot/lib/_app"));
 });

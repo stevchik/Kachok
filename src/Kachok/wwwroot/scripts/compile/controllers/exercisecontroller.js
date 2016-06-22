@@ -1,13 +1,22 @@
-/// <reference path="../../typings/index.d.ts" />
-var ExerciseManagerApp;
-(function (ExerciseManagerApp) {
+/// <reference path="../_all.ts" />
+var KachokApp;
+(function (KachokApp) {
     var ExerciseController = (function () {
-        //static $inject = [];
-        function ExerciseController() {
+        function ExerciseController(exerciseService) {
+            this.exerciseService = exerciseService;
             this.Message = "Hello from our controller";
+            this.exercises = [];
+            var self = this;
+            this.exerciseService
+                .loadAllExercises()
+                .then(function (exercises) {
+                self.exercises = exercises;
+                console.log(self.exercises);
+            });
         }
+        ExerciseController.$inject = ['exerciseService'];
         return ExerciseController;
     }());
-    ExerciseManagerApp.ExerciseController = ExerciseController;
-})(ExerciseManagerApp || (ExerciseManagerApp = {}));
+    KachokApp.ExerciseController = ExerciseController;
+})(KachokApp || (KachokApp = {}));
 //# sourceMappingURL=exercisecontroller.js.map
