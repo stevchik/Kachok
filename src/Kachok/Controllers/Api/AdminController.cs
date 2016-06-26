@@ -46,7 +46,7 @@ namespace Kachok.Controllers
             }
         }
 
-        // GET: api/Admin/Equipment
+        // GET: api/Admin/MuscleGroups
         [HttpGet("MuscleGroups")]
         public IEnumerable<MuscleGroup> GetMuscleGroup()
         {

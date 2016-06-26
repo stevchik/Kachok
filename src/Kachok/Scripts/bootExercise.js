@@ -1,7 +1,8 @@
 /// <reference path="_all.ts" />
-var ExerciseManagerApp;
-(function (ExerciseManagerApp) {
-    angular.module('exerciseManagerApp', ['ngMaterial'])
-        .service('exerciseService', ExerciseManagerApp.ExerciseService)
-        .controller("exerciseController", ExerciseManagerApp.ExerciseController);
-})(ExerciseManagerApp || (ExerciseManagerApp = {}));
+var KachokApp;
+(function (KachokApp) {
+    angular.module('kachokApp')
+        .service('exerciseService', KachokApp.ExerciseService)
+        .controller("exerciseController", KachokApp.ExerciseController);
+})(KachokApp || (KachokApp = {}));
+//# sourceMappingURL=bootexercise.js.map

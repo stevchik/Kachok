@@ -8,10 +8,26 @@
     <script src="~/scripts/compile/bootexercise.js"></script>
 }
 <div>
-    <div ng-cloak ng-controller="exerciseController as vm">
+    <div ng-cloak ng-controller="exerciseController as exCtrl">
         Hello World
-        {{vm.Message}}
+        {{exCtrl.Message}}
+        <div layout="row">
+            <md-content flex="30">
+                <md-list>
+                    <md-list-item ng-repeat="muscleGroup in exCtrl.muscleGroups | orderBy:'name'">
+                        <md-button ng-click="exCtrl.selectMuscleGroup(muscleGroup)"
+                                   ng-class="{'selected' : muscleGroup === exCtrl.selectedMuscleGroup}">
+                            <md-icon md-svg-icon="muscleGroup" class="muscleGroup"></md-icon>
+                            {{muscleGroup.name}}
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+            <div flex>
+                <div ng-include="'/view/exercise-detail.html'">Exercise</div>
+            </div>
+        </div>
+
+       
     </div>
-
-
 </div>

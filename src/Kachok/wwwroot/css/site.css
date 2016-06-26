@@ -13,12 +13,23 @@ md-toolbar h1 {
 }
 
 md-toolbar .md-toolbar-tools h1 {
-  font-size: 1.250em;
-  font-weight: 400;  
+    font-size: 1.250em;
+    font-weight: 400;
 }
 
-#content  {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
+md-list .md-button {
+    color: inherit;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+
+md-list .md-button.selected {
+    color:#03a9f4;
+}
+
+#content {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
 }

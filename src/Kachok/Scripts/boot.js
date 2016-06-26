@@ -1,11 +1,14 @@
 /// <reference path="_all.ts" />
 var KachokApp;
 (function (KachokApp) {
-    angular.module('kachokApp', ['ngMaterial']);
+    angular.module('kachokApp', ['ngMaterial', 'ngMdIcons'])
+        .controller("siteController", KachokApp.SiteController)
+        .config(function ($mdIconProvider, $mdThemingProvider) {
+        $mdIconProvider.icon('menu', './../svg/menu.svg', 24);
+        $mdIconProvider.icon('muscleGroup', './../svg/muscleGroup.svg', 24);
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('amber');
+    });
 })(KachokApp || (KachokApp = {}));
-var ExerciseManagerApp;
-(function (ExerciseManagerApp) {
-    angular.module('exerciseManagerApp', ['ngMaterial'])
-        .service('exerciseService', ExerciseManagerApp.ExerciseService)
-        .controller("exerciseController", ExerciseManagerApp.ExerciseController);
-})(ExerciseManagerApp || (ExerciseManagerApp = {}));
+//# sourceMappingURL=boot.js.map

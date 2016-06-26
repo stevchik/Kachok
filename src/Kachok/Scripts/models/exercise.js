@@ -1,40 +1,53 @@
 /// <reference path="../_all.ts" />
-var ExerciseManagerApp;
-(function (ExerciseManagerApp) {
+var KachokApp;
+(function (KachokApp) {
     var Exercise = (function () {
-        function Exercise(Id, Name, Description //,
+        function Exercise(id, name, description, 
+            //public Status: string,
+            //public DefaultExerciseUom: string,
+            targetMuscleGroupName //,
             ) {
-            this.Id = Id;
-            this.Name = Name;
-            this.Description = Description;
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.targetMuscleGroupName = targetMuscleGroupName;
         }
         return Exercise;
     }());
-    ExerciseManagerApp.Exercise = Exercise;
+    KachokApp.Exercise = Exercise;
     var ExerciseEquipment = (function () {
-        function ExerciseEquipment(Id, EquipmentName) {
-            this.Id = Id;
-            this.EquipmentName = EquipmentName;
+        function ExerciseEquipment(id, equipmentName) {
+            this.id = id;
+            this.equipmentName = equipmentName;
         }
         return ExerciseEquipment;
     }());
-    ExerciseManagerApp.ExerciseEquipment = ExerciseEquipment;
+    KachokApp.ExerciseEquipment = ExerciseEquipment;
     var ExerciseTag = (function () {
-        function ExerciseTag(Id, TagName) {
-            this.Id = Id;
-            this.TagName = TagName;
+        function ExerciseTag(id, tagName) {
+            this.id = id;
+            this.tagName = tagName;
         }
         return ExerciseTag;
     }());
-    ExerciseManagerApp.ExerciseTag = ExerciseTag;
+    KachokApp.ExerciseTag = ExerciseTag;
     var ExerciseImage = (function () {
-        function ExerciseImage(Id, ImageUrl, Caption, Sequence) {
-            this.Id = Id;
-            this.ImageUrl = ImageUrl;
-            this.Caption = Caption;
-            this.Sequence = Sequence;
+        function ExerciseImage(id, imageUrl, caption, sequence) {
+            this.id = id;
+            this.imageUrl = imageUrl;
+            this.caption = caption;
+            this.sequence = sequence;
         }
         return ExerciseImage;
     }());
-    ExerciseManagerApp.ExerciseImage = ExerciseImage;
-})(ExerciseManagerApp || (ExerciseManagerApp = {}));
+    KachokApp.ExerciseImage = ExerciseImage;
+    var MuscleGroup = (function () {
+        function MuscleGroup(id, name) {
+            this.id = id;
+            this.name = name;
+        }
+        return MuscleGroup;
+    }());
+    KachokApp.MuscleGroup = MuscleGroup;
+})(KachokApp || (KachokApp = {}));
+//# sourceMappingURL=exercise.js.map
