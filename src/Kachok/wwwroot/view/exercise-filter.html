@@ -1,0 +1,40 @@
+﻿<md-icon md-svg-icon="muscleGroup" class="muscleGroup"></md-icon>
+<h2>{{exCtrl.selectedMuscleGroup.name}}</h2>
+
+<div layout-padding>
+    <md-autocomplete md-search-text="exCtrl.searchText"
+                     md-items="exercise in exCtrl.filteredExercises | filter:exCtrl.searchText"
+                     md-item-text="exercise.name"
+                     md-min-length="3"
+                     placeholder="filter">
+        <md-item-template>
+            <span md-highlight-text="exCtrl.searchText" md-highlight-flags="^i">{{exercise.name}}</span>
+        </md-item-template>
+        <md-not-found>
+            No Exercise matching {{exCtrl.searchText}} were found.
+        </md-not-found>
+    </md-autocomplete>
+</div>
+
+<md-content>
+    <md-list>
+        <md-list-item ng-repeat="exercise in exCtrl.filteredExercises | filter:exCtrl.searchText | orderBy:'name'">
+            <md-button ng-click="exCtrl.selectExercise(exercise)"
+                       ng-class="{'selected' : exercise === exCtrl.selectedExercise}">            
+                {{exercise.name}}
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+    <md-tabs md-selected="exCtrl.tabIndex" md-dynamic-height="" md-stretch-tabs="always">
+        <md-tab label="Detail">
+            <div ng-include="'./../view/exercise-detail.html'"></div>
+        </md-tab>
+        <md-tab label="Description">
+            <div ng-include="'./../view/exercise-description.html'"></div>
+        </md-tab>
+        <md-tab label="Tags">
+            <div ng-include="'./../view/exercise-tags.html'"></div>
+        </md-tab>
+    </md-tabs>
+</md-content>

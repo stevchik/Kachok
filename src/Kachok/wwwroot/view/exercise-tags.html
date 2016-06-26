@@ -1,0 +1,12 @@
+﻿<p ng-if="!exCtrl.selectedExercise.tags.length">no tags for {{exCtrl.selectedExercise.name}}</p>
+<md-content>
+    <md-card ng-repeat="tag in exCtrl.selectedExercise.exerciseTags | orderBy: 'tagName'">
+        <md-card-content>
+            <h3>{{tag.tagName}}</h3>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="exCtrl.removeTag(tag)">Remove</md-button>
+        </md-card-actions>
+    </md-card>
+
+</md-content>

@@ -5,12 +5,17 @@ var KachokApp;
         function Exercise(id, name, description, 
             //public Status: string,
             //public DefaultExerciseUom: string,
-            targetMuscleGroupName //,
+            targetMuscleGroupName, 
+            //public Experience: string,
+            //public ExerciseTarget: string,
+            //public ExerciseEquipments: ExerciseEquipment[],
+            exerciseTags //,
             ) {
             this.id = id;
             this.name = name;
             this.description = description;
             this.targetMuscleGroupName = targetMuscleGroupName;
+            this.exerciseTags = exerciseTags;
         }
         return Exercise;
     }());

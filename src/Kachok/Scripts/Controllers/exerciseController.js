@@ -2,8 +2,9 @@
 var KachokApp;
 (function (KachokApp) {
     var ExerciseController = (function () {
-        function ExerciseController(exerciseService) {
+        function ExerciseController(exerciseService, $mdToast) {
             this.exerciseService = exerciseService;
+            this.$mdToast = $mdToast;
             this.Message = "Hello from our controller";
             this.exercises = [];
             this.muscleGroups = [];
@@ -11,6 +12,7 @@ var KachokApp;
             this.selectedExercise = null;
             this.searchText = '';
             this.filteredExercises = [];
+            this.tabIndex = 0;
             var self = this;
             this.exerciseService
                 .loadAllMuscleGroups()
@@ -42,7 +44,22 @@ var KachokApp;
                 }
             }, this);
         };
-        ExerciseController.$inject = ['exerciseService'];
+        ExerciseController.prototype.selectExercise = function (exercise) {
+            this.selectedExercise = exercise;
+            this.tabIndex = 0;
+        };
+        ExerciseController.prototype.removeTag = function (tag) {
+            var foundIndex = this.selectedExercise.exerciseTags.indexOf(tag);
+            this.selectedExercise.exerciseTags.splice(foundIndex, 1);
+            this.openToast("Tag was removed");
+        };
+        ExerciseController.prototype.openToast = function (message) {
+            this.$mdToast.show(this.$mdToast.simple()
+                .textContent(message)
+                .position('top right')
+                .hideDelay(3000));
+        };
+        ExerciseController.$inject = ['exerciseService', '$mdToast'];
         return ExerciseController;
     }());
     KachokApp.ExerciseController = ExerciseController;

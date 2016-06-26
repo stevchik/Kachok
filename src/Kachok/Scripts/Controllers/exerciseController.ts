@@ -4,9 +4,10 @@
 module KachokApp {
     export class ExerciseController {
 
-        static $inject = ['exerciseService'];
+        static $inject = ['exerciseService', '$mdToast'];
 
-        constructor(private exerciseService: IExerciseService) {
+        constructor(private exerciseService: IExerciseService,
+            private $mdToast: angular.material.IToastService) {
             var self = this;
 
             this.exerciseService
@@ -47,6 +48,26 @@ module KachokApp {
             }, this);
         }
 
+        selectExercise(exercise: Exercise): void {
+            this.selectedExercise = exercise;
+            this.tabIndex = 0;
+        }
+
+        removeTag(tag: ExerciseTag): void {
+            var foundIndex = this.selectedExercise.exerciseTags.indexOf(tag);
+            this.selectedExercise.exerciseTags.splice(foundIndex, 1);
+            this.openToast("Tag was removed");
+        }
+
+        openToast(message: string): void {
+            this.$mdToast.show(
+                this.$mdToast.simple()
+                    .textContent(message)
+                    .position('top right')
+                    .hideDelay(3000)
+            );
+        }
+
         Message: string = "Hello from our controller";
         exercises: Exercise[] = [];
         muscleGroups: MuscleGroup[] = [];
@@ -54,5 +75,6 @@ module KachokApp {
         selectedExercise: Exercise = null;
         searchText: string = '';
         filteredExercises: Exercise[] = [];
+        tabIndex: number = 0;
     }
 }

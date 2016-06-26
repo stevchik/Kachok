@@ -13,13 +13,19 @@ var KachokApp;
                     id: 1,
                     name: "Exercise 1",
                     description: "Description 1",
-                    targetMuscleGroupName: "Neck"
+                    targetMuscleGroupName: "Neck",
+                    exerciseTags: [
+                        { id: 1, tagName: "Tag 1" },
+                        { id: 2, tagName: "Tag 2" },
+                        { id: 3, tagName: "Tag 3" }
+                    ]
                 },
                 {
                     id: 2,
                     name: "Exercise 2",
                     description: "Description 2",
-                    targetMuscleGroupName: "Neck"
+                    targetMuscleGroupName: "Neck",
+                    exerciseTags: []
                 }
             ];
             var self = this;
