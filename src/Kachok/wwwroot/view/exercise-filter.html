@@ -16,16 +16,20 @@
     </md-autocomplete>
 </div>
 
-<md-content>
+<md-content ><!--class="scrollable-nav-content"-->
     <md-list>
         <md-list-item ng-repeat="exercise in exCtrl.filteredExercises | filter:exCtrl.searchText | orderBy:'name'">
             <md-button ng-click="exCtrl.selectExercise(exercise)"
-                       ng-class="{'selected' : exercise === exCtrl.selectedExercise}">            
+                       ng-class="{'selected' : exercise === exCtrl.selectedExercise}">
                 {{exercise.name}}
             </md-button>
         </md-list-item>
     </md-list>
-
+    
+    <md-button class="md-fab md-fab-bottom-left" ng-click="exCtrl.addExercise($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+      
     <md-tabs md-selected="exCtrl.tabIndex" md-dynamic-height="" md-stretch-tabs="always">
         <md-tab label="Detail">
             <div ng-include="'./../view/exercise-detail.html'"></div>

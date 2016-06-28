@@ -4,6 +4,7 @@
 /// <reference path="boot.js" />
 /// <reference path="bootexercise.js" />
 /// <reference path="bootstrap.min.js" />
+/// <reference path="controllers/addexercisedialogcontroller.js" />
 /// <reference path="controllers/exercisecontroller.js" />
 /// <reference path="controllers/sitecontroller.js" />
 /// <reference path="jquery.validate.js" />

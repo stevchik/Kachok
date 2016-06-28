@@ -2,9 +2,12 @@
 var KachokApp;
 (function (KachokApp) {
     var ExerciseController = (function () {
-        function ExerciseController(exerciseService, $mdToast) {
+        function ExerciseController(exerciseService, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet) {
             this.exerciseService = exerciseService;
             this.$mdToast = $mdToast;
+            this.$mdDialog = $mdDialog;
+            this.$mdMedia = $mdMedia;
+            this.$mdBottomSheet = $mdBottomSheet;
             this.Message = "Hello from our controller";
             this.exercises = [];
             this.muscleGroups = [];
@@ -53,13 +56,47 @@ var KachokApp;
             this.selectedExercise.exerciseTags.splice(foundIndex, 1);
             this.openToast("Tag was removed");
         };
+        ExerciseController.prototype.clearTags = function ($event) {
+            var confirm = this.$mdDialog.confirm()
+                .title('Are you sure you want to delete all tags?')
+                .textContent('All notes will be deleted, you can\'t undo this action')
+                .targetEvent($event)
+                .ok('Yes')
+                .cancel('No');
+            var self = this;
+            this.$mdDialog.show(confirm).then(function () {
+                self.selectedExercise.exerciseTags = [];
+                self.openToast('Cleared tags');
+            });
+        };
+        ExerciseController.prototype.addExercise = function ($event) {
+            var self = this;
+            var useFullScreen = (this.$mdMedia('sm') || this.$mdMedia('xs'));
+            this.$mdDialog.show({
+                templateUrl: './../view/newExerciseDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: KachokApp.AddExerciseDialogController,
+                controllerAs: 'ctrl',
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+            }).then(function (exercise) {
+                //    var newUser: User = User.fromCreate(user);
+                //    self.users.push(newUser);
+                //    self.selectUser(newUser);
+                self.openToast("Exercise added");
+            }, function () {
+                console.log('You cancelled the dialog.');
+            });
+        };
         ExerciseController.prototype.openToast = function (message) {
             this.$mdToast.show(this.$mdToast.simple()
                 .textContent(message)
                 .position('top right')
                 .hideDelay(3000));
         };
-        ExerciseController.$inject = ['exerciseService', '$mdToast'];
+        ExerciseController.$inject = ['exerciseService', '$mdToast', '$mdDialog', '$mdMedia',
+            '$mdBottomSheet'];
         return ExerciseController;
     }());
     KachokApp.ExerciseController = ExerciseController;

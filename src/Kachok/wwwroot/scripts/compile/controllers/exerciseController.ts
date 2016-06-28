@@ -4,10 +4,14 @@
 module KachokApp {
     export class ExerciseController {
 
-        static $inject = ['exerciseService', '$mdToast'];
+        static $inject = ['exerciseService', '$mdToast', '$mdDialog', '$mdMedia',
+            '$mdBottomSheet'];
 
         constructor(private exerciseService: IExerciseService,
-            private $mdToast: angular.material.IToastService) {
+            private $mdToast: angular.material.IToastService,
+            private $mdDialog: angular.material.IDialogService,
+            private $mdMedia: angular.material.IMedia,
+            private $mdBottomSheet: angular.material.IBottomSheetService) {
             var self = this;
 
             this.exerciseService
@@ -57,6 +61,43 @@ module KachokApp {
             var foundIndex = this.selectedExercise.exerciseTags.indexOf(tag);
             this.selectedExercise.exerciseTags.splice(foundIndex, 1);
             this.openToast("Tag was removed");
+        }
+
+
+        clearTags($event: MouseEvent): void {
+            var confirm = this.$mdDialog.confirm()
+                .title('Are you sure you want to delete all tags?')
+                .textContent('All notes will be deleted, you can\'t undo this action')
+                .targetEvent($event)
+                .ok('Yes')
+                .cancel('No');
+            var self = this;
+            this.$mdDialog.show(confirm).then(() => {
+                self.selectedExercise.exerciseTags = [];
+                self.openToast('Cleared tags');
+            });
+        }
+
+        addExercise($event: MouseEvent) {
+            var self = this;
+            var useFullScreen = (this.$mdMedia('sm') || this.$mdMedia('xs'));
+
+            this.$mdDialog.show({
+                templateUrl: './../view/newExerciseDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: AddExerciseDialogController,
+                controllerAs: 'ctrl',
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+            }).then((exercise: Exercise) => {
+            //    var newUser: User = User.fromCreate(user);
+            //    self.users.push(newUser);
+            //    self.selectUser(newUser);
+                self.openToast("Exercise added");
+            }, () => {
+                console.log('You cancelled the dialog.');
+            });
         }
 
         openToast(message: string): void {

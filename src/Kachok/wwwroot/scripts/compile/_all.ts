@@ -9,3 +9,4 @@
 
 
 /// <reference path="services/exerciseservice.ts" />
+/// <reference path="controllers/addexercisedialogcontroller.ts" />

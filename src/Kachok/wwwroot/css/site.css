@@ -24,12 +24,21 @@ md-list .md-button {
     width: 100%;
 }
 
-md-list .md-button.selected {
-    color:#03a9f4;
-}
+    md-list .md-button.selected {
+        color: #03a9f4;
+    }
 
 #content {
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 5px;
+}
+
+.scrollable-nav-content {
+    position: absolute;
+    top: 136px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    overflow: auto;
 }

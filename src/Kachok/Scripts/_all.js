@@ -5,4 +5,5 @@
 /// <reference path="boot.ts" />
 /// <reference path="models/exercise.ts" />
 /// <reference path="services/exerciseservice.ts" />
+/// <reference path="controllers/addexercisedialogcontroller.ts" />
 //# sourceMappingURL=_all.js.map
