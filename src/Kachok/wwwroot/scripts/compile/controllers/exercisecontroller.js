@@ -50,6 +50,7 @@ var KachokApp;
         ExerciseController.prototype.selectExercise = function (exercise) {
             this.selectedExercise = exercise;
             this.tabIndex = 0;
+            this.exerciseService.selectedExercise = exercise;
         };
         ExerciseController.prototype.removeTag = function (tag) {
             var foundIndex = this.selectedExercise.exerciseTags.indexOf(tag);
@@ -87,6 +88,18 @@ var KachokApp;
                 self.openToast("Exercise added");
             }, function () {
                 console.log('You cancelled the dialog.');
+            });
+        };
+        ExerciseController.prototype.showExerciseOptions = function ($event) {
+            this.$mdBottomSheet.show({
+                parent: angular.element(document.getElementById('content')),
+                templateUrl: './../view/exerciseSheet.html',
+                controller: KachokApp.ExercisePanelController,
+                controllerAs: "ep",
+                bindToController: true,
+                targetEvent: $event
+            }).then(function (clickedItem) {
+                clickedItem && console.log(clickedItem.name + ' clicked!');
             });
         };
         ExerciseController.prototype.openToast = function (message) {

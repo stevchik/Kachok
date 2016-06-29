@@ -55,6 +55,7 @@ module KachokApp {
         selectExercise(exercise: Exercise): void {
             this.selectedExercise = exercise;
             this.tabIndex = 0;
+            this.exerciseService.selectedExercise = exercise;
         }
 
         removeTag(tag: ExerciseTag): void {
@@ -98,6 +99,19 @@ module KachokApp {
             }, () => {
                 console.log('You cancelled the dialog.');
             });
+        }
+
+        showExerciseOptions($event: MouseEvent): void {
+            this.$mdBottomSheet.show({
+                parent: angular.element(document.getElementById('content')),
+                templateUrl: './../view/exerciseSheet.html',
+                controller: ExercisePanelController,
+                controllerAs: "ep",
+                bindToController: true,
+                targetEvent: $event
+            }).then((clickedItem) => {
+                clickedItem && console.log(clickedItem.name + ' clicked!');
+            })
         }
 
         openToast(message: string): void {

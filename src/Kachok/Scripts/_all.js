@@ -6,4 +6,5 @@
 /// <reference path="models/exercise.ts" />
 /// <reference path="services/exerciseservice.ts" />
 /// <reference path="controllers/addexercisedialogcontroller.ts" />
+/// <reference path="controllers/exercisepanelcontroller.ts" />
 //# sourceMappingURL=_all.js.map

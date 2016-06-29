@@ -26,19 +26,46 @@
         </md-list-item>
     </md-list>
     
+    
+      
+
+        <md-tabs md-selected="exCtrl.tabIndex" md-dynamic-height="" md-stretch-tabs="always">
+            <md-tab label="Detail">
+                <div ng-include="'./../view/exercise-detail.html'"></div>
+            </md-tab>
+            <md-tab label="Description">
+                <div ng-include="'./../view/exercise-description.html'"></div>
+            </md-tab>
+            <md-tab label="Tags">
+                <div ng-include="'./../view/exercise-tags.html'"></div>
+            </md-tab>
+        </md-tabs>
+</md-content>
+<div>
     <md-button class="md-fab md-fab-bottom-left" ng-click="exCtrl.addExercise($event)">
         <ng-md-icon icon="add"></ng-md-icon>
     </md-button>
-      
-    <md-tabs md-selected="exCtrl.tabIndex" md-dynamic-height="" md-stretch-tabs="always">
-        <md-tab label="Detail">
-            <div ng-include="'./../view/exercise-detail.html'"></div>
-        </md-tab>
-        <md-tab label="Description">
-            <div ng-include="'./../view/exercise-description.html'"></div>
-        </md-tab>
-        <md-tab label="Tags">
-            <div ng-include="'./../view/exercise-tags.html'"></div>
-        </md-tab>
-    </md-tabs>
-</md-content>
+</div>
+<div id="wrapper2">
+    <md-fab-speed-dial ng-cloak
+                       md-direction="down"
+                       class="md-fling md-fab-top-right">
+        <md-fab-trigger>
+            <md-button class="md-fab">
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button class="md-fab md-raised md-mini"
+                       ng-click="exCtrl.showExerciseOptions($event)">
+                <ng-md-icon icon="face"></ng-md-icon>
+                <md-tooltip md-direction="left">Exercise</md-tooltip>
+            </md-button>
+            <md-button class="md-fab md-raised md-mini"
+                       ng-click="exCtrl.clearTags($event)">
+                <ng-md-icon icon="clear_all"></ng-md-icon>
+                <md-tooltip md-direction="left">Clear all tags</md-tooltip>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>
