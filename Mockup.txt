@@ -1,0 +1,78 @@
+Admin
+	Exercise
+		Name
+		Description
+		Status ?
+		Uom (Reps/Weight)
+		Muscle
+		Experience()
+		Target (Compound, Isolation)
+		
+		Equipment List
+		Tag List
+		Images
+	
+		How to get to Exercise?
+			By Muscle Group?
+			More Filters
+	
+	Set up a plan
+		Name
+		Ddecripton
+		Number of Days
+		Status ?
+		
+		Plan Workout
+			Name
+			Description
+			Is Rest Day
+			
+			Workout Exercise
+				Exercise
+				Status ?
+				Sequence NUmber
+				Sub Sequence Number
+				Special Instructions
+					
+				Step List
+					Sequence NUmberr
+					Number of Sets
+					Min - Max
+					UoM (reps)
+					Rest Interval
+					Special Instructions
+
+					Technique
+						Name
+						Description
+						Display Format
+		Days for workout
+	
+		AdHoc plan?
+
+	Record Workout
+		Day Number / Date
+		
+		Exercise
+		
+		Set Number
+		SubSequenceNumber (only for supersets)
+		Number of times
+		Weight
+		Techinque
+		Notes
+
+	View Workout History
+		
+		Review Workout Log
+
+	Review Progress
+
+		By Muscle Group
+		
+		By Exercise
+					
+		
+	
+		
+		
