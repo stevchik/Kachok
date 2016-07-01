@@ -35,7 +35,7 @@ Admin
 				Special Instructions
 					
 				Step List
-					Sequence NUmberr
+					Sequence Number
 					Number of Sets
 					Min - Max
 					UoM (reps)

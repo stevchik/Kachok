@@ -16,6 +16,7 @@ namespace Kachok.Model
         public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
+        public List<PlanTag> PlanTags { get; set; }
         public List<PlanWorkout> PlanWorkouts { get; set; }
         public List<PlanDay> PlanDays { get; set; }
     }

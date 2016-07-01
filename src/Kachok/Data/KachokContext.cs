@@ -20,6 +20,7 @@ namespace Kachok.Data
 
         public DbSet<PlanWorkoutExerciseStep> PlanWorkoutExerciseSteps { get; set; }
         public DbSet<PlanWorkoutExercise> PlanWorkoutExercises { get; set; }
+        public DbSet<PlanTag> PlanTags { get; set; }
         public DbSet<PlanWorkout> PlanWorkouts { get; set; }
         public DbSet<PlanDay> PlanDays { get; set; }
         public DbSet<Plan> Plans { get; set; }
@@ -44,6 +45,7 @@ namespace Kachok.Data
             setupPlanWorkoutExerciseStepModel(modelBuilder);
             setupPlanWorkoutExerciseModel(modelBuilder);
             setupPlanWorkoutModel(modelBuilder);
+            setupPlanTagModel(modelBuilder);
             setupPlanDayModel(modelBuilder);
             setupPlanModel(modelBuilder);
         }
@@ -83,6 +85,15 @@ namespace Kachok.Data
                .HasMany(pt => pt.PlanDays)
                .WithOne()
                .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        private void setupPlanTagModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanTag>()
+                 .ToTable("PlanTag")
+                .HasAlternateKey(k => new { k.PlanId, k.TagId });
+            modelBuilder.Entity<PlanTag>()
+                .HasKey(k => k.Id);
         }
 
         private void setupPlanDayModel(ModelBuilder modelBuilder)
