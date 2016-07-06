@@ -1,28 +1,41 @@
-﻿/// <binding AfterBuild='default, minify' />
-var gulp = require('gulp');
-//var uglify = require('gulp-uglify');
-var del = require('del');
-//var ngAnnotate = require("gulp-ng-annotate");
+﻿/*
+This file in the main entry point for defining Gulp tasks and using Gulp plugins.
+Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
+*/
 
-//TODO see if System.js is needed
-var paths = {
-    scripts:['Scripts/**/*.js', 
-                'Scripts/**/*.ts', 
-                'Scripts/**/*.map']
-};
+var gulp = require('gulp'),
+     Q = require('q'),
+    rimraf = require('rimraf');
 
-gulp.task('clean', function () {
-    return del(['wwwroot/scripts/**/*']);
+gulp.task('clean', function (cb) {
+    // place code for your default task here
+    return rimraf('./wwwroot/lib/', cb);
 });
 
-gulp.task('default', ['clean'], function () {
-    gulp.src(paths.scripts).pipe(gulp.dest('wwwroot/scripts/compile'))
-});
+gulp.task('copy:lib', ['clean'], function () {
+    var libs = [
+        "@angular",
+        "systemjs",
+        "core-js",
+        "zone.js",
+        "reflect-metadata",
+        "rxjs"
+    ];
 
-//TODO test if annotate is needed
-//gulp.task('minify', function () {
-//    return gulp.src(["wwwroot/js/*.js"])
-//        .pipe(ngAnnotate())//may not need this
-//        .pipe(uglify())
-//        .pipe(gulp.dest("wwwroot/lib/_app"));
-//});
+    var promises = [];
+
+    libs.forEach(function (lib) {
+        var defer = Q.defer();
+        var pipeline = gulp
+            .src('node_modules/' + lib + '/**/*')
+            .pipe(gulp.dest('./wwwroot/lib/' + lib));
+
+        pipeline.on('end', function () {
+            defer.resolve();
+        });
+        promises.push(defer.promise);
+    });
+
+    return Q.all(promises);
+
+});

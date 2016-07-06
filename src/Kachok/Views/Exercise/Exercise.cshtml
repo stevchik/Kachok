@@ -2,20 +2,20 @@
     ViewBag.Title = "Exercise Management";
 }
 @section Scripts{
-    <script src="~/scripts/compile/models/exercise.js"></script>
+    @*<script src="~/scripts/compile/models/exercise.js"></script>
     <script src="~/scripts/compile/services/exerciseservice.js"></script>
     <script src="~/scripts/compile/controllers/exercisecontroller.js"></script>
-<script src="~/scripts/compile/controllers/addexercisedialogcontroller.js"></script>
-<script src="~/scripts/compile/Controllers/exercisePanelController.js"></script>
-    <script src="~/scripts/compile/bootexercise.js"></script>
+    <script src="~/scripts/compile/controllers/addexercisedialogcontroller.js"></script>
+    <script src="~/scripts/compile/Controllers/exercisePanelController.js"></script>
+    <script src="~/scripts/compile/bootexercise.js"></script>*@
 }
 <div>
-    <div ng-cloak ng-controller="exerciseController as exCtrl">
+    @*<div ng-cloak ng-controller="exerciseController as exCtrl">
         Hello World
         {{exCtrl.Message}}
         <div layout="row">
             <md-content flex="30">
-                <md-list>
+                <md-list>s
                     <md-list-item ng-repeat="muscleGroup in exCtrl.muscleGroups | orderBy:'name'">
                         <md-button ng-click="exCtrl.selectMuscleGroup(muscleGroup)"
                                    ng-class="{'selected' : muscleGroup === exCtrl.selectedMuscleGroup}">
@@ -30,6 +30,6 @@
             </div>
         </div>
 
-       
-    </div>
+
+    </div>*@
 </div>

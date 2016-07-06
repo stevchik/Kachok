@@ -1,30 +1,23 @@
-﻿<md-sidenav class="md-sidenav-left" 
-            md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')"
-            md-disable-backdrop
-            md-whiteframe="4">
-    <md-toolbar>
-        <h1>Kachok</h1>       
-    </md-toolbar>
+﻿
+<h1>Kachok</h1>
 
-    <div>
-        @if (User.Identity.IsAuthenticated)
+<div>
+    @if (User.Identity.IsAuthenticated)
             {
-            <span id="username">@User.Identity.Name</span>
+        <span id="username">@User.Identity.Name</span>
+    }
+    <ul class="nav">
+        @if (!User.Identity.IsAuthenticated)
+            {
+            <li class="active"><a asp-controller="Auth" asp-action="Login">Login</a></li>
         }
-        <ul class="nav">
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <li class="active"><a asp-controller="Auth" asp-action="Login">Login</a></li>
-            }
-            else
-            {
-                <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
-            }
-            <li><a asp-controller="Site" asp-action="Exercise">Exercise</a></li>
-        </ul>
-    </div>
+        else
+        {
+            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+        }
+        <li><a asp-controller="Site" asp-action="Exercise">Exercise</a></li>
+    </ul>
+</div>
 
-   
-</md-sidenav>
+
 

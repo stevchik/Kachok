@@ -7,47 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="EI=edge" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
+    <!-- Polyfill(s) for older browsers -->
+    <script src="lib/core-js/client/shim.min.js"></script>
+    <script src="lib/zone.js/dist/zone.js"></script>
+    <script src="lib/reflect-metadata/Reflect.js"></script>
+    <script src="lib/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) { console.error(err); });
+    </script>
     <title>Kachok - @ViewBag.Title</title>
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-    <link href="~/lib/angular-material/angular-material.min.css" rel="stylesheet" />
-    <link href="~/lib/angular-material-icons/angular-material-icons.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/lib/bootswatch/yeti/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />*@
-
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-    </style>
 </head>
 
-<body layout="row" ng-controller="siteController as vm">
+<body>
 
-    <div id="sidebar" layout="vertical" >
+    <div id="sidebar">
         @Html.Partial("Sidenav")
     </div>
 
-    <div id="wrapper" layout="column" flex>
+    <div id="wrapper">
         <div ng-include="'/view/toolbar-header.html'">Toolbar</div>
 
-        <md-content flax id="content">
-            @RenderBody()
-        </md-content>
+        <my-app>Loading...</my-app>
+        @RenderBody()
+
     </div>
 
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/angular/angular.js"></script>
-    <script type="text/javascript" src="~/lib/angular-animate/angular-animate.js"></script>
-    <script type="text/javascript" src="~/lib/angular-aria/angular-aria.js"></script>
-    <script type="text/javascript" src="~/lib/angular-material/angular-material.js"></script>
-    <script type="text/javascript" src="~/lib/angular-material-icons/angular-material-icons.js"></script>
+    @*<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    @*<script type="text/javascript" src="~/scripts/compile/controllers/sitecontroller.js"></script>
+        <script type="text/javascript" src="~/scripts/compile/boot.js"></script>*@
 
-    <script type="text/javascript" src="~/scripts/compile/controllers/sitecontroller.js"></script>
-    <script type="text/javascript" src="~/scripts/compile/boot.js"></script>
-
-    @*<script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>*@
     @RenderSection("Scripts", false)
 
 </body>
