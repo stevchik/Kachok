@@ -1,10 +1,132 @@
-﻿html, body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+﻿html {
+    position: relative;
+    min-height: 100%;
 }
+
+body {
+    padding: 0px;
+    /* Margin bottom by footer height */
+    margin-bottom: 140px;
+}
+/*New Kachok Style*/
+.btn-standard {
+    background: #fff;
+    background-image: none;
+    border: 1px solid #222;
+    color: #222;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-decoration: none !important;
+    text-shadow: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out 0s;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+}
+
+    .btn-standard:hover {
+        background: #333;
+        color: #fff;
+    }
+
+
+
+.navbar-standard .brand {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar-standard .navbar-inner {
+    background: #EEEEEE;
+    filter: none !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+    .navbar-standard .navbar-inner .nav {
+        float: right;
+    }
+
+        .navbar-standard .navbar-inner .nav li a {
+            background: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            color: #000000;
+            font-size: 13px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+            .navbar-standard .navbar-inner .nav li a:hover {
+                background: none;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+                color: #BE1F14;
+            }
+
+        .navbar-standard .navbar-inner .nav li.active a {
+            color: #BE1F14;
+        }
+
+.navbar-toggle {
+    border: 1px solid black;
+    color: black;
+}
+
+    .navbar-toggle .icon-bar {
+        background-color: black;
+    }
+
+.navbar-brand {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+
+footer {
+    padding: 10px 0px 10px 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 140px;
+    background-color: black;
+}
+
+    footer .nav li a {
+        color: white;
+        padding: 10px 5px;
+    }
+
+        footer .nav li a:hover {
+            color: #BE1F14;
+            background-color: transparent;
+        }
+
+/* responsive footer fix by Aalaap Ghag */
+        @media (max-width: 768px) {
+            body {
+                margin-bottom: 280px;
+            }
+    
+            footer {
+                 height: 280px;
+            }
+        }
+
+
+
+
+
+
+
+
 
 md-toolbar h1 {
     font-size: 1.250em;

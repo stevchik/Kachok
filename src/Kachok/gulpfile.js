@@ -5,21 +5,53 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 
 var gulp = require('gulp'),
      Q = require('q'),
-    rimraf = require('rimraf');
+    del = require('del'),
+    sass = require("gulp-sass");
 
-gulp.task('clean', function (cb) {
+var config = {
+    bootstrapDir: 'bower_components/bootstrap-sass',
+    wwwDir: './wwwroot/',
+};
+
+gulp.task('clean', function () {
     // place code for your default task here
-    return rimraf('./wwwroot/lib/', cb);
+    return del(['./wwwroot/lib/',
+        './wwwroot/fonts/',
+        './wwwroot/css/app.css']);
 });
 
-gulp.task('copy:lib', ['clean'], function () {
+gulp.task('bootstrap-css', function () {
+    return gulp.src('Scripts/scss/app.scss')
+    .pipe(sass({
+        includePaths: [config.bootstrapDir + '/assets/stylesheets'],
+    }))
+    .pipe(gulp.dest(config.wwwDir + '/css'));
+});
+
+gulp.task('bootstrap-fonts', function () {
+    return gulp.src(config.bootstrapDir + '/assets/fonts/**/*')
+    .pipe(gulp.dest(config.wwwDir + '/fonts'));
+});
+
+gulp.task('bootstrap-js', function () {
+    return gulp.src(config.bootstrapDir + '/assets/javascripts/*.min.js')
+    .pipe(gulp.dest(config.wwwDir + '/lib/bootstrap/'));
+});
+
+gulp.task('js', function () {
+    return gulp.src('Scripts/js/*')
+    .pipe(gulp.dest(config.wwwDir + '/scripts/js/'));
+});
+
+gulp.task('copy:all', ['clean', 'bootstrap-css', 'bootstrap-js', 'js'], function () {
     var libs = [
         "@angular",
         "systemjs",
         "core-js",
         "zone.js",
         "reflect-metadata",
-        "rxjs"
+        "rxjs",
+        "jquery"
     ];
 
     var promises = [];
