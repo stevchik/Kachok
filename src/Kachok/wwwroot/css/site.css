@@ -109,16 +109,16 @@ footer {
             background-color: transparent;
         }
 
-/* responsive footer fix by Aalaap Ghag */
-        @media (max-width: 768px) {
-            body {
-                margin-bottom: 280px;
-            }
-    
-            footer {
-                 height: 280px;
-            }
-        }
+/* responsive footer fix */
+@media (max-width: 768px) {
+    body {
+        margin-bottom: 280px;
+    }
+
+    footer {
+        height: 280px;
+    }
+}
 
 
 

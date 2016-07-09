@@ -8,8 +8,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "suppressImplicitAnyIndexErrors": true,
-    "experimentalDecorators": true,
-    "outDir": "../wwwroot/app"
+    "experimentalDecorators": true//,
+    //"outDir": "../wwwroot/scripts/compiled/app"
   },
   "compileOnSave": true,
   "exclude": [

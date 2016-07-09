@@ -38,12 +38,18 @@ gulp.task('bootstrap-js', function () {
     .pipe(gulp.dest(config.wwwDir + '/lib/bootstrap/'));
 });
 
+gulp.task('ts-js', function () {
+    return gulp.src('Scripts/app/**/*')
+    .pipe(gulp.dest(config.wwwDir + '/scripts/compiled/app/'));
+});
+
+
 gulp.task('js', function () {
     return gulp.src('Scripts/js/*')
     .pipe(gulp.dest(config.wwwDir + '/scripts/js/'));
 });
 
-gulp.task('copy:all', ['clean', 'bootstrap-css', 'bootstrap-js', 'js'], function () {
+gulp.task('copy:all', ['clean', 'bootstrap-css', 'bootstrap-js', 'js', 'ts-js'], function () {
     var libs = [
         "@angular",
         "systemjs",
