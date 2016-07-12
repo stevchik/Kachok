@@ -2,34 +2,12 @@
     ViewBag.Title = "Exercise Management";
 }
 @section Scripts{
-    @*<script src="~/scripts/compile/models/exercise.js"></script>
-    <script src="~/scripts/compile/services/exerciseservice.js"></script>
-    <script src="~/scripts/compile/controllers/exercisecontroller.js"></script>
-    <script src="~/scripts/compile/controllers/addexercisedialogcontroller.js"></script>
-    <script src="~/scripts/compile/Controllers/exercisePanelController.js"></script>
-    <script src="~/scripts/compile/bootexercise.js"></script>*@
+    <script src="~/systemjs.config.js"></script>
+    <script>
+        System.import('exercise').catch(function (err) { console.error(err); });
+    </script>
 }
 <div>
-    @*<div ng-cloak ng-controller="exerciseController as exCtrl">
-        Hello World
-        {{exCtrl.Message}}
-        <div layout="row">
-            <md-content flex="30">
-                <md-list>s
-                    <md-list-item ng-repeat="muscleGroup in exCtrl.muscleGroups | orderBy:'name'">
-                        <md-button ng-click="exCtrl.selectMuscleGroup(muscleGroup)"
-                                   ng-class="{'selected' : muscleGroup === exCtrl.selectedMuscleGroup}">
-                            <md-icon md-svg-icon="muscleGroup" class="muscleGroup"></md-icon>
-                            {{muscleGroup.name}}
-                        </md-button>
-                    </md-list-item>
-                </md-list>
-            </md-content>
-            <div flex>
-                <div ng-include="'/view/exercise-filter.html'">Exercise</div>
-            </div>
-        </div>
-
-
-    </div>*@
+    Exercises go here
+    <kcc-exercise></kcc-exercise>
 </div>

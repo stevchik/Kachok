@@ -6,14 +6,16 @@
 
     // map tells the System loader where to look for things
     var map = {
-        'app': 'scripts/compiled/app', // 'dist',
-        '@angular': 'lib/@angular',
-        'rxjs': 'lib/rxjs'
+        'app': '../scripts/compiled/app', // 'dist',
+        'exercise': '../scripts/compiled/app/exercise', // 'dist',
+        '@angular': '../lib/@angular',
+        'rxjs': '../lib/rxjs'
     };
 
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
         'app': { main: 'main.js', defaultExtension: 'js' },
+        'exercise': { main: 'main-exercise.js', defaultExtension: 'js' },
         'rxjs': { defaultExtension: 'js' }
     };
 

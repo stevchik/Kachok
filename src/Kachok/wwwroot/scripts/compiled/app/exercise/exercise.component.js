@@ -6,16 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var ExerciseComponent = (function () {
+    function ExerciseComponent() {
     }
-    AppComponent = __decorate([
+    ExerciseComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<h1>My First Angular 2 App</h1>"
+            selector: 'kcc-exercise',
+            templateUrl: '../scripts/compiled/app/exercise/exercise.component.html'
         })
-    ], AppComponent);
-    return AppComponent;
+    ], ExerciseComponent);
+    return ExerciseComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ExerciseComponent = ExerciseComponent;
+//# sourceMappingURL=exercise.component.js.map
