@@ -2,9 +2,23 @@
     ViewBag.Title = "Exercise Management";
 }
 @section Scripts{
+
     <script src="~/systemjs.config.js"></script>
     <script>
         System.import('exercise').catch(function (err) { console.error(err); });
+
+        (function ($) {
+            $(function () {
+                $(document).off('click.bs.tab.data-api', '[data-hover="tab"]');
+                $(document).on('mouseenter.bs.tab.data-api', '[data-toggle="tab"], [data-hover="tab"]', function () {
+                    $(this).tab('show');
+                });
+               
+            });
+        })(jQuery);
+
+       
+
     </script>
 }
 <div>
