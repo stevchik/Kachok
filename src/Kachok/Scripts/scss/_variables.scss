@@ -33,6 +33,8 @@ $text-color:            $gray-dark !default;
 
 //** Global textual link color.
 $link-color:            black !default;
+
+$link-decoration: underline !default;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      $brand-primary !default;
 //** Link hover decoration.
@@ -431,15 +433,15 @@ $nav-disabled-link-color:                   $gray-light !default;
 $nav-disabled-link-hover-color:             $gray-light !default;
 
 //== Tabs
-$nav-tabs-border-color:                     #ddd !default;
+$nav-tabs-border-color:                     $navbar-default-border !default; //#ddd 
 
 $nav-tabs-link-hover-border-color:          $gray-lighter !default;
 
 $nav-tabs-active-link-hover-bg:             $body-bg !default;
-$nav-tabs-active-link-hover-color:          $gray !default;
-$nav-tabs-active-link-hover-border-color:   #ddd !default;
+$nav-tabs-active-link-hover-color:          $link-hover-color !default; //$gray
+$nav-tabs-active-link-hover-border-color:   $navbar-default-border !default;//#ddd
 
-$nav-tabs-justified-link-border-color:            #ddd !default;
+$nav-tabs-justified-link-border-color:      $navbar-default-border !default; //#ddd
 $nav-tabs-justified-active-link-border-color:     $body-bg !default;
 
 //== Pills

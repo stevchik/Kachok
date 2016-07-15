@@ -8,7 +8,22 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 140px;
 }
+
+ul{
+    list-style-type: none;
+}
+
 /*New Kachok Style*/
+
+.actionLlink{
+    color: #BE1F14;
+    text-decoration: underline;
+}
+
+.actionLlink:hover{
+    color: black;
+}
+
 .btn-standard {
     background: #fff;
     background-image: none;
@@ -134,9 +149,37 @@ footer {
 }
 
 
+.filter-list{
+    white-space: normal;
+    width: 480px;
+}
+
+.filter-list > .filter-item {
+    display: inline-block;
+    min-width: 0;
+    width: 30%;
+}
 
 
 
+.filter-list .clear-filter > a {
+    background: #eeeeee none repeat scroll 0 0;
+    display: block;
+    margin-top: 10px;
+    margin-right: 25px;
+    padding: 5px 25px 5px 5px;
+    position: relative;
+}
+.filter-list .clear-filter > a.hover {
+    background: #fff none repeat scroll 0 0;
+    color: black;
+}
+
+    .filter-list .clear-filter > a > span{
+        position:absolute;
+        padding-top:5px;
+        right:10px;
+    }
 
 md-toolbar h1 {
     font-size: 1.250em;
