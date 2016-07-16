@@ -148,38 +148,72 @@ footer {
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
-
-.filter-list{
-    white-space: normal;
-    width: 480px;
-}
-
-.filter-list > .filter-item {
-    display: inline-block;
-    min-width: 0;
-    width: 30%;
-}
-
-
-
-.filter-list .clear-filter > a {
-    background: #eeeeee none repeat scroll 0 0;
-    display: block;
-    margin-top: 10px;
-    margin-right: 25px;
-    padding: 5px 25px 5px 5px;
-    position: relative;
-}
-.filter-list .clear-filter > a.hover {
-    background: #fff none repeat scroll 0 0;
-    color: black;
-}
-
-    .filter-list .clear-filter > a > span{
-        position:absolute;
-        padding-top:5px;
-        right:10px;
+@media (min-width: 769px) {
+    .filter-list {
+        white-space: normal;
+        width: 480px;
     }
+
+    .nav-tabs span {
+        padding-left: 10px;
+    }
+
+    .filter-list > .filter-item {
+        display: inline-block;
+        min-width: 0;
+        width: 30%;
+    }
+
+
+
+    .filter-list .clear-filter > a {
+        background: #eeeeee none repeat scroll 0 0;
+        display: block;
+        margin-top: 10px;
+        margin-right: 25px;
+        padding: 5px 25px 5px 5px;
+        position: relative;
+    }
+
+        .filter-list .clear-filter > a.hover {
+            background: #fff none repeat scroll 0 0;
+            color: black;
+        }
+
+        .filter-list .clear-filter > a > span {
+            position: absolute;
+            padding-top: 5px;
+            right: 10px;
+        }
+}
+
+@media (max-width: 768px) {
+    
+    .filter-list .filter-item .checkbox label {
+        padding-left: 5px;
+    }
+
+    .filter-list .clear-filter > a {
+        background: #eeeeee none repeat scroll 0 0;
+        display: block;
+        margin-top: 10px;
+        margin-left: -20px;
+         padding: 5px 5px 5px 5px;
+        position: relative;
+    }
+
+        .filter-list .clear-filter > a.hover {
+            background: #fff none repeat scroll 0 0;
+            color: black;
+        }
+
+        .filter-list .clear-filter > a > span {
+            position: absolute;
+            padding-top: 5px;
+            right: 5px;
+        }
+}
+
 
 md-toolbar h1 {
     font-size: 1.250em;
