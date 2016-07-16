@@ -10,18 +10,42 @@
         (function ($) {
             $(function () {
                 $(document).off('click.bs.tab.data-api', '[data-hover="tab"]');
+                //$(document).on('click.bs.tab.data-api', '[data-toggle="tab"]', function () {
+                //    if ($(this).parent().hasClass('active')) {
+                //        $($(this).attr("href")).toggleClass('active');
+                //        $(this).parent().toggleClass('active')
+                //    };
+                //});
+
+                //$(document).on('mouseleave.bs.tab.data-api', '[data-toggle="tab"], [data-hover="tab"]', function () {
+                //    if ($(this).parent().hasClass('active')) {
+                //        $($(this).attr("href")).toggleClass('active');
+                //        $(this).parent().toggleClass('active')
+                //    };
+                //});
+
+                $(document).on('mouseleave', '[id="exercise-filters"]', function () {
+                    let tab = $('li[role=presentation].active > a');
+                    if (tab) {
+                        $(tab.attr("href")).toggleClass('active');
+                        tab.toggleClass('active')
+                    }
+                });
+
                 $(document).on('mouseenter.bs.tab.data-api', '[data-toggle="tab"], [data-hover="tab"]', function () {
                     $(this).tab('show');
                 });
-               
+
             });
         })(jQuery);
 
-       
+
 
     </script>
 }
 <div>
     Exercises go here
     <kcc-exercise></kcc-exercise>
+
+
 </div>
