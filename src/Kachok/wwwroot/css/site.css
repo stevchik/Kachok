@@ -9,20 +9,28 @@ body {
     margin-bottom: 140px;
 }
 
-ul{
+ul {
     list-style-type: none;
 }
 
 /*New Kachok Style*/
 
-.actionLlink{
+.actionLlink {
     color: #BE1F14;
     text-decoration: underline;
 }
 
-.actionLlink:hover{
-    color: black;
+    .actionLlink:hover {
+        color: black;
+    }
+
+.sortedByLink {
+    color: #BE1F14;
 }
+
+    .sortedByLink:hover {
+        color: black;
+    }
 
 .btn-standard {
     background: #fff;
@@ -138,20 +146,27 @@ footer {
 
 .panel-heading .accordion-toggle:after {
     /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    color: black;         /* adjust as needed */
+    font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+    content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+    float: right; /* adjust as needed */
+    color: black; /* adjust as needed */
 }
+
 .panel-heading .accordion-toggle.collapsed:after {
     /* symbol for "collapsed" panels */
-    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+    content: "\e080"; /* adjust as needed, taken from bootstrap.css */
 }
 
 @media (min-width: 769px) {
     .filter-list {
         white-space: normal;
         width: 480px;
+        position: absolute;
+        margin-top: -1px;
+        z-index: 1;
+        background-color: #fff;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
     }
 
     .nav-tabs span {
@@ -187,8 +202,8 @@ footer {
         }
 }
 
-@media (max-width: 768px) {
-    
+@media only screen and (max-width: 768px) {
+
     .filter-list .filter-item .checkbox label {
         padding-left: 5px;
     }
@@ -198,7 +213,7 @@ footer {
         display: block;
         margin-top: 10px;
         margin-left: -20px;
-         padding: 5px 5px 5px 5px;
+        padding: 5px 5px 5px 5px;
         position: relative;
     }
 
@@ -212,8 +227,78 @@ footer {
             padding-top: 5px;
             right: 5px;
         }
+
+    /* Force table to not be like tables anymore */
+    .responsive table,
+    .responsive thead,
+    .responsive tbody,
+    .responsive th,
+    .responsive td,
+    .responsive tr {
+        display: block;
+    }
+
+
+
+    .responsive > .table > tbody > tr > td {
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-bottom: 2px;
+        padding-top: 2px;
+        padding-left: 30%;
+        white-space: normal;
+        text-align: left;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .responsive thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .responsive tr {
+        border: 1px solid #ccc;
+    }
+
+
+
+    .responsive td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 2px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    /*
+	Label the data
+	*/
+    .responsive td:before {
+        content: attr(data-title);
+    }
 }
 
+
+#exercise-result {
+    padding-top: 30px;
+}
+
+
+#result-sort table {
+    margin: 0px;
+}
+
+#result-sort a {
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
 md-toolbar h1 {
     font-size: 1.250em;
