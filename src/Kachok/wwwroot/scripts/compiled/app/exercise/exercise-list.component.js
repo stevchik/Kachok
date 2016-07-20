@@ -10,22 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var ExerciseComponent = (function () {
-    function ExerciseComponent(router) {
-        this.router = router;
+var ExerciseListCompoenent = (function () {
+    function ExerciseListCompoenent() {
     }
-    ExerciseComponent.prototype.ngOnInit = function () {
-        //this.router.navigate(['/exercises']);
-    };
-    ExerciseComponent = __decorate([
+    ExerciseListCompoenent = __decorate([
         core_1.Component({
-            selector: 'kcc-exercise',
-            templateUrl: './scripts/compiled/app/exercise/exercise.component.html',
+            templateUrl: './scripts/compiled/app/exercise/exercise-list.component.html',
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
-    ], ExerciseComponent);
-    return ExerciseComponent;
+        __metadata('design:paramtypes', [])
+    ], ExerciseListCompoenent);
+    return ExerciseListCompoenent;
 }());
-exports.ExerciseComponent = ExerciseComponent;
-//# sourceMappingURL=exercise.component.js.map
+exports.ExerciseListCompoenent = ExerciseListCompoenent;
+//# sourceMappingURL=exercise-list.component.js.map

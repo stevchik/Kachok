@@ -5,10 +5,11 @@
     "noEmitOnError": true,
     "sourceMap": true,
     "target": "es5", //,
-    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "module": "system",
     "moduleResolution": "node",
     "suppressImplicitAnyIndexErrors": true,
-    "experimentalDecorators": true//,
+    "experimentalDecorators": true //,
     //"outDir": "../wwwroot/scripts/compiled/app"
   },
   "compileOnSave": true,

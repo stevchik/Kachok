@@ -1,9 +1,16 @@
 ﻿@{
     ViewBag.Title = "Exercise Management";
 }
-@section Scripts{
 
-    <script src="~/systemjs.config.js"></script>
+@section Scripts{
+    <!-- Polyfill(s) for older browsers -->
+<script src="~/lib/systemjs/dist/system.src.js"></script>
+    <script src="~/lib/core-js/client/shim.min.js"></script>
+    <script src="~/lib/zone.js/dist/zone.js"></script>
+    <script src="~/lib/reflect-metadata/Reflect.js"></script>   
+<script src="~/systemjs.config.js"></script>
+    <script src="~/lib/rxjs/Rx.js"></script>
+   
     <script>
         System.import('exercise').catch(function (err) { console.error(err); });
 
@@ -24,7 +31,7 @@
                 //    };
                 //});
 
-               
+
 
                 $(document).on('mouseenter.bs.tab.data-api', '[data-toggle="tab"], [data-hover="tab"]', function () {
                     $(this).tab('show');

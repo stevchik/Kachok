@@ -10,22 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var ExerciseComponent = (function () {
-    function ExerciseComponent(router) {
+var ExerciseDetailCompoenent = (function () {
+    function ExerciseDetailCompoenent(route, router) {
+        this.route = route;
         this.router = router;
     }
-    ExerciseComponent.prototype.ngOnInit = function () {
-        //this.router.navigate(['/exercises']);
+    ExerciseDetailCompoenent.prototype.ngOnInit = function () {
+        this.sub = this.route.params.subscribe(function (params) {
+            name = params['name'];
+        });
     };
-    ExerciseComponent = __decorate([
+    ExerciseDetailCompoenent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    ExerciseDetailCompoenent.prototype.gotoExercises = function () { this.router.navigate(['/Site/Exercise']); };
+    ExerciseDetailCompoenent = __decorate([
         core_1.Component({
-            selector: 'kcc-exercise',
-            templateUrl: './scripts/compiled/app/exercise/exercise.component.html',
+            templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
-    ], ExerciseComponent);
-    return ExerciseComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router])
+    ], ExerciseDetailCompoenent);
+    return ExerciseDetailCompoenent;
 }());
-exports.ExerciseComponent = ExerciseComponent;
-//# sourceMappingURL=exercise.component.js.map
+exports.ExerciseDetailCompoenent = ExerciseDetailCompoenent;
+//# sourceMappingURL=exercise-detail.component.js.map
