@@ -1,36 +1,52 @@
-export interface IExercise {
-    id: number;
-    name: string;
-    description: string;
-    status: string;
-    uom: string;
-    muscle: string;
-    experience: string;
-    target: string;
+export class Exercise {
 
-    exerciseEquipments: IExerciseEquipment[];
-    exerciseTags: IExerciceTag[];
-    exerciseImages: IExerciseImage[];
+    constructor(
+        public id: number,
+        public name: string,
+        public description: string,
+        public status: string,
+        public uom: string,
+        public muscle: string,
+        public experience: string,
+        public target: string,
 
-    createdBy: string;
-    createdDate: Date;
-    updatedBy: string;
-    updatedDate: Date;
+        public exerciseEquipments: ExerciseEquipment[],
+        public exerciseTags: ExerciceTag[],
+        public exerciseImages: ExerciseImage[],
+
+        public createdBy: string,
+        public createdDate: Date,
+        public updatedBy: string,
+        public updatedDate: Date
+    ) { }
 };
 
-export interface IExerciceTag {
-    id: number;
-    name: string;
+export enum ExerciseUom {
+    Unknown = 0,
+    Reps = 1,
+    RepsAndWeight = 2,
+    Minutes = 3
 }
 
-export interface IExerciseImage {
-    id: number;
-    imageUrl: string;
-    caption: string;
-    sequence: number;
+export class ExerciceTag {
+    constructor(
+        public id: number,
+        public name: string
+    ) { };
 }
 
-export interface IExerciseEquipment {
-    id: number;
-    equipmentName: string;
+export class ExerciseImage {
+    constructor(
+        public id: number,
+        public imageUrl: string,
+        public caption: string,
+        public sequence: number
+    ) { };
+}
+
+export class ExerciseEquipment {
+    constructor(
+        public id: number,
+        public equipmentName: string
+    ) { }
 }
