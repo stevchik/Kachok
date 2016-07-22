@@ -5,8 +5,7 @@ import { ExerciseDetailCompoenent } from './exercise-detail.component';
 
 const routes: RouterConfig = [
     { path: 'Site/Exercise', component: ExerciseListCompoenent },
-    {path: 'exercises', component: ExerciseListCompoenent },
-    { path: 'Site/Exercise/exercise/:name', component: ExerciseDetailCompoenent }
+    { path: 'Site/Exercise/:name', component: ExerciseDetailCompoenent }
 ];
 
 export const exerciseRouterProviders = [

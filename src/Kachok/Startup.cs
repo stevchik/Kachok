@@ -137,8 +137,13 @@ namespace Kachok
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "spa", 
+                    template: "Site/{action:regex(Exercise)}/{*spa:required}",
+                    defaults: new { controller = "Site" });
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
+                    template: "{controller}/{action}/{id:int?}",
                     defaults: new { controller = "Site", action = "Index" });
 
                 routes.MapRoute(

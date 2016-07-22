@@ -17,8 +17,7 @@ System.register(['@angular/router', './exercise-list.component', './exercise-det
         execute: function() {
             routes = [
                 { path: 'Site/Exercise', component: exercise_list_component_1.ExerciseListCompoenent },
-                { path: 'exercises', component: exercise_list_component_1.ExerciseListCompoenent },
-                { path: 'Site/Exercise/exercise/:name', component: exercise_detail_component_1.ExerciseDetailCompoenent }
+                { path: 'Site/Exercise/:name', component: exercise_detail_component_1.ExerciseDetailCompoenent }
             ];
             exports_1("exerciseRouterProviders", exerciseRouterProviders = [
                 router_1.provideRouter(routes)
