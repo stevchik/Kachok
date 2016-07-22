@@ -20,8 +20,8 @@ System.register(['@angular/platform-browser-dynamic', '@angular/forms', './exerc
         execute: function() {
             platform_browser_dynamic_1.bootstrap(exercise_component_1.ExerciseComponent, [
                 exercise_routes_1.exerciseRouterProviders,
-                forms_1.disableDeprecatedForms,
-                forms_1.provideForms
+                forms_1.disableDeprecatedForms(),
+                forms_1.provideForms()
             ])
                 .catch(function (err) { return console.error(err); });
         }

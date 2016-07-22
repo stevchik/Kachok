@@ -8,8 +8,8 @@ import { exerciseRouterProviders } from './exercise.routes';
 
 bootstrap(ExerciseComponent, [
     exerciseRouterProviders,
-    disableDeprecatedForms,
-    provideForms
+    disableDeprecatedForms(),
+    provideForms()
 ])
     .catch(err => console.error(err));
 
