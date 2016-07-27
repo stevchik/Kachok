@@ -17,15 +17,15 @@ namespace Kachok.ViewModel
         [Required]
         [MaxLength(2000)]
         public string Description { get; set; }
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
-        public string DefaultExerciseUom { get; set; }
+        public ExerciseUom DefaultExerciseUom { get; set; }
 
         [Required]
         public string TargetMuscleGroupName { get; set; }
-        public string Experience { get; set; }
+        public Experience Experience { get; set; }
         [Required]
-        public string ExerciseTarget { get; set; }
+        public ExerciseTarget ExerciseTarget { get; set; }
 
         public IList<ExerciseEquipmentViewModel> ExerciseEquipments { get; set; }
         public List<ExerciseTagViewModel> ExerciseTags { get; set; }

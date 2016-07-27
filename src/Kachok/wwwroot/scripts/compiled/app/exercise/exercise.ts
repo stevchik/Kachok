@@ -1,31 +1,52 @@
 export class Exercise {
 
-    constructor(
-        public id: number,
-        public name: string,
-        public description: string,
-        public status: string,
-        public uom: string,
-        public muscle: string,
-        public experience: string,
-        public target: string,
+    constructor() {}
 
-        public exerciseEquipments: ExerciseEquipment[],
-        public exerciseTags: ExerciceTag[],
-        public exerciseImages: ExerciseImage[],
+    public id: number;
+    public name: string;
+    public description: string;
+    public status: Status = Status.Unknown;
+    public uom: ExerciseUom = ExerciseUom.Unknown;;
+    public muscle: string;
+    public experience: Experience = Experience.Unknown;
+    public target: ExerciseTarget = ExerciseTarget.Unknown;
 
-        public createdBy: string,
-        public createdDate: Date,
-        public updatedBy: string,
-        public updatedDate: Date
-    ) { }
+    public exerciseEquipments: ExerciseEquipment[];
+    public exerciseTags: ExerciceTag[];
+    public exerciseImages: ExerciseImage[];
+
+    public createdBy: string;
+    public createdDate: Date;
+    public updatedBy: string;
+    public updatedDate: Date;
 };
+
+export enum Status {
+    Unknown = 0,
+    Active = 1,
+    Incomplete = 2,
+    AdHoc = 3
+}
 
 export enum ExerciseUom {
     Unknown = 0,
     Reps = 1,
     RepsAndWeight = 2,
     Minutes = 3
+}
+
+export enum ExerciseTarget {
+    Unknown = 0,
+    Compound = 1,
+    Isolation = 2,
+    Cardio = 3
+}
+
+export enum Experience {
+    Unknown = 0,
+    Beginner = 1,
+    Intermediate = 2,
+    Expert = 3
 }
 
 export class ExerciceTag {

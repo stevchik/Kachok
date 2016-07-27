@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', './exercise.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, exercise_service_1;
     var ExerciseListCompoenent;
     return {
         setters:[
@@ -19,17 +19,33 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (exercise_service_1_1) {
+                exercise_service_1 = exercise_service_1_1;
             }],
         execute: function() {
             ExerciseListCompoenent = (function () {
-                function ExerciseListCompoenent() {
+                function ExerciseListCompoenent(exerciseService) {
+                    this.exerciseService = exerciseService;
                 }
+                ExerciseListCompoenent.prototype.ngOnInit = function () {
+                    this.getExercises();
+                };
+                ExerciseListCompoenent.prototype.getExercises = function () {
+                    var _this = this;
+                    this.exerciseService.getExercises()
+                        .subscribe(function (exercises) { return _this.showData(exercises); }, function (error) { return _this.errorMessage = error; });
+                };
+                ExerciseListCompoenent.prototype.showData = function (data) {
+                    this.exercises = data;
+                    console.debug(data.toString());
+                };
                 ExerciseListCompoenent = __decorate([
                     core_1.Component({
                         templateUrl: './scripts/compiled/app/exercise/exercise-list.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [exercise_service_1.ExerciseService])
                 ], ExerciseListCompoenent);
                 return ExerciseListCompoenent;
             }());

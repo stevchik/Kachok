@@ -29,9 +29,23 @@ namespace Kachok.Controllers.Api
         }
         // GET: api/Exercises
         [HttpGet()]
-        public IEnumerable<Exercise> Get()
+        public IEnumerable<ExerciseViewModel> Get()
         {
-            return new List<Exercise>();
+            List<ExerciseEquipmentViewModel> list = new List<ExerciseEquipmentViewModel>();
+            list.Add(new ExerciseEquipmentViewModel() { Id = 1, EquipmentName = "test" });
+            list.Add(new ExerciseEquipmentViewModel() { Id = 2, EquipmentName = "test2" });
+
+            List<ExerciseViewModel> list2 = new List<ExerciseViewModel>();
+
+            list2.Add(new ExerciseViewModel()
+            {
+                Id = 1,
+                Status = Model.Enum.Status.Active,
+                TargetMuscleGroupName = "Chest",
+                ExerciseEquipments = list
+            });
+
+            return list2;
         }
 
         [HttpGet("{id}")]
@@ -43,7 +57,7 @@ namespace Kachok.Controllers.Api
             return Json(new ExerciseViewModel()
             {
                 Id = id,
-                Status=Model.Enum.Status.Active.ToString(),
+                Status=Model.Enum.Status.Active,
                 TargetMuscleGroupName="Chest",
                 ExerciseEquipments = list
             });

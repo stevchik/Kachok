@@ -3,6 +3,8 @@ import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
 import { Exercise, ExerciseUom} from "./Exercise";
+import { ExerciseService} from "./exercise.service";
+
 
 @Component({
     templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
@@ -11,6 +13,7 @@ import { Exercise, ExerciseUom} from "./Exercise";
 
 export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     private sub: any;
+    errorMessage: string;
     exercise: Exercise;
 
     uomOptions: Array<string>;
@@ -20,8 +23,10 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private exerciseService: ExerciseService
     )
+
     {
         let temp: Array<string> = Object.keys(ExerciseUom);
         this.uomOptions = temp.slice(temp.length/2);
@@ -31,7 +36,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             let name = params['name'];
         });
-        this.exercise = new Exercise(-1, "", "", "", ExerciseUom[ExerciseUom.Unknown], "", "", "", null, null, null, "", new Date(), "", new Date());
+        this.exercise = new Exercise();
     }
 
     ngOnDestroy() {
@@ -39,7 +44,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     }
 
     newExercise() {
-        this.exercise = new Exercise(-1, "", "", "", ExerciseUom[ExerciseUom.Unknown], "", "", "", null, null, null, "", new Date(), "", new Date());
+        this.exercise = new Exercise();
         this.active = false;
         setTimeout(() => this.active = true, 0);
     };
@@ -50,6 +55,20 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
 
     gotoExercises() { this.router.navigate(['/Site/Exercise']); }
 
+    getExercise() {
+        this.exerciseService.getExercise()
+            .subscribe(
+            exercise => this.exercise = exercise,
+            error => this.errorMessage = <any>error);
+    }
+
+    saveExercise() {
+        this.exerciseService.saveExercise(this.exercise)
+            .subscribe(
+            exercise => this.exercise = exercise,
+            error => this.errorMessage = <any>error);
+    };
+
     // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.exercise); }
+    getdiagnostic() { return JSON.stringify(this.exercise); }
 }
