@@ -285,6 +285,10 @@ footer {
     }
 }
 
+#username {
+    float: right;
+    margin-right: 5px;
+}
 
 #exercise-result {
     padding-top: 30px;
@@ -302,11 +306,11 @@ footer {
 
 
 .ng-valid[required] {
-  border-left: 5px solid #42A948; /* green */
+    border-left: 5px solid #42A948; /* green */
 }
 
 .ng-invalid {
-  border-left: 5px solid #a94442; /* red */
+    border-left: 5px solid #a94442; /* red */
 }
 
 

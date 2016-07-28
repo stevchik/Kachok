@@ -40,7 +40,20 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
                 };
                 ;
                 ExerciseService.prototype.saveExercise = function (exercise) {
-                    return new Observable_1.Observable();
+                    if (exercise.id === 0) {
+                        return this.addExercise(exercise);
+                    }
+                    else {
+                    }
+                };
+                ;
+                ExerciseService.prototype.addExercise = function (exercise) {
+                    var body = JSON.stringify(exercise);
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    var options = new http_1.RequestOptions({ headers: headers });
+                    return this._http.post(this._exerciseUrl, body, options)
+                        .map(this.extractData)
+                        .catch(this.handleError);
                 };
                 ;
                 //    getEquipment(): Observable<IExercise[]> {

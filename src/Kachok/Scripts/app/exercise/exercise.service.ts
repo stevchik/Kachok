@@ -1,5 +1,5 @@
 ﻿import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 
@@ -22,9 +22,22 @@ export class ExerciseService {
     };
 
     saveExercise(exercise: Exercise): Observable<Exercise> {
-        return new Observable<Exercise>();
+        if (exercise.id === 0) {
+            return this.addExercise(exercise);
+        } else {
+
+        }
     };
 
+    addExercise(exercise: Exercise): Observable<Exercise> {
+        let body = JSON.stringify(exercise);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this._exerciseUrl, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
 //    getEquipment(): Observable<IExercise[]> {
 //        return this._http.get(this._exerciseUrl)
 //            .map((response: Response) => <IExercise[]>response.json())
