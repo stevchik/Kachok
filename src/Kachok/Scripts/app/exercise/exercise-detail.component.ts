@@ -2,9 +2,10 @@
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
-import { Exercise, ExerciseUom} from "./Exercise";
+import { Exercise} from "./Exercise";
+import { Equipment, MuscleGroup } from "../admin/admin";
 import { ExerciseService} from "./exercise.service";
-
+import { AdminService } from "../admin/admin.service";
 
 @Component({
     templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
@@ -16,21 +17,15 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     errorMessage: string;
     exercise: Exercise;
 
-    uomOptions: Array<string>;
-
     submitted = false;
     active = true;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private exerciseService: ExerciseService
-    )
-
-    {
-        let temp: Array<string> = Object.keys(ExerciseUom);
-        this.uomOptions = temp.slice(temp.length/2);
-    }
+        private exerciseService: ExerciseService,
+        private adminService: AdminService
+    ){}
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -54,7 +49,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     }
 
     gotoExercises() { this.router.navigate(['/Site/Exercise']); }
-
+        
     getExercise() {
         this.exerciseService.getExercise()
             .subscribe(
@@ -67,6 +62,30 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
             .subscribe(
             exercise => this.exercise = exercise,
             error => this.errorMessage = <any>error);
+    };
+
+    getEquipment(): Array<Equipment> {
+        return this.adminService.equipment;
+    };
+
+    getMuscleGroup(): Array<MuscleGroup> {
+        return this.adminService.muscleGroup;
+    };
+
+    getUom(): Array<string> {
+        return this.adminService.uomOptions;
+    };
+
+    getStatus(): Array<string> {
+        return this.adminService.statusOptions;
+    };
+
+    getExeprience(): Array<string> {
+        return this.adminService.experienceOptions;
+    };
+
+    getTarget(): Array<string> {
+        return this.adminService.targetOption;
     };
 
     // TODO: Remove this when we're done

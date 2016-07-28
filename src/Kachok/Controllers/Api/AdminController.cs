@@ -1,6 +1,7 @@
 using Kachok.Data.Interfaces;
 using Kachok.Model;
 using Kachok.Model.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Net;
 
 namespace Kachok.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Admin")]
     public class AdminController : Controller

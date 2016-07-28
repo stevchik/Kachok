@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
-import { Exercise, ExerciseUom} from "./Exercise";
+import { Exercise} from "./Exercise";
 import { ExerciseService} from "./exercise.service";
 
 
@@ -16,8 +16,6 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     errorMessage: string;
     exercise: Exercise;
 
-    uomOptions: Array<string>;
-
     submitted = false;
     active = true;
 
@@ -25,12 +23,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private exerciseService: ExerciseService
-    )
-
-    {
-        let temp: Array<string> = Object.keys(ExerciseUom);
-        this.uomOptions = temp.slice(temp.length/2);
-    }
+    ){}
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

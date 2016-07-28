@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './admin'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1;
+    var core_1, http_1, Observable_1, admin_1;
     var ExerciseService;
     return {
         setters:[
@@ -22,50 +22,34 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
             },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
+            },
+            function (admin_1_1) {
+                admin_1 = admin_1_1;
             }],
         execute: function() {
             ExerciseService = (function () {
                 function ExerciseService(_http) {
                     this._http = _http;
-                    this._exerciseUrl = 'api/Exercises';
+                    this._admineUrl = 'api/Admin';
                 }
-                ExerciseService.prototype.getExercises = function () {
-                    return this._http.get(this._exerciseUrl)
+                ExerciseService.prototype.ngOnInit = function () {
+                    this.uomOptions = this.getEnumOptions(admin_1.ExerciseUom);
+                    this.statusOptions = this.getEnumOptions(admin_1.Status);
+                    this.experienceOptions = this.getEnumOptions(admin_1.Experience);
+                    this.targetOption = this.getEnumOptions(admin_1.ExerciseTarget);
+                };
+                ExerciseService.prototype.getEquipment = function () {
+                    return this._http.get(this._admineUrl + "/Equipment")
                         .map(this.extractData)
                         .catch(this.handleError);
                 };
                 ;
-                ExerciseService.prototype.getExercise = function () {
-                    return new Observable_1.Observable();
-                };
-                ;
-                ExerciseService.prototype.saveExercise = function (exercise) {
-                    if (exercise.id === 0) {
-                        return this.addExercise(exercise);
-                    }
-                    else {
-                    }
-                };
-                ;
-                ExerciseService.prototype.addExercise = function (exercise) {
-                    var body = JSON.stringify(exercise);
-                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-                    var options = new http_1.RequestOptions({ headers: headers });
-                    return this._http.post(this._exerciseUrl, body, options)
+                ExerciseService.prototype.getMuscleGroup = function () {
+                    return this._http.get(this._admineUrl + "/MuscleGroups")
                         .map(this.extractData)
                         .catch(this.handleError);
                 };
                 ;
-                //    getEquipment(): Observable<IExercise[]> {
-                //        return this._http.get(this._exerciseUrl)
-                //            .map((response: Response) => <IExercise[]>response.json())
-                //            .do(data => console.log("All: " + JSON.stringify(data)))
-                //            .catch(this.handleError);
-                //    };
-                //    private handleError(error: Response) {
-                //        console.error(error);
-                //        return Observable.throw(error.json().error || 'Server error');
-                //    }
                 ExerciseService.prototype.extractData = function (res) {
                     var body = res.json();
                     return body || {};
@@ -96,4 +80,4 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
         }
     }
 });
-//# sourceMappingURL=exercise.service.js.map
+//# sourceMappingURL=admin.service.js.map

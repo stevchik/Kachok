@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service"], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service", "../admin/admin.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Exercise_1, exercise_service_1;
+    var core_1, router_1, Exercise_1, exercise_service_1, admin_service_1;
     var ExerciseDetailCompoenent;
     return {
         setters:[
@@ -25,17 +25,19 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
             },
             function (exercise_service_1_1) {
                 exercise_service_1 = exercise_service_1_1;
+            },
+            function (admin_service_1_1) {
+                admin_service_1 = admin_service_1_1;
             }],
         execute: function() {
             ExerciseDetailCompoenent = (function () {
-                function ExerciseDetailCompoenent(route, router, exerciseService) {
+                function ExerciseDetailCompoenent(route, router, exerciseService, adminService) {
                     this.route = route;
                     this.router = router;
                     this.exerciseService = exerciseService;
+                    this.adminService = adminService;
                     this.submitted = false;
                     this.active = true;
-                    var temp = Object.keys(Exercise_1.ExerciseUom);
-                    this.uomOptions = temp.slice(temp.length / 2);
                 }
                 ExerciseDetailCompoenent.prototype.ngOnInit = function () {
                     this.sub = this.route.params.subscribe(function (params) {
@@ -68,6 +70,30 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         .subscribe(function (exercise) { return _this.exercise = exercise; }, function (error) { return _this.errorMessage = error; });
                 };
                 ;
+                ExerciseDetailCompoenent.prototype.getEquipment = function () {
+                    return this.adminService.equipment;
+                };
+                ;
+                ExerciseDetailCompoenent.prototype.getMuscleGroup = function () {
+                    return this.adminService.muscleGroup;
+                };
+                ;
+                ExerciseDetailCompoenent.prototype.getUom = function () {
+                    return this.adminService.uomOptions;
+                };
+                ;
+                ExerciseDetailCompoenent.prototype.getStatus = function () {
+                    return this.adminService.statusOptions;
+                };
+                ;
+                ExerciseDetailCompoenent.prototype.getExeprience = function () {
+                    return this.adminService.experienceOptions;
+                };
+                ;
+                ExerciseDetailCompoenent.prototype.getTarget = function () {
+                    return this.adminService.targetOption;
+                };
+                ;
                 // TODO: Remove this when we're done
                 ExerciseDetailCompoenent.prototype.getdiagnostic = function () { return JSON.stringify(this.exercise); };
                 ExerciseDetailCompoenent = __decorate([
@@ -75,7 +101,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService])
+                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService, admin_service_1.AdminService])
                 ], ExerciseDetailCompoenent);
                 return ExerciseDetailCompoenent;
             }());

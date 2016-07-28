@@ -9,7 +9,10 @@ import {Exercise} from './exercise';
 export class ExerciseService {
     private _exerciseUrl = 'api/Exercises';
 
-    constructor(private _http: Http) { }
+   
+    constructor(private _http: Http) {}
+
+    
 
     getExercises(): Observable<Exercise[]> {
         return this._http.get(this._exerciseUrl)
@@ -20,6 +23,8 @@ export class ExerciseService {
     getExercise(): Observable<Exercise> {
         return new Observable<Exercise>();
     };
+
+
 
     saveExercise(exercise: Exercise): Observable<Exercise> {
         if (exercise.id === 0) {
@@ -62,6 +67,16 @@ export class ExerciseService {
         let errMsg = (error.message) ? error.message :  error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
+    }
+
+    private getEnumOptions(par: any): Array<string>{
+        if (par) {
+            let tempStatus: Array<string> = Object.keys(par);
+            return tempStatus.slice(tempStatus.length / 2);
+        }
+        else {
+            return new Array<string>();
+        }
     }
 
 }

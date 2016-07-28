@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 
@@ -9,7 +9,10 @@ import {Exercise} from './exercise';
 export class ExerciseService {
     private _exerciseUrl = 'api/Exercises';
 
-    constructor(private _http: Http) { }
+   
+    constructor(private _http: Http) {}
+
+    
 
     getExercises(): Observable<Exercise[]> {
         return this._http.get(this._exerciseUrl)
@@ -21,10 +24,25 @@ export class ExerciseService {
         return new Observable<Exercise>();
     };
 
+
+
     saveExercise(exercise: Exercise): Observable<Exercise> {
-        return new Observable<Exercise>();
+        if (exercise.id === 0) {
+            return this.addExercise(exercise);
+        } else {
+
+        }
     };
 
+    addExercise(exercise: Exercise): Observable<Exercise> {
+        let body = JSON.stringify(exercise);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this._exerciseUrl, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
 //    getEquipment(): Observable<IExercise[]> {
 //        return this._http.get(this._exerciseUrl)
 //            .map((response: Response) => <IExercise[]>response.json())
@@ -49,6 +67,16 @@ export class ExerciseService {
         let errMsg = (error.message) ? error.message :  error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
+    }
+
+    private getEnumOptions(par: any): Array<string>{
+        if (par) {
+            let tempStatus: Array<string> = Object.keys(par);
+            return tempStatus.slice(tempStatus.length / 2);
+        }
+        else {
+            return new Array<string>();
+        }
     }
 
 }

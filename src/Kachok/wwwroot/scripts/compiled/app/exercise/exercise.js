@@ -1,50 +1,26 @@
-System.register([], function(exports_1, context_1) {
+System.register(['../admin/admin'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Exercise, Status, ExerciseUom, ExerciseTarget, Experience, ExerciceTag, ExerciseImage, ExerciseEquipment;
+    var admin_1;
+    var Exercise, ExerciceTag, ExerciseImage, ExerciseEquipment;
     return {
-        setters:[],
+        setters:[
+            function (admin_1_1) {
+                admin_1 = admin_1_1;
+            }],
         execute: function() {
             Exercise = (function () {
                 function Exercise() {
-                    this.status = Status.Unknown;
-                    this.uom = ExerciseUom.Unknown;
-                    this.experience = Experience.Unknown;
-                    this.target = ExerciseTarget.Unknown;
+                    this.status = admin_1.Status.Unknown;
+                    this.uom = admin_1.ExerciseUom.Unknown;
+                    this.experience = admin_1.Experience.Unknown;
+                    this.target = admin_1.ExerciseTarget.Unknown;
                 }
                 ;
                 return Exercise;
             }());
             exports_1("Exercise", Exercise);
             ;
-            (function (Status) {
-                Status[Status["Unknown"] = 0] = "Unknown";
-                Status[Status["Active"] = 1] = "Active";
-                Status[Status["Incomplete"] = 2] = "Incomplete";
-                Status[Status["AdHoc"] = 3] = "AdHoc";
-            })(Status || (Status = {}));
-            exports_1("Status", Status);
-            (function (ExerciseUom) {
-                ExerciseUom[ExerciseUom["Unknown"] = 0] = "Unknown";
-                ExerciseUom[ExerciseUom["Reps"] = 1] = "Reps";
-                ExerciseUom[ExerciseUom["RepsAndWeight"] = 2] = "RepsAndWeight";
-                ExerciseUom[ExerciseUom["Minutes"] = 3] = "Minutes";
-            })(ExerciseUom || (ExerciseUom = {}));
-            exports_1("ExerciseUom", ExerciseUom);
-            (function (ExerciseTarget) {
-                ExerciseTarget[ExerciseTarget["Unknown"] = 0] = "Unknown";
-                ExerciseTarget[ExerciseTarget["Compound"] = 1] = "Compound";
-                ExerciseTarget[ExerciseTarget["Isolation"] = 2] = "Isolation";
-                ExerciseTarget[ExerciseTarget["Cardio"] = 3] = "Cardio";
-            })(ExerciseTarget || (ExerciseTarget = {}));
-            exports_1("ExerciseTarget", ExerciseTarget);
-            (function (Experience) {
-                Experience[Experience["Unknown"] = 0] = "Unknown";
-                Experience[Experience["Beginner"] = 1] = "Beginner";
-                Experience[Experience["Intermediate"] = 2] = "Intermediate";
-                Experience[Experience["Expert"] = 3] = "Expert";
-            })(Experience || (Experience = {}));
-            exports_1("Experience", Experience);
             ExerciceTag = (function () {
                 function ExerciceTag(id, name) {
                     this.id = id;
@@ -76,4 +52,4 @@ System.register([], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=Exercise.js.map
+//# sourceMappingURL=exercise.js.map

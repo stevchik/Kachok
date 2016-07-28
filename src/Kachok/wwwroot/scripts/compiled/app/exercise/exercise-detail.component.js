@@ -34,8 +34,6 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                     this.exerciseService = exerciseService;
                     this.submitted = false;
                     this.active = true;
-                    var temp = Object.keys(Exercise_1.ExerciseUom);
-                    this.uomOptions = temp.slice(temp.length / 2);
                 }
                 ExerciseDetailCompoenent.prototype.ngOnInit = function () {
                     this.sub = this.route.params.subscribe(function (params) {

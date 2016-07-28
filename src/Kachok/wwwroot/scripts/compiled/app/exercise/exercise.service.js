@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './exercise'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1;
+    var core_1, http_1, Observable_1, exercise_1;
     var ExerciseService;
     return {
         setters:[
@@ -22,12 +22,17 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
             },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
+            },
+            function (exercise_1_1) {
+                exercise_1 = exercise_1_1;
             }],
         execute: function() {
             ExerciseService = (function () {
                 function ExerciseService(_http) {
                     this._http = _http;
                     this._exerciseUrl = 'api/Exercises';
+                    this.uomOptions = this.getEnumOptions(exercise_1.ExerciseUom);
+                    this.statusOptions = this.getEnumOptions(exercise_1.Status);
                 }
                 ExerciseService.prototype.getExercises = function () {
                     return this._http.get(this._exerciseUrl)
@@ -40,7 +45,20 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
                 };
                 ;
                 ExerciseService.prototype.saveExercise = function (exercise) {
-                    return new Observable_1.Observable();
+                    if (exercise.id === 0) {
+                        return this.addExercise(exercise);
+                    }
+                    else {
+                    }
+                };
+                ;
+                ExerciseService.prototype.addExercise = function (exercise) {
+                    var body = JSON.stringify(exercise);
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    var options = new http_1.RequestOptions({ headers: headers });
+                    return this._http.post(this._exerciseUrl, body, options)
+                        .map(this.extractData)
+                        .catch(this.handleError);
                 };
                 ;
                 //    getEquipment(): Observable<IExercise[]> {
@@ -63,6 +81,15 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable'], function(
                     var errMsg = (error.message) ? error.message : error.status ? error.status + " - " + error.statusText : 'Server error';
                     console.error(errMsg); // log to console instead
                     return Observable_1.Observable.throw(errMsg);
+                };
+                ExerciseService.prototype.getEnumOptions = function (par) {
+                    if (par) {
+                        var tempStatus = Object.keys(par);
+                        return tempStatus.slice(tempStatus.length / 2);
+                    }
+                    else {
+                        return new Array();
+                    }
                 };
                 ExerciseService = __decorate([
                     core_1.Injectable(), 
