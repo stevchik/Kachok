@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service"], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service", "../admin/admin.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Exercise_1, exercise_service_1;
+    var core_1, router_1, Exercise_1, exercise_service_1, admin_service_1;
     var ExerciseDetailCompoenent;
     return {
         setters:[
@@ -25,13 +25,17 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
             },
             function (exercise_service_1_1) {
                 exercise_service_1 = exercise_service_1_1;
+            },
+            function (admin_service_1_1) {
+                admin_service_1 = admin_service_1_1;
             }],
         execute: function() {
             ExerciseDetailCompoenent = (function () {
-                function ExerciseDetailCompoenent(route, router, exerciseService) {
+                function ExerciseDetailCompoenent(route, router, exerciseService, adminService) {
                     this.route = route;
                     this.router = router;
                     this.exerciseService = exerciseService;
+                    this.adminService = adminService;
                     this.submitted = false;
                     this.active = true;
                 }
@@ -40,6 +44,24 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         var name = params['name'];
                     });
                     this.exercise = new Exercise_1.Exercise();
+                    if (!this.statusOptions) {
+                        this.statusOptions = this.adminService.statusOptions;
+                    }
+                    if (!this.equipmentOptions) {
+                        this.equipmentOptions = this.adminService.equipment;
+                    }
+                    if (!this.muscleOptions) {
+                        this.muscleOptions = this.adminService.muscleGroup;
+                    }
+                    if (!this.uomOptions) {
+                        this.uomOptions = this.adminService.uomOptions;
+                    }
+                    if (!this.experienceOptions) {
+                        this.experienceOptions = this.adminService.experienceOptions;
+                    }
+                    if (!this.targetOptions) {
+                        this.targetOptions = this.adminService.targetOption;
+                    }
                 };
                 ExerciseDetailCompoenent.prototype.ngOnDestroy = function () {
                     this.sub.unsubscribe();
@@ -73,7 +95,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService])
+                    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService, admin_service_1.AdminService])
                 ], ExerciseDetailCompoenent);
                 return ExerciseDetailCompoenent;
             }());

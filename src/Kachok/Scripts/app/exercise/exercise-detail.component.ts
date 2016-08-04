@@ -20,18 +20,52 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     submitted = false;
     active = true;
 
+    statusOptions: Array<string>;
+    uomOptions: Array<string>;
+    experienceOptions: Array<string>;
+    targetOptions: Array<string>;
+    equipmentOptions: Array<Equipment>;
+    muscleOptions: Array<MuscleGroup>;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private exerciseService: ExerciseService,
         private adminService: AdminService
-    ){}
+    ) {
+
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let name = params['name'];
         });
         this.exercise = new Exercise();
+
+        if (!this.statusOptions) {
+            this.statusOptions = this.adminService.statusOptions;
+        }
+
+        if (!this.equipmentOptions) {
+            this.equipmentOptions = this.adminService.equipment;
+        }
+
+        if (!this.muscleOptions) {
+            this.muscleOptions = this.adminService.muscleGroup;
+        }
+
+        if (!this.uomOptions) {
+            this.uomOptions = this.adminService.uomOptions;
+        }
+
+        if (!this.experienceOptions) {
+            this.experienceOptions = this.adminService.experienceOptions;
+        }
+
+        if (!this.targetOptions) {
+            this.targetOptions = this.adminService.targetOption;
+        }
+       
     }
 
     ngOnDestroy() {
@@ -49,7 +83,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     }
 
     gotoExercises() { this.router.navigate(['/Site/Exercise']); }
-        
+
     getExercise() {
         this.exerciseService.getExercise()
             .subscribe(
@@ -64,29 +98,9 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
             error => this.errorMessage = <any>error);
     };
 
-    getEquipment(): Array<Equipment> {
-        return this.adminService.equipment;
-    };
 
-    getMuscleGroup(): Array<MuscleGroup> {
-        return this.adminService.muscleGroup;
-    };
 
-    getUom(): Array<string> {
-        return this.adminService.uomOptions;
-    };
 
-    getStatus(): Array<string> {
-        return this.adminService.statusOptions;
-    };
-
-    getExeprience(): Array<string> {
-        return this.adminService.experienceOptions;
-    };
-
-    getTarget(): Array<string> {
-        return this.adminService.targetOption;
-    };
 
     // TODO: Remove this when we're done
     getdiagnostic() { return JSON.stringify(this.exercise); }

@@ -7,8 +7,8 @@ import {Equipment, MuscleGroup, ExerciseUom, Status, Experience, ExerciseTarget}
 
 
 @Injectable()
-export class AdminService implements OnInit {
-    private _admineUrl: string = 'api/Admin';
+export class AdminService {
+    private _adminUrl: string = 'api/Admin';
     errorMessage: string;
 
     uomOptions: Array<string>;
@@ -20,7 +20,7 @@ export class AdminService implements OnInit {
 
     constructor(private _http: Http) { }
 
-    ngOnInit(): void {
+    Init(): void {
         this.uomOptions = this.getEnumOptions(ExerciseUom);
         this.statusOptions = this.getEnumOptions(Status);
         this.experienceOptions = this.getEnumOptions(Experience);
@@ -40,13 +40,13 @@ export class AdminService implements OnInit {
     }
 
     private getEquipment(): Observable<Equipment[]> {
-        return this._http.get(this._admineUrl + "/Equipment")
+        return this._http.get(this._adminUrl + "/Equipment")
             .map(this.extractData)
             .catch(this.handleError);
     };
 
     private getMuscleGroup(): Observable<MuscleGroup[]> {
-        return this._http.get(this._admineUrl + "/MuscleGroups")
+        return this._http.get(this._adminUrl + "/MuscleGroups")
             .map(this.extractData)
             .catch(this.handleError);
     };

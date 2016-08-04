@@ -44,6 +44,24 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         var name = params['name'];
                     });
                     this.exercise = new Exercise_1.Exercise();
+                    if (!this.statusOptions) {
+                        this.statusOptions = this.adminService.statusOptions;
+                    }
+                    if (!this.equipmentOptions) {
+                        this.equipmentOptions = this.adminService.equipment;
+                    }
+                    if (!this.muscleOptions) {
+                        this.muscleOptions = this.adminService.muscleGroup;
+                    }
+                    if (!this.uomOptions) {
+                        this.uomOptions = this.adminService.uomOptions;
+                    }
+                    if (!this.experienceOptions) {
+                        this.experienceOptions = this.adminService.experienceOptions;
+                    }
+                    if (!this.targetOptions) {
+                        this.targetOptions = this.adminService.targetOption;
+                    }
                 };
                 ExerciseDetailCompoenent.prototype.ngOnDestroy = function () {
                     this.sub.unsubscribe();
@@ -68,30 +86,6 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                     var _this = this;
                     this.exerciseService.saveExercise(this.exercise)
                         .subscribe(function (exercise) { return _this.exercise = exercise; }, function (error) { return _this.errorMessage = error; });
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getEquipment = function () {
-                    return this.adminService.equipment;
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getMuscleGroup = function () {
-                    return this.adminService.muscleGroup;
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getUom = function () {
-                    return this.adminService.uomOptions;
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getStatus = function () {
-                    return this.adminService.statusOptions;
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getExeprience = function () {
-                    return this.adminService.experienceOptions;
-                };
-                ;
-                ExerciseDetailCompoenent.prototype.getTarget = function () {
-                    return this.adminService.targetOption;
                 };
                 ;
                 // TODO: Remove this when we're done

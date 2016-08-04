@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-operators', './exercise.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-operators', './exercise.service', '../admin/admin.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-o
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1, exercise_service_1;
+    var core_1, router_1, http_1, exercise_service_1, admin_service_1;
     var ExerciseComponent;
     return {
         setters:[
@@ -26,23 +26,28 @@ System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-o
             function (_1) {},
             function (exercise_service_1_1) {
                 exercise_service_1 = exercise_service_1_1;
+            },
+            function (admin_service_1_1) {
+                admin_service_1 = admin_service_1_1;
             }],
         execute: function() {
             ExerciseComponent = (function () {
-                function ExerciseComponent(router) {
+                function ExerciseComponent(router, _adminService) {
                     this.router = router;
+                    this._adminService = _adminService;
                 }
                 ExerciseComponent.prototype.ngOnInit = function () {
                     //this.router.navigate(['/exercises']);
+                    this._adminService.Init();
                 };
                 ExerciseComponent = __decorate([
                     core_1.Component({
                         selector: 'kcc-exercise',
                         templateUrl: './scripts/compiled/app/exercise/exercise.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [http_1.HTTP_PROVIDERS, exercise_service_1.ExerciseService]
+                        providers: [http_1.HTTP_PROVIDERS, exercise_service_1.ExerciseService, admin_service_1.AdminService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, admin_service_1.AdminService])
                 ], ExerciseComponent);
                 return ExerciseComponent;
             }());

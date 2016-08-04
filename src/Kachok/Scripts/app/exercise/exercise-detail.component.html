@@ -14,7 +14,7 @@
                 <div class="form-group col-xs-offset-1 col-xs-2">
                     <label for="name">Status</label>
                     <select class="form-control" required [(ngModel)]="exercise.status" name="status">
-                        <option *ngFor="let o of getStatus" [value]="o">{{o}}</option>
+                        <option *ngFor="let o of statusOptions" [value]="o">{{o}}</option>
                     </select>
                 </div>
             </div>
@@ -26,25 +26,25 @@
                 <div class="form-group">
                     <label for="power">Muscle</label>
                     <select class="form-control" required [(ngModel)]="exercise.muscle" name="muscle">
-                        <option *ngFor="let o of getMuscle" [value]="o">{{o}}</option>
+                        <option *ngFor="let o of muscleOptions" [value]="o">{{o}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="power">Target</label>
                     <select class="form-control" required [(ngModel)]="exercise.target" name="target">
-                        <option *ngFor="let o of getTarget" [value]="o">{{o}}</option>
+                        <option *ngFor="let o of targetOptions" [value]="o">{{o}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="power">Measure</label>
                     <select class="form-control" required [(ngModel)]="exercise.uom" name="uom">
-                        <option *ngFor="let o of getUom" [value]="o">{{o}}</option>
+                        <option *ngFor="let o of uomOptions" [value]="o">{{o}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="power">Experience</label>
                     <select class="form-control" required [(ngModel)]="exercise.experience" name="experience">
-                        <option *ngFor="let o of getExperience" [value]="o">{{o}}</option>
+                        <option *ngFor="let o of experienceOptions" [value]="o">{{o}}</option>
                     </select>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <label class="col-md-2 control-label" for="Equipment">Equipment</label>
 
                 <div class="col-md-10 columns">
-                    <template ngFor #equipment [ngForOf]="getEquipment">
+                    <template ngFor #equipment [ngForOf]="equipmentOptions">
                         <label class="checkbox-inline" for="equipment">
                             <input type="checkbox" ngControl="equipment" [(ngModel)]="equipment['checked']" (clicked)="onClick(equipment)">
                             {{equipment.name}}

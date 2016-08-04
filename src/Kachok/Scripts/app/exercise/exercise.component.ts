@@ -15,10 +15,12 @@ import { AdminService } from '../admin/admin.service';
 })
 export class ExerciseComponent implements OnInit {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router
+        , private _adminService: AdminService) { }
 
     ngOnInit() {
         //this.router.navigate(['/exercises']);
+        this._adminService.Init();
     }
 
 }

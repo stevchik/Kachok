@@ -32,11 +32,13 @@ System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-o
             }],
         execute: function() {
             ExerciseComponent = (function () {
-                function ExerciseComponent(router) {
+                function ExerciseComponent(router, _adminService) {
                     this.router = router;
+                    this._adminService = _adminService;
                 }
                 ExerciseComponent.prototype.ngOnInit = function () {
                     //this.router.navigate(['/exercises']);
+                    this._adminService.Init();
                 };
                 ExerciseComponent = __decorate([
                     core_1.Component({
@@ -45,7 +47,7 @@ System.register(['@angular/core', '@angular/router', '@angular/http', '../rxjs-o
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [http_1.HTTP_PROVIDERS, exercise_service_1.ExerciseService, admin_service_1.AdminService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, admin_service_1.AdminService])
                 ], ExerciseComponent);
                 return ExerciseComponent;
             }());

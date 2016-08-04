@@ -52,4 +52,4 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=exercise.js.map
+//# sourceMappingURL=Exercise.js.map
