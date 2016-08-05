@@ -11,7 +11,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './admin']
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, Observable_1, admin_1;
-    var AdminService;
+    var AdminService, EnumValue;
     return {
         setters:[
             function (core_1_1) {
@@ -67,13 +67,15 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './admin']
                     return Observable_1.Observable.throw(errMsg);
                 };
                 AdminService.prototype.getEnumOptions = function (par) {
+                    var options = new Array();
                     if (par) {
-                        var tempStatus = Object.keys(par);
-                        return tempStatus.slice(tempStatus.length / 2);
+                        var keys = Object.keys(par).filter(function (a) { return parseInt(a, 10) >= 0; });
+                        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                            var key = keys_1[_i];
+                            options.push(new EnumValue(key, par[key]));
+                        }
                     }
-                    else {
-                        return new Array();
-                    }
+                    return options;
                 };
                 AdminService = __decorate([
                     core_1.Injectable(), 
@@ -82,6 +84,15 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './admin']
                 return AdminService;
             }());
             exports_1("AdminService", AdminService);
+            EnumValue = (function () {
+                function EnumValue(key, value) {
+                    this.key = key;
+                    this.value = value;
+                }
+                ;
+                return EnumValue;
+            }());
+            exports_1("EnumValue", EnumValue);
         }
     }
 });

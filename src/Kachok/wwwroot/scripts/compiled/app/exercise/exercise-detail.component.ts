@@ -3,13 +3,15 @@ import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
 import { Exercise} from "./Exercise";
-import { Equipment, MuscleGroup } from "../admin/admin";
+import { Equipment, MuscleGroup, Status } from "../admin/admin";
 import { ExerciseService} from "./exercise.service";
-import { AdminService } from "../admin/admin.service";
+import { AdminService, EnumValue } from "../admin/admin.service";
+import { EnumToKeysPipe } from "../common/enumToKeysPipe";
 
 @Component({
     templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    pipes: [EnumToKeysPipe]
 })
 
 export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
@@ -20,10 +22,12 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     submitted = false;
     active = true;
 
-    statusOptions: Array<string>;
-    uomOptions: Array<string>;
-    experienceOptions: Array<string>;
-    targetOptions: Array<string>;
+    statusOptions: Array<EnumValue>;
+    uomOptions: Array<EnumValue>;
+    experienceOptions: Array<EnumValue>;
+    targetOptions: Array<EnumValue>;
+
+
     equipmentOptions: Array<Equipment>;
     muscleOptions: Array<MuscleGroup>;
 
@@ -32,9 +36,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         private router: Router,
         private exerciseService: ExerciseService,
         private adminService: AdminService
-    ) {
-
-    }
+    ) {}
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

@@ -11,10 +11,10 @@ export class AdminService {
     private _adminUrl: string = 'api/Admin';
     errorMessage: string;
 
-    uomOptions: Array<string>;
-    statusOptions: Array<string>;
-    experienceOptions: Array<string>;
-    targetOption: Array<string>;
+    uomOptions: Array<EnumValue>;
+    statusOptions: Array<EnumValue>;
+    experienceOptions: Array<EnumValue>;
+    targetOption: Array<EnumValue>;
     equipment: Array<Equipment>;
     muscleGroup: Array<MuscleGroup>;
 
@@ -30,7 +30,7 @@ export class AdminService {
             .subscribe(
             equipment => this.equipment = equipment,
             error => this.errorMessage = <any>error
-        );
+            );
 
         this.getMuscleGroup()
             .subscribe(
@@ -50,7 +50,7 @@ export class AdminService {
             .map(this.extractData)
             .catch(this.handleError);
     };
-           
+
     private extractData(res: Response) {
         let body = res.json();
         return body || {};
@@ -59,19 +59,28 @@ export class AdminService {
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure
         // We'd also dig deeper into the error to get a better message
-        let errMsg = (error.message) ? error.message :  error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
 
-    private getEnumOptions(par: any): Array<string>{
-        if (par) {
-            let tempStatus: Array<string> = Object.keys(par);
-            return tempStatus.slice(tempStatus.length / 2);
-        }
-        else {
-            return new Array<string>();
-        }
-    }
+    private getEnumOptions(par: any): Array<EnumValue> {
 
+        let options: EnumValue[] = new Array<EnumValue>();
+
+        if (par) {
+
+            let keys = Object.keys(par).filter(a => parseInt(a, 10) >= 0);
+       
+            for (let key of keys) {
+                 options.push(new EnumValue(key, par[key]));
+            }
+        }
+
+        return options;
+    }
+}
+
+export class EnumValue {
+    constructor(public key?: string, public value?: string) { };
 }

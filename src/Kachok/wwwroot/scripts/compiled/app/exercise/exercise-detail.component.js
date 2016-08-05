@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service", "../admin/admin.service"], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service", "../admin/admin.service", "../common/enumToKeysPipe"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Exercise_1, exercise_service_1, admin_service_1;
+    var core_1, router_1, Exercise_1, exercise_service_1, admin_service_1, enumToKeysPipe_1;
     var ExerciseDetailCompoenent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
             },
             function (admin_service_1_1) {
                 admin_service_1 = admin_service_1_1;
+            },
+            function (enumToKeysPipe_1_1) {
+                enumToKeysPipe_1 = enumToKeysPipe_1_1;
             }],
         execute: function() {
             ExerciseDetailCompoenent = (function () {
@@ -93,7 +96,8 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                 ExerciseDetailCompoenent = __decorate([
                     core_1.Component({
                         templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        pipes: [enumToKeysPipe_1.EnumToKeysPipe]
                     }), 
                     __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService, admin_service_1.AdminService])
                 ], ExerciseDetailCompoenent);
