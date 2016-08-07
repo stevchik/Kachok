@@ -40,6 +40,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                     this.active = true;
                 }
                 ExerciseDetailCompoenent.prototype.ngOnInit = function () {
+                    var _this = this;
                     this.sub = this.route.params.subscribe(function (params) {
                         var name = params['name'];
                     });
@@ -48,10 +49,12 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         this.statusOptions = this.adminService.statusOptions;
                     }
                     if (!this.equipmentOptions) {
-                        this.equipmentOptions = this.adminService.equipment;
+                        this.adminService.getEquipment()
+                            .subscribe(function (equipment) { return _this.equipmentOptions = equipment; }, function (error) { return _this.errorMessage = error; });
                     }
                     if (!this.muscleOptions) {
-                        this.muscleOptions = this.adminService.muscleGroup;
+                        this.adminService.getMuscleGroup()
+                            .subscribe(function (muslceGroup) { return _this.muscleOptions = muslceGroup; }, function (error) { return _this.errorMessage = error; });
                     }
                     if (!this.uomOptions) {
                         this.uomOptions = this.adminService.uomOptions;

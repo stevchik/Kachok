@@ -315,6 +315,34 @@ footer {
 
 
 
+label.checkbox-inline {
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 400;
+  margin-bottom: 10px !important;
+  margin-right: 2%;
+  margin-left:0;
+  padding: 10px 10px 10px 30px;
+  border:#ccc 1px solid;
+  border-radius: 4px;
+}
+label.checkbox-inline.checked {
+  background-color: #BE1F14;
+  color: #fff !important;
+  text-shadow: 1px 1px 2px #000 !important;
+  border: none;
+}
+.checkbox-inline + .checkbox-inline {
+  margin-left: 0;
+}
+.columns label.checkbox-inline {
+  min-width: 190px;
+  vertical-align: top;
+  width: 30%;
+}
+
+
+
 
 md-toolbar h1 {
     font-size: 1.250em;

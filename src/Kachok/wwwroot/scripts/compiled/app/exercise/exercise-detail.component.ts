@@ -6,12 +6,10 @@ import { Exercise} from "./Exercise";
 import { Equipment, MuscleGroup, Status } from "../admin/admin";
 import { ExerciseService} from "./exercise.service";
 import { AdminService, EnumValue } from "../admin/admin.service";
-import { EnumToKeysPipe } from "../common/enumToKeysPipe";
 
 @Component({
     templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
-    directives: [ROUTER_DIRECTIVES],
-    pipes: [EnumToKeysPipe]
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
@@ -49,11 +47,17 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         }
 
         if (!this.equipmentOptions) {
-            this.equipmentOptions = this.adminService.equipment;
+            this.adminService.getEquipment()
+                .subscribe(
+                equipment => this.equipmentOptions = equipment,
+                error => this.errorMessage = error);
         }
 
         if (!this.muscleOptions) {
-            this.muscleOptions = this.adminService.muscleGroup;
+            this.adminService.getMuscleGroup()
+                .subscribe(
+                muslceGroup => this.muscleOptions = muslceGroup,
+                error => this.errorMessage = error);
         }
 
         if (!this.uomOptions) {

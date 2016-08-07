@@ -47,11 +47,17 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         }
 
         if (!this.equipmentOptions) {
-            this.equipmentOptions = this.adminService.equipment;
+            this.adminService.getEquipment()
+                .subscribe(
+                equipment => this.equipmentOptions = equipment,
+                error => this.errorMessage = error);
         }
 
         if (!this.muscleOptions) {
-            this.muscleOptions = this.adminService.muscleGroup;
+            this.adminService.getMuscleGroup()
+                .subscribe(
+                muslceGroup => this.muscleOptions = muslceGroup,
+                error => this.errorMessage = error);
         }
 
         if (!this.uomOptions) {

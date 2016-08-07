@@ -15,8 +15,8 @@ export class AdminService {
     statusOptions: Array<EnumValue>;
     experienceOptions: Array<EnumValue>;
     targetOption: Array<EnumValue>;
-    equipment: Array<Equipment>;
-    muscleGroup: Array<MuscleGroup>;
+    private equipment: Array<Equipment>;
+    private muscleGroup: Array<MuscleGroup>;
 
     constructor(private _http: Http) { }
 
@@ -39,16 +39,24 @@ export class AdminService {
             );
     }
 
-    private getEquipment(): Observable<Equipment[]> {
-        return this._http.get(this._adminUrl + "/Equipment")
-            .map(this.extractData)
-            .catch(this.handleError);
+    public getEquipment(): Observable<Equipment[]> {
+        if (this.equipment) {
+            return Observable.of(this.equipment);
+        } else {
+            return this._http.get(this._adminUrl + "/Equipment")
+                .map(this.extractData)
+                .catch(this.handleError);
+        }
     };
 
-    private getMuscleGroup(): Observable<MuscleGroup[]> {
-        return this._http.get(this._adminUrl + "/MuscleGroups")
-            .map(this.extractData)
-            .catch(this.handleError);
+    public getMuscleGroup(): Observable<MuscleGroup[]> {
+        if (this.muscleGroup) {
+            return Observable.of(this.muscleGroup);
+        } else {
+            return this._http.get(this._adminUrl + "/MuscleGroups")
+                .map(this.extractData)
+                .catch(this.handleError);
+        }
     };
 
     private extractData(res: Response) {

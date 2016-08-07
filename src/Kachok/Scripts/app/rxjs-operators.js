@@ -1,5 +1,5 @@
 // import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
-System.register(['rxjs/add/observable/throw', 'rxjs/add/operator/catch', 'rxjs/add/operator/debounceTime', 'rxjs/add/operator/distinctUntilChanged', 'rxjs/add/operator/map', 'rxjs/add/operator/switchMap', 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
+System.register(['rxjs/add/observable/throw', 'rxjs/add/operator/catch', 'rxjs/add/operator/debounceTime', 'rxjs/add/operator/distinctUntilChanged', 'rxjs/add/operator/map', 'rxjs/add/operator/switchMap', 'rxjs/add/operator/toPromise', 'rxjs/observable/of'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     return {
@@ -10,7 +10,8 @@ System.register(['rxjs/add/observable/throw', 'rxjs/add/operator/catch', 'rxjs/a
             function (_4) {},
             function (_5) {},
             function (_6) {},
-            function (_7) {}],
+            function (_7) {},
+            function (_8) {}],
         execute: function() {
         }
     }
