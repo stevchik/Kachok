@@ -1,6 +1,11 @@
-System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.service", "../admin/admin.service"], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', "./Exercise", "../admin/admin", "./exercise.service", "../admin/admin.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    var __extends = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,8 +15,8 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Exercise_1, exercise_service_1, admin_service_1;
-    var ExerciseDetailCompoenent;
+    var core_1, router_1, Exercise_1, admin_1, exercise_service_1, admin_service_1;
+    var ExerciseDetailCompoenent, ExerciseEquipment;
     return {
         setters:[
             function (core_1_1) {
@@ -22,6 +27,9 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
             },
             function (Exercise_1_1) {
                 Exercise_1 = Exercise_1_1;
+            },
+            function (admin_1_1) {
+                admin_1 = admin_1_1;
             },
             function (exercise_service_1_1) {
                 exercise_service_1 = exercise_service_1_1;
@@ -50,7 +58,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                     }
                     if (!this.equipmentOptions) {
                         this.adminService.getEquipment()
-                            .subscribe(function (equipment) { return _this.equipmentOptions = equipment; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (equipment) { return _this.equipmentOptions = equipment.map(function (e) { return new ExerciseEquipment(e); }); }, function (error) { return _this.errorMessage = error; });
                     }
                     if (!this.muscleOptions) {
                         this.adminService.getMuscleGroup()
@@ -91,6 +99,9 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         .subscribe(function (exercise) { return _this.exercise = exercise; }, function (error) { return _this.errorMessage = error; });
                 };
                 ;
+                ExerciseDetailCompoenent.prototype.selectEquipment = function (equipment) {
+                    equipment.selected = (equipment.selected) ? false : true;
+                };
                 // TODO: Remove this when we're done
                 ExerciseDetailCompoenent.prototype.getdiagnostic = function () { return JSON.stringify(this.exercise); };
                 ExerciseDetailCompoenent = __decorate([
@@ -103,6 +114,19 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                 return ExerciseDetailCompoenent;
             }());
             exports_1("ExerciseDetailCompoenent", ExerciseDetailCompoenent);
+            ExerciseEquipment = (function (_super) {
+                __extends(ExerciseEquipment, _super);
+                function ExerciseEquipment(equipment) {
+                    _super.call(this);
+                    if (equipment) {
+                        this.id = equipment.id;
+                        this.name = equipment.name;
+                        this.selected = false;
+                    }
+                }
+                ;
+                return ExerciseEquipment;
+            }(admin_1.Equipment));
         }
     }
 });

@@ -26,7 +26,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     targetOptions: Array<EnumValue>;
 
 
-    equipmentOptions: Array<Equipment>;
+    equipmentOptions: Array<ExerciseEquipment>;
     muscleOptions: Array<MuscleGroup>;
 
     constructor(
@@ -49,7 +49,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         if (!this.equipmentOptions) {
             this.adminService.getEquipment()
                 .subscribe(
-                equipment => this.equipmentOptions = equipment,
+                equipment => this.equipmentOptions = equipment.map(e => new ExerciseEquipment(e)),
                 error => this.errorMessage = error);
         }
 
@@ -104,10 +104,26 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
             error => this.errorMessage = <any>error);
     };
 
-
+    selectEquipment(equipment: ExerciseEquipment) {
+        equipment.selected = (equipment.selected) ? false : true;
+    }
 
 
 
     // TODO: Remove this when we're done
     getdiagnostic() { return JSON.stringify(this.exercise); }
+}
+
+class ExerciseEquipment extends Equipment
+{
+    constructor(equipment?: Equipment) {
+        super();
+        if (equipment) {
+            this.id = equipment.id;
+            this.name = equipment.name;
+            this.selected = false;
+        }
+    };
+
+    selected: boolean;
 }

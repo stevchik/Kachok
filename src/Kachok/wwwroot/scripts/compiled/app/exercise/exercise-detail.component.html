@@ -59,8 +59,8 @@
                 <div class="col-md-10 columns">
                     
                       
-                            <label class="checkbox-inline" *ngFor="let o of equipmentOptions" [attr.for]="o.name">
-                                <input type="checkbox" name="equipmentList" [id]="o.name" [value]="o.id">
+                            <label class="checkbox-inline" [class.checked]="o.selected" *ngFor="let o of equipmentOptions" [attr.for]="o.name">
+                                <input type="checkbox" name="equipmentList" [id]="o.name" [value]="o.id" [checked]="o.selected" (change)="selectEquipment(o)" >
                                 {{o.name}}
                             </label>
                               
