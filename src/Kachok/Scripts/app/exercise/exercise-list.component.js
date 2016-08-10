@@ -25,8 +25,10 @@ System.register(['@angular/core', '@angular/router', './exercise.service'], func
             }],
         execute: function() {
             ExerciseListCompoenent = (function () {
-                function ExerciseListCompoenent(exerciseService) {
+                function ExerciseListCompoenent(exerciseService, route, router) {
                     this.exerciseService = exerciseService;
+                    this.route = route;
+                    this.router = router;
                 }
                 ExerciseListCompoenent.prototype.ngOnInit = function () {
                     this.getExercises();
@@ -45,7 +47,7 @@ System.register(['@angular/core', '@angular/router', './exercise.service'], func
                         templateUrl: './scripts/compiled/app/exercise/exercise-list.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [exercise_service_1.ExerciseService])
+                    __metadata('design:paramtypes', [exercise_service_1.ExerciseService, router_1.ActivatedRoute, router_1.Router])
                 ], ExerciseListCompoenent);
                 return ExerciseListCompoenent;
             }());

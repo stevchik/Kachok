@@ -1,16 +1,8 @@
-/// <reference path="../../../typings/globals/core-js/index.d.ts" />
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import { ExerciseModule } from './exercise.module';
 
 
-import { ExerciseComponent } from './exercise.component';
-import { exerciseRouterProviders } from './exercise.routes';
-
-bootstrap(ExerciseComponent, [
-    exerciseRouterProviders,
-    disableDeprecatedForms(),
-    provideForms()
-])
+platformBrowserDynamic().bootstrapModule(ExerciseModule)
     .catch(err => console.error(err));
 

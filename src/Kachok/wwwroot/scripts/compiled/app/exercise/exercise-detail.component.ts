@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
 import { Exercise} from "./Exercise";
@@ -8,8 +8,7 @@ import { ExerciseService} from "./exercise.service";
 import { AdminService, EnumValue } from "../admin/admin.service";
 
 @Component({
-    templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html'
 })
 
 export class ExerciseDetailCompoenent implements OnInit, OnDestroy {

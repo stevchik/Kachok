@@ -1,6 +1,5 @@
 ﻿import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-
+import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Exercise } from './Exercise';
 import {ExerciseService  } from './exercise.service';
 
@@ -13,7 +12,9 @@ export class ExerciseListCompoenent implements OnInit {
     errorMessage: string;
     exercises: Exercise[];
 
-    constructor(private exerciseService: ExerciseService) {
+    constructor(private exerciseService: ExerciseService,
+        private route: ActivatedRoute,
+        private router: Router) {
     }
 
     ngOnInit() {

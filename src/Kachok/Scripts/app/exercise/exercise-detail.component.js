@@ -106,8 +106,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "../admin/adm
                 ExerciseDetailCompoenent.prototype.getdiagnostic = function () { return JSON.stringify(this.exercise); };
                 ExerciseDetailCompoenent = __decorate([
                     core_1.Component({
-                        templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        templateUrl: './scripts/compiled/app/exercise/exercise-detail.component.html'
                     }), 
                     __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, exercise_service_1.ExerciseService, admin_service_1.AdminService])
                 ], ExerciseDetailCompoenent);

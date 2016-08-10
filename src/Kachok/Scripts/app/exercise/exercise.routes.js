@@ -2,7 +2,7 @@ System.register(['@angular/router', './exercise-list.component', './exercise-det
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var router_1, exercise_list_component_1, exercise_detail_component_1;
-    var routes, exerciseRouterProviders;
+    var exerciseRoutes, exerciseRoutingProviders, routing;
     return {
         setters:[
             function (router_1_1) {
@@ -15,13 +15,12 @@ System.register(['@angular/router', './exercise-list.component', './exercise-det
                 exercise_detail_component_1 = exercise_detail_component_1_1;
             }],
         execute: function() {
-            routes = [
+            exerciseRoutes = [
                 { path: 'Site/Exercise', component: exercise_list_component_1.ExerciseListCompoenent },
                 { path: 'Site/Exercise/:name', component: exercise_detail_component_1.ExerciseDetailCompoenent }
             ];
-            exports_1("exerciseRouterProviders", exerciseRouterProviders = [
-                router_1.provideRouter(routes)
-            ]);
+            exports_1("exerciseRoutingProviders", exerciseRoutingProviders = []);
+            exports_1("routing", routing = router_1.RouterModule.forRoot(exerciseRoutes));
         }
     }
 });
