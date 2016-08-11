@@ -81,6 +81,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "../admin/adm
                     var _this = this;
                     this.exercise = new Exercise_1.Exercise();
                     this.active = false;
+                    this.exercise.exerciseTags = ['1', '2', '3'];
                     setTimeout(function () { return _this.active = true; }, 0);
                 };
                 ;

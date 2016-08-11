@@ -20,28 +20,28 @@
                     </div>
                 </div>
             </div>
-          
+
             <div class="row">
                 <div class="form-group col-xs-6 col-md-3">
-                    <label for="power">Muscle</label>
+                    <label for="muscle">Muscle</label>
                     <select class="form-control" required [(ngModel)]="exercise.muscle" name="muscle">
                         <option *ngFor="let o of muscleOptions" [value]="o.id" [label]="o.name"></option>
                     </select>
                 </div>
                 <div class="form-group col-xs-6 col-md-3">
-                    <label for="power">Target</label>
+                    <label for="target">Target</label>
                     <select class="form-control" required [(ngModel)]="exercise.target" name="target">
                         <option *ngFor="let o of targetOptions" [value]="o.key" [label]="o.value"></option>
                     </select>
                 </div>
                 <div class="form-group col-xs-6 col-md-3">
-                    <label for="power">Measure</label>
+                    <label for="uom">Measure</label>
                     <select class="form-control" required [(ngModel)]="exercise.uom" name="uom">
                         <option *ngFor="let o of uomOptions" [value]="o.key" [label]="o.value"></option>
                     </select>
                 </div>
                 <div class="form-group col-xs-6 col-md-3">
-                    <label for="power">Experience</label>
+                    <label for="experience">Experience</label>
                     <select class="form-control" required [(ngModel)]="exercise.experience" name="experience">
                         <option *ngFor="let o of experienceOptions" [value]="o.key" [label]="o.value"></option>
                     </select>
@@ -57,17 +57,23 @@
                 <label class="col-md-2 control-label" for="Equipment">Equipment</label>
 
                 <div class="col-md-10 columns">
-                    
-                      
-                            <label class="checkbox-inline" [class.checked]="o.selected" *ngFor="let o of equipmentOptions" [attr.for]="o.name">
-                                <input type="checkbox" name="equipmentList" [id]="o.name" [value]="o.id" [checked]="o.selected" (change)="selectEquipment(o)" >
-                                {{o.name}}
-                            </label>
-                              
-                   
+
+
+                    <label class="checkbox-inline" [class.checked]="o.selected" *ngFor="let o of equipmentOptions" [attr.for]="o.name">
+                        <input type="checkbox" name="equipmentList" [id]="o.name" [value]="o.id" [checked]="o.selected" (change)="selectEquipment(o)">
+                        {{o.name}}
+                    </label>
+
+
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="tags">Tags</label>
+                <div class="col-md-10 columns">
+                    <tagControl  name="tags"></tagControl>
+                </div>
+            </div>
             <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">Save</button>
             <button type="button" class="btn btn-default" (click)="newExercise()">New Exercise</button>
         </form>

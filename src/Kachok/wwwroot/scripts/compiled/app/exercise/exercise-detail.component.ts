@@ -80,6 +80,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     newExercise() {
         this.exercise = new Exercise();
         this.active = false;
+        this.exercise.exerciseTags = ['1', '2', '3'];
         setTimeout(() => this.active = true, 0);
     };
 

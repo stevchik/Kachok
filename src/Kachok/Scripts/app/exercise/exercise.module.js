@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', './exercise.routes', './exercise.component', './exercise-list.component', './exercise-detail.component', './exercise.service', '../admin/admin.service', '../rxjs-operators'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', '../shared/shared.module', './exercise.routes', './exercise.component', './exercise-list.component', './exercise-detail.component', './exercise.service', '../admin/admin.service', '../rxjs-operators'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, platform_browser_1, forms_1, http_1, exercise_routes_1, exercise_component_1, exercise_list_component_1, exercise_detail_component_1, exercise_service_1, admin_service_1;
+    var core_1, platform_browser_1, shared_module_1, exercise_routes_1, exercise_component_1, exercise_list_component_1, exercise_detail_component_1, exercise_service_1, admin_service_1;
     var ExerciseModule;
     return {
         setters:[
@@ -20,11 +20,8 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
             function (platform_browser_1_1) {
                 platform_browser_1 = platform_browser_1_1;
             },
-            function (forms_1_1) {
-                forms_1 = forms_1_1;
-            },
-            function (http_1_1) {
-                http_1 = http_1_1;
+            function (shared_module_1_1) {
+                shared_module_1 = shared_module_1_1;
             },
             function (exercise_routes_1_1) {
                 exercise_routes_1 = exercise_routes_1_1;
@@ -51,7 +48,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                 }
                 ExerciseModule = __decorate([
                     core_1.NgModule({
-                        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, exercise_routes_1.routing],
+                        imports: [platform_browser_1.BrowserModule, exercise_routes_1.routing, shared_module_1.SharedModule],
                         declarations: [exercise_component_1.ExerciseComponent, exercise_list_component_1.ExerciseListCompoenent, exercise_detail_component_1.ExerciseDetailCompoenent],
                         providers: [exercise_routes_1.exerciseRoutingProviders, exercise_service_1.ExerciseService, admin_service_1.AdminService],
                         bootstrap: [exercise_component_1.ExerciseComponent]

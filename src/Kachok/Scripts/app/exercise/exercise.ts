@@ -14,7 +14,7 @@ export class Exercise {
     public target: ExerciseTarget = ExerciseTarget.Unknown;
 
     public exerciseEquipments: ExerciseEquipment[];
-    public exerciseTags: ExerciceTag[];
+    public exerciseTags: string[];
     public exerciseImages: ExerciseImage[];
 
     public createdBy: string;
@@ -24,12 +24,12 @@ export class Exercise {
 };
 
 
-export class ExerciceTag {
-    constructor(
-        public id: number,
-        public name: string
-    ) { };
-}
+//export class ExerciceTag {
+//    constructor(
+//        public id: number,
+//        public name: string
+//    ) { };
+//}
 
 export class ExerciseImage {
     constructor(

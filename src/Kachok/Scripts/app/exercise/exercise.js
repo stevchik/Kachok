@@ -2,7 +2,7 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var admin_1;
-    var Exercise, ExerciceTag, ExerciseImage, ExerciseEquipment;
+    var Exercise, ExerciseImage, ExerciseEquipment;
     return {
         setters:[
             function (admin_1_1) {
@@ -21,15 +21,12 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
             }());
             exports_1("Exercise", Exercise);
             ;
-            ExerciceTag = (function () {
-                function ExerciceTag(id, name) {
-                    this.id = id;
-                    this.name = name;
-                }
-                ;
-                return ExerciceTag;
-            }());
-            exports_1("ExerciceTag", ExerciceTag);
+            //export class ExerciceTag {
+            //    constructor(
+            //        public id: number,
+            //        public name: string
+            //    ) { };
+            //}
             ExerciseImage = (function () {
                 function ExerciseImage(id, imageUrl, caption, sequence) {
                     this.id = id;
