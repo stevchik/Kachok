@@ -44,15 +44,25 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', './admin']
                         .subscribe(function (muscle) { return _this.muscleGroup = muscle; }, function (error) { return _this.errorMessage = error; });
                 };
                 AdminService.prototype.getEquipment = function () {
-                    return this._http.get(this._adminUrl + "/Equipment")
-                        .map(this.extractData)
-                        .catch(this.handleError);
+                    if (this.equipment) {
+                        return Observable_1.Observable.of(this.equipment);
+                    }
+                    else {
+                        return this._http.get(this._adminUrl + "/Equipment")
+                            .map(this.extractData)
+                            .catch(this.handleError);
+                    }
                 };
                 ;
                 AdminService.prototype.getMuscleGroup = function () {
-                    return this._http.get(this._adminUrl + "/MuscleGroups")
-                        .map(this.extractData)
-                        .catch(this.handleError);
+                    if (this.muscleGroup) {
+                        return Observable_1.Observable.of(this.muscleGroup);
+                    }
+                    else {
+                        return this._http.get(this._adminUrl + "/MuscleGroups")
+                            .map(this.extractData)
+                            .catch(this.handleError);
+                    }
                 };
                 ;
                 AdminService.prototype.extractData = function (res) {

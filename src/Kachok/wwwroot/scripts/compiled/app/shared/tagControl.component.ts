@@ -12,7 +12,7 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
   </tag>
 
 <input
-class="ng2-tag-input-field"
+class="tag-control"
     type="text"
    [(ngModel)]="tag"
     
@@ -27,7 +27,6 @@ class="ng2-tag-input-field"
 >
 
     `,
-    styleUrls: ['css/tag.css'],
     styles: [`
     :host {
       display: block;
@@ -35,27 +34,23 @@ class="ng2-tag-input-field"
       padding: 5px 0;
     }
 
-    :host.ng2-tag-input-focus {
-      box-shadow: 0 2px #0d8bff;
-    }
-
-    .ng2-tag-input-field {
+  
+    .tag-control {
       box-shadow: none;
       border: 0;
     }
+
 label {
   display: block;
 }
-input,
-textarea {
+input {
   padding: 5px;
   border: 0;
-  box-shadow: 0 1px #ccc;
+  
 }
 
-input:focus,
-textarea:focus {
-  box-shadow: 0 2px #0d8bff;
+input:focus {
+  border: 0;
   outline: 0;
 }
 
@@ -141,7 +136,7 @@ export class TagControlComponent implements OnInit {
 
     private _handleBackspace() {
         if (!this.tag.length && this.tagList.length) {
-            if (this.selectedTag && this.selectedTag!=null) {
+            if (!this.isBlank(this.selectedTag)) {
                 this._removeTag(this.selectedTag);
             }
             else {
@@ -167,6 +162,10 @@ export class TagControlComponent implements OnInit {
     private _isTagValid(tagString: string) {
         return this.allowedTagsPattern.test(tagString);
     }
+
+    private isBlank(obj: any) {
+    return obj === undefined || obj === null;
+}
 
     onChange: (value: any) => any = () => { };
 }

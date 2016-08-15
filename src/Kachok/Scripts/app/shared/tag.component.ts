@@ -5,31 +5,33 @@
     template:
     `{{text}}
   <span
-  class="ng2-tag-input-remove"
+  class="tag-select"
   (click)="removeTag()">&times;</span>`,
 
     styles: [`
     :host {
-      display: inline-block;
-      background: #ccc;
-      padding: 7px;
-      border-radius: 90px;
-      margin-right: 10px;
+         display: inline-block;
+        background: #fff;
+        padding: 7px;
+        margin-right: 10px;
+        border: #ccc 1px solid;
+        border-radius: 4px;
+        margin-bottom: 10px !important;
     }
 
-    :host.ng2-tag-input-item-selected {
+    :host.tag-control-selected {
       color: white;
-      background: #0d8bff;
+      background: #a94442;
     }
 
-    .ng2-tag-input-remove {
+    .tag-select {
       cursor: pointer;
       display: inline-block;
       padding: 0 3px;
     }
   `],
     host: {
-        '[class.ng2-tag-input-item-selected]': 'selected'
+        '[class.tag-control-selected]': 'selected'
     }
 })
 export class TagComponent {

@@ -44,10 +44,10 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 TagComponent = __decorate([
                     core_1.Component({
                         selector: 'tag',
-                        template: "{{text}}\n  <span\n  class=\"ng2-tag-input-remove\"\n  (click)=\"removeTag()\">&times;</span>",
-                        styles: ["\n    :host {\n      display: inline-block;\n      background: #ccc;\n      padding: 7px;\n      border-radius: 90px;\n      margin-right: 10px;\n    }\n\n    :host.ng2-tag-input-item-selected {\n      color: white;\n      background: #0d8bff;\n    }\n\n    .ng2-tag-input-remove {\n      cursor: pointer;\n      display: inline-block;\n      padding: 0 3px;\n    }\n  "],
+                        template: "{{text}}\n  <span\n  class=\"tag-select\"\n  (click)=\"removeTag()\">&times;</span>",
+                        styles: ["\n    :host {\n         display: inline-block;\n        background: #fff;\n        padding: 7px;\n        margin-right: 10px;\n        border: #ccc 1px solid;\n        border-radius: 4px;\n        margin-bottom: 10px !important;\n    }\n\n    :host.tag-control-selected {\n      color: white;\n      background: #a94442;\n    }\n\n    .tag-select {\n      cursor: pointer;\n      display: inline-block;\n      padding: 0 3px;\n    }\n  "],
                         host: {
-                            '[class.ng2-tag-input-item-selected]': 'selected'
+                            '[class.tag-control-selected]': 'selected'
                         }
                     }), 
                     __metadata('design:paramtypes', [])

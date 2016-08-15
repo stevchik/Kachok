@@ -87,7 +87,7 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 };
                 TagControlComponent.prototype._handleBackspace = function () {
                     if (!this.tag.length && this.tagList.length) {
-                        if (this.selectedTag && this.selectedTag != null) {
+                        if (!this.isBlank(this.selectedTag)) {
                             this._removeTag(this.selectedTag);
                         }
                         else {
@@ -108,6 +108,9 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 };
                 TagControlComponent.prototype._isTagValid = function (tagString) {
                     return this.allowedTagsPattern.test(tagString);
+                };
+                TagControlComponent.prototype.isBlank = function (obj) {
+                    return obj === undefined || obj === null;
                 };
                 __decorate([
                     core_1.Input(), 
@@ -144,9 +147,8 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 TagControlComponent = __decorate([
                     core_1.Component({
                         selector: 'tagControl',
-                        template: "\n<tag\n    [text]=\"tag\"\n    [index]=\"index\"\n    [selected]=\"selectedTag === index\"\n    (tagRemoved)=\"_removeTag($event)\"\n    *ngFor=\"let tag of tagList; let index = index\">\n  </tag>\n\n<input\nclass=\"ng2-tag-input-field\"\n    type=\"text\"\n   [(ngModel)]=\"tag\"\n    \n    [placeholder]=\"placeholder\"\n    \n    (paste)=\"inputPaste($event)\"\n    (keydown)=\"inputChanged($event)\"\n    (blur)=\"inputBlurred($event)\"\n    (focus)=\"inputFocused()\"\n    name=\"tag_tag\"\n id=\"tag_tag\"\n>\n\n    ",
-                        styleUrls: ['css/tag.css'],
-                        styles: ["\n    :host {\n      display: block;\n      box-shadow: 0 1px #ccc;\n      padding: 5px 0;\n    }\n\n    :host.ng2-tag-input-focus {\n      box-shadow: 0 2px #0d8bff;\n    }\n\n    .ng2-tag-input-field {\n      box-shadow: none;\n      border: 0;\n    }\nlabel {\n  display: block;\n}\ninput,\ntextarea {\n  padding: 5px;\n  border: 0;\n  box-shadow: 0 1px #ccc;\n}\n\ninput:focus,\ntextarea:focus {\n  box-shadow: 0 2px #0d8bff;\n  outline: 0;\n}\n\n  "],
+                        template: "\n<tag\n    [text]=\"tag\"\n    [index]=\"index\"\n    [selected]=\"selectedTag === index\"\n    (tagRemoved)=\"_removeTag($event)\"\n    *ngFor=\"let tag of tagList; let index = index\">\n  </tag>\n\n<input\nclass=\"tag-control\"\n    type=\"text\"\n   [(ngModel)]=\"tag\"\n    \n    [placeholder]=\"placeholder\"\n    \n    (paste)=\"inputPaste($event)\"\n    (keydown)=\"inputChanged($event)\"\n    (blur)=\"inputBlurred($event)\"\n    (focus)=\"inputFocused()\"\n    name=\"tag_tag\"\n id=\"tag_tag\"\n>\n\n    ",
+                        styles: ["\n    :host {\n      display: block;\n      box-shadow: 0 1px #ccc;\n      padding: 5px 0;\n    }\n\n  \n    .tag-control {\n      box-shadow: none;\n      border: 0;\n    }\n\nlabel {\n  display: block;\n}\ninput {\n  padding: 5px;\n  border: 0;\n  \n}\n\ninput:focus {\n  border: 0;\n  outline: 0;\n}\n\n  "],
                     }), 
                     __metadata('design:paramtypes', [])
                 ], TagControlComponent);
