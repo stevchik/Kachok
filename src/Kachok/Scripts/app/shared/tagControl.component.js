@@ -1,4 +1,4 @@
-System.register(['@angular/core'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/forms'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,16 +10,27 @@ System.register(['@angular/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var TagControlComponent;
+    var core_1, forms_1;
+    var noop, TAG_CONTROL_VALUE_ACCESSOR, TagControlComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (forms_1_1) {
+                forms_1 = forms_1_1;
             }],
         execute: function() {
+            noop = function () {
+            };
+            exports_1("TAG_CONTROL_VALUE_ACCESSOR", TAG_CONTROL_VALUE_ACCESSOR = {
+                provide: forms_1.NG_VALUE_ACCESSOR,
+                useExisting: core_1.forwardRef(function () { return TagControlComponent; }),
+                multi: true
+            });
             TagControlComponent = (function () {
                 function TagControlComponent() {
+                    var _this = this;
                     this.placeholder = 'Add a tag';
                     this.delimiterCode = '188';
                     this.allowedTagsPattern = /.+/;
@@ -29,7 +40,13 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     this.isFocussed = false;
                     this.tag = '';
                     this.tagList = [];
-                    this.onChange = function () { };
+                    this.onChange = function (value) {
+                        _this.onChangeCallback(value);
+                    };
+                    //Placeholders for the callbacks which are later providesd
+                    //by the Control Value Accessor
+                    this.onTouchedCallback = noop;
+                    this.onChangeCallback = noop;
                 }
                 TagControlComponent.prototype.ngOnInit = function () {
                     if (this.ngModel)
@@ -112,6 +129,40 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 TagControlComponent.prototype.isBlank = function (obj) {
                     return obj === undefined || obj === null;
                 };
+                Object.defineProperty(TagControlComponent.prototype, "value", {
+                    //get accessor
+                    get: function () {
+                        return this.tagList;
+                    },
+                    //set accessor including call the onchange callback
+                    set: function (v) {
+                        if (v !== this.tagList) {
+                            this.tagList = v;
+                            this.onChangeCallback(v);
+                        }
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                //Set touched on blur
+                TagControlComponent.prototype.onBlur = function () {
+                    this.onTouchedCallback();
+                };
+                //From ControlValueAccessor interface
+                TagControlComponent.prototype.writeValue = function (value) {
+                    if (value !== this.tagList) {
+                        this.tagList = value;
+                    }
+                };
+                //From ControlValueAccessor interface
+                TagControlComponent.prototype.registerOnChange = function (fn) {
+                    this.onChangeCallback = fn;
+                };
+                //From ControlValueAccessor interface
+                TagControlComponent.prototype.registerOnTouched = function (fn) {
+                    this.onTouchedCallback = fn;
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
@@ -141,14 +192,15 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     __metadata('design:type', Boolean)
                 ], TagControlComponent.prototype, "addOnPaste", void 0);
                 __decorate([
-                    core_1.HostBinding('class.ng2-tag-input-focus'), 
+                    core_1.HostBinding('class.tag-control-focus'), 
                     __metadata('design:type', Boolean)
                 ], TagControlComponent.prototype, "isFocussed", void 0);
                 TagControlComponent = __decorate([
                     core_1.Component({
                         selector: 'tagControl',
                         template: "\n<tag\n    [text]=\"tag\"\n    [index]=\"index\"\n    [selected]=\"selectedTag === index\"\n    (tagRemoved)=\"_removeTag($event)\"\n    *ngFor=\"let tag of tagList; let index = index\">\n  </tag>\n\n<input\nclass=\"tag-control\"\n    type=\"text\"\n   [(ngModel)]=\"tag\"\n    \n    [placeholder]=\"placeholder\"\n    \n    (paste)=\"inputPaste($event)\"\n    (keydown)=\"inputChanged($event)\"\n    (blur)=\"inputBlurred($event)\"\n    (focus)=\"inputFocused()\"\n    name=\"tag_tag\"\n id=\"tag_tag\"\n>\n\n    ",
-                        styles: ["\n    :host {\n      display: block;\n      box-shadow: 0 1px #ccc;\n      padding: 5px 0;\n    }\n\n  \n    .tag-control {\n      box-shadow: none;\n      border: 0;\n    }\n\nlabel {\n  display: block;\n}\ninput {\n  padding: 5px;\n  border: 0;\n  \n}\n\ninput:focus {\n  border: 0;\n  outline: 0;\n}\n\n  "],
+                        styles: ["\n    :host {\n      display: block;\n      box-shadow: 0 1px #ccc;\n      padding: 5px 0;\n    }\n\n  \n    .tag-control {\n      box-shadow: none;\n      border: 0;\n    }\n\nlabel {\n  display: block;\n}\ninput {\n  padding: 5px;\n  border: 0;\n  \n}\n\ninput:focus {\n  border: 0;\n  outline: 0;\n}\n  "],
+                        providers: [TAG_CONTROL_VALUE_ACCESSOR]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], TagControlComponent);

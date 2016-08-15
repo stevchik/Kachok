@@ -40,6 +40,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
             let name = params['name'];
         });
         this.exercise = new Exercise();
+        this.exercise.exerciseTags = ["one"];
 
         if (!this.statusOptions) {
             this.statusOptions = this.adminService.statusOptions;

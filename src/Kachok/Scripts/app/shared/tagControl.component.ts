@@ -1,4 +1,14 @@
-﻿import { Component, Input, OnInit, HostBinding } from '@angular/core';
+﻿import { Component, Input, OnInit, HostBinding, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+
+const noop = () => {
+};
+
+export const TAG_CONTROL_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TagControlComponent),
+    multi: true
+};
 
 @Component({
     selector: 'tagControl',
@@ -53,10 +63,10 @@ input:focus {
   border: 0;
   outline: 0;
 }
-
   `],
+    providers: [TAG_CONTROL_VALUE_ACCESSOR]
 })
-export class TagControlComponent implements OnInit {
+export class TagControlComponent implements OnInit, ControlValueAccessor {
     @Input() ngModel: string[];
     @Input() placeholder: string = 'Add a tag';
     @Input() delimiterCode: string = '188';
@@ -65,13 +75,13 @@ export class TagControlComponent implements OnInit {
     @Input() addOnBlur: boolean = true;
     @Input() addOnEnter: boolean = true;
     @Input() addOnPaste: boolean = true;
-    @HostBinding('class.ng2-tag-input-focus') isFocussed: boolean=false;
+    @HostBinding('class.tag-control-focus') isFocussed: boolean = false;
 
     tag: string = '';
     tagList: Array<string> = [];
     delimiter: number;
     selectedTag: number;
-   
+
     ngOnInit() {
         if (this.ngModel)
             this.tagList = this.ngModel;
@@ -164,8 +174,50 @@ export class TagControlComponent implements OnInit {
     }
 
     private isBlank(obj: any) {
-    return obj === undefined || obj === null;
-}
+        return obj === undefined || obj === null;
+    }
 
-    onChange: (value: any) => any = () => { };
+    onChange: (value: any) => any = (value) => {
+        this.onChangeCallback(value);
+    };
+
+    //get accessor
+    get value(): any {
+        return this.tagList;
+    };
+
+    //set accessor including call the onchange callback
+    set value(v: any) {
+        if (v !== this.tagList) {
+            this.tagList = v;
+            this.onChangeCallback(v);
+        }
+    }
+
+    //Set touched on blur
+    onBlur() {
+        this.onTouchedCallback();
+    }
+
+    //From ControlValueAccessor interface
+    writeValue(value: any) {
+        if (value !== this.tagList) {
+            this.tagList = value;
+        }
+    }
+
+    //From ControlValueAccessor interface
+    registerOnChange(fn: any) {
+        this.onChangeCallback = fn;
+    }
+
+    //From ControlValueAccessor interface
+    registerOnTouched(fn: any) {
+        this.onTouchedCallback = fn;
+    }
+
+    //Placeholders for the callbacks which are later providesd
+    //by the Control Value Accessor
+    private onTouchedCallback: () => void = noop;
+    private onChangeCallback: (_: any) => void = noop;
 }

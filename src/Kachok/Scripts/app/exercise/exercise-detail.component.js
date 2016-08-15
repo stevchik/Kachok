@@ -53,6 +53,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "../admin/adm
                         var name = params['name'];
                     });
                     this.exercise = new Exercise_1.Exercise();
+                    this.exercise.exerciseTags = ["one"];
                     if (!this.statusOptions) {
                         this.statusOptions = this.adminService.statusOptions;
                     }
