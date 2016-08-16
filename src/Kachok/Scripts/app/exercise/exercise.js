@@ -15,6 +15,10 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
                     this.uom = admin_1.ExerciseUom.Unknown;
                     this.experience = admin_1.Experience.Unknown;
                     this.target = admin_1.ExerciseTarget.Unknown;
+                    this.id = 0;
+                    this.exerciseEquipments = new Array();
+                    this.exerciseTags = new Array();
+                    this.exerciseImages = new Array();
                 }
                 ;
                 return Exercise;
@@ -39,14 +43,25 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
             }());
             exports_1("ExerciseImage", ExerciseImage);
             ExerciseEquipment = (function () {
-                function ExerciseEquipment(id, equipmentName) {
-                    this.id = id;
-                    this.equipmentName = equipmentName;
+                function ExerciseEquipment(equipment) {
+                    //super();
+                    if (equipment) {
+                        this.id = equipment.id;
+                        this.equipmentName = equipment.name;
+                        this.selected = false;
+                    }
                 }
+                ;
                 return ExerciseEquipment;
             }());
             exports_1("ExerciseEquipment", ExerciseEquipment);
         }
     }
 });
+//export class ExerciseEquipment {
+//    constructor(
+//        public id: number,
+//        public equipmentName: string
+//    ) { }
+//} 
 //# sourceMappingURL=Exercise.js.map

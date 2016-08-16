@@ -1,8 +1,3 @@
-export class Equipment {
-    id: number;
-    name: string;
-}
-
 export class MuscleGroup {
     id: number;
     name: string;
@@ -34,4 +29,9 @@ export enum Experience {
     Beginner = 1,
     Intermediate = 2,
     Expert = 3
+}
+
+export class Equipment {
+    id: number;
+    name: string;
 }

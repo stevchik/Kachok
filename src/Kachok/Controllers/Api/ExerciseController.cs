@@ -41,7 +41,7 @@ namespace Kachok.Controllers.Api
             {
                 Id = 1,
                 Status = Model.Enum.Status.Active,
-                TargetMuscleGroupName = "Chest",
+                Target = Model.Enum.ExerciseTarget.Compound,
                 ExerciseEquipments = list
             });
 
@@ -58,7 +58,7 @@ namespace Kachok.Controllers.Api
             {
                 Id = id,
                 Status=Model.Enum.Status.Active,
-                TargetMuscleGroupName="Chest",
+                Target =Model.Enum.ExerciseTarget.Isolation,
                 ExerciseEquipments = list
             });
         }

@@ -1,16 +1,10 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Equipment, MuscleGroup, Status, ExerciseUom, ExerciseTarget, Experience;
+    var MuscleGroup, Status, ExerciseUom, ExerciseTarget, Experience, Equipment;
     return {
         setters:[],
         execute: function() {
-            Equipment = (function () {
-                function Equipment() {
-                }
-                return Equipment;
-            }());
-            exports_1("Equipment", Equipment);
             MuscleGroup = (function () {
                 function MuscleGroup() {
                 }
@@ -45,6 +39,12 @@ System.register([], function(exports_1, context_1) {
                 Experience[Experience["Expert"] = 3] = "Expert";
             })(Experience || (Experience = {}));
             exports_1("Experience", Experience);
+            Equipment = (function () {
+                function Equipment() {
+                }
+                return Equipment;
+            }());
+            exports_1("Equipment", Equipment);
         }
     }
 });

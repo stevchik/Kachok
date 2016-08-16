@@ -19,16 +19,17 @@ namespace Kachok.ViewModel
         public string Description { get; set; }
         public Status Status { get; set; }
 
-        public ExerciseUom DefaultExerciseUom { get; set; }
+        public ExerciseUom Uom { get; set; }
 
         [Required]
-        public string TargetMuscleGroupName { get; set; }
+        public int Muscle { get; set; }
         public Experience Experience { get; set; }
         [Required]
-        public ExerciseTarget ExerciseTarget { get; set; }
+        public ExerciseTarget Target { get; set; }
 
         public IList<ExerciseEquipmentViewModel> ExerciseEquipments { get; set; }
-        public List<ExerciseTagViewModel> ExerciseTags { get; set; }
+        //public List<ExerciseTagViewModel> ExerciseTags { get; set; }
+        List<string> ExerciseTags { get; set; }
         public List<ExerciseImage> ExerciseImages { get; set; }
 
         public string CreatedBy { get; set; }

@@ -2,7 +2,7 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import { NgForm } from "@angular/common";
 
-import { Exercise} from "./Exercise";
+import { Exercise, ExerciseEquipment} from "./Exercise";
 import { Equipment, MuscleGroup, Status } from "../admin/admin";
 import { ExerciseService} from "./exercise.service";
 import { AdminService, EnumValue } from "../admin/admin.service";
@@ -16,7 +16,6 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     errorMessage: string;
     exercise: Exercise;
 
-    submitted = false;
     active = true;
 
     statusOptions: Array<EnumValue>;
@@ -33,7 +32,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         private router: Router,
         private exerciseService: ExerciseService,
         private adminService: AdminService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -71,7 +70,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
         if (!this.targetOptions) {
             this.targetOptions = this.adminService.targetOption;
         }
-       
+
     }
 
     ngOnDestroy() {
@@ -86,7 +85,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     };
 
     onSubmit() {
-        this.submitted = true;
+        this.saveExercise();
     }
 
     gotoExercises() { this.router.navigate(['/Site/Exercise']); }
@@ -107,24 +106,22 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
 
     selectEquipment(equipment: ExerciseEquipment) {
         equipment.selected = (equipment.selected) ? false : true;
+
+        let index: number = this.exercise.exerciseEquipments.findIndex(item => item === equipment);
+        if (equipment.selected) {
+            if (index < 0) {
+                this.exercise.exerciseEquipments.push(equipment);
+            }
+        } else {
+            if (index >= 0) {
+                this.exercise.exerciseEquipments.splice(index);
+            }
+        }
     }
 
 
 
     // TODO: Remove this when we're done
-    getdiagnostic() { return JSON.stringify(this.exercise); }
+    get diagnostic() { return JSON.stringify(this.exercise); }
 }
 
-class ExerciseEquipment extends Equipment
-{
-    constructor(equipment?: Equipment) {
-        super();
-        if (equipment) {
-            this.id = equipment.id;
-            this.name = equipment.name;
-            this.selected = false;
-        }
-    };
-
-    selected: boolean;
-}
