@@ -49,12 +49,12 @@ export class ExerciseEquipment {
     constructor(equipment?: Equipment) {
         //super();
         if (equipment) {
-            this.id = equipment.id;
+            this.equipmentId = equipment.id;
             this.equipmentName = equipment.name;
             this.selected = false;
         }
     };
-    id: number;
+    equipmentId: number;
     equipmentName: string;
     selected: boolean;
 }

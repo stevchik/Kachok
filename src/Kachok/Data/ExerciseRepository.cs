@@ -22,7 +22,6 @@ namespace Kachok.Data
 
         public override void Update(Exercise entity)
         {
-            entity.UpdatedDate = DateTime.Now;
             base.Update(entity);
         }
     }

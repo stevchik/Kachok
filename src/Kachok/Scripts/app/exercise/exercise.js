@@ -46,7 +46,7 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
                 function ExerciseEquipment(equipment) {
                     //super();
                     if (equipment) {
-                        this.id = equipment.id;
+                        this.equipmentId = equipment.id;
                         this.equipmentName = equipment.name;
                         this.selected = false;
                     }

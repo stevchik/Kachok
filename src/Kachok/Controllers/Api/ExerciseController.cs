@@ -71,6 +71,13 @@ namespace Kachok.Controllers.Api
                 if (ModelState.IsValid)
                 {
                     var newExercise = Mapper.Map<Exercise>(vm);
+                    newExercise.CreatedDate = DateTime.Now;
+                    newExercise.CreatedBy = User.Identity.Name;
+                    newExercise.UpdatedDate = DateTime.Now;
+                    newExercise.UpdatedBy = User.Identity.Name;
+
+                    _repository.Add(newExercise);
+                    _repository.SaveAll();
                     Response.StatusCode = (int)HttpStatusCode.Created;
 
                     return Json(Mapper.Map<ExerciseViewModel>(newExercise));
