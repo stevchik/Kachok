@@ -8,6 +8,8 @@ namespace Kachok.Infrastructure
     {
         // Marks an entity as new
         void Add(T entity);
+
+        void Attach(T entity);
         // Marks an entity as modified
         void Update(T entity);
         // Marks an entity to be removed

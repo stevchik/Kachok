@@ -35,6 +35,11 @@ namespace Kachok.Infrastructure
             _dbSet.Add(entity);
         }
 
+        public virtual void Attach(T entity)
+        {
+            _dbSet.Attach(entity);
+        }
+
         public virtual void Update(T entity)
         {
             _dbSet.Attach(entity);

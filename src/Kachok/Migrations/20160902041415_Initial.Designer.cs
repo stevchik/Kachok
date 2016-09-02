@@ -8,7 +8,7 @@ using Kachok.Data;
 namespace Kachok.Migrations
 {
     [DbContext(typeof(KachokContext))]
-    [Migration("20160605231303_Initial")]
+    [Migration("20160902041415_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -273,6 +273,26 @@ namespace Kachok.Migrations
                     b.ToTable("PlanDay");
                 });
 
+            modelBuilder.Entity("Kachok.Model.PlanTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PlanId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("PlanId", "TagId");
+
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PlanTag");
+                });
+
             modelBuilder.Entity("Kachok.Model.PlanWorkout", b =>
                 {
                     b.Property<int>("Id")
@@ -534,6 +554,19 @@ namespace Kachok.Migrations
                     b.HasOne("Kachok.Model.PlanWorkout")
                         .WithOne()
                         .HasForeignKey("Kachok.Model.PlanDay", "PlanWorkoutId");
+                });
+
+            modelBuilder.Entity("Kachok.Model.PlanTag", b =>
+                {
+                    b.HasOne("Kachok.Model.Plan")
+                        .WithMany()
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Kachok.Model.Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Kachok.Model.PlanWorkout", b =>

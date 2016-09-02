@@ -16,8 +16,8 @@ System.register(['../admin/admin'], function(exports_1, context_1) {
                     this.experience = admin_1.Experience.Unknown;
                     this.target = admin_1.ExerciseTarget.Unknown;
                     this.id = 0;
-                    this.exerciseEquipments = new Array();
-                    this.exerciseTags = new Array();
+                    this.equipments = new Array();
+                    this.tags = new Array();
                     this.exerciseImages = new Array();
                 }
                 ;

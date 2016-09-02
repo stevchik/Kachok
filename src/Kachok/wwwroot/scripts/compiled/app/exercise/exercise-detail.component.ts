@@ -39,7 +39,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
             let name = params['name'];
         });
         this.exercise = new Exercise();
-        this.exercise.exerciseTags = ["one"];
+        this.exercise.tags = ["one"];
 
         if (!this.statusOptions) {
             this.statusOptions = this.adminService.statusOptions;
@@ -80,7 +80,7 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     newExercise() {
         this.exercise = new Exercise();
         this.active = false;
-        this.exercise.exerciseTags = ['1', '2', '3'];
+        this.exercise.tags = ['1', '2', '3'];
         setTimeout(() => this.active = true, 0);
     };
 
@@ -107,14 +107,14 @@ export class ExerciseDetailCompoenent implements OnInit, OnDestroy {
     selectEquipment(equipment: ExerciseEquipment) {
         equipment.selected = (equipment.selected) ? false : true;
 
-        let index: number = this.exercise.exerciseEquipments.findIndex(item => item === equipment);
+        let index: number = this.exercise.equipments.findIndex(item => item === equipment);
         if (equipment.selected) {
             if (index < 0) {
-                this.exercise.exerciseEquipments.push(equipment);
+                this.exercise.equipments.push(equipment);
             }
         } else {
             if (index >= 0) {
-                this.exercise.exerciseEquipments.splice(index);
+                this.exercise.equipments.splice(index);
             }
         }
     }

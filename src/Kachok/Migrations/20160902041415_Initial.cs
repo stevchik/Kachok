@@ -230,6 +230,33 @@ namespace Kachok.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlanTag",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PlanId = table.Column<int>(nullable: false),
+                    TagId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanTag", x => x.Id);
+                    table.UniqueConstraint("AK_PlanTag_PlanId_TagId", x => new { x.PlanId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_PlanTag_Plan_PlanId",
+                        column: x => x.PlanId,
+                        principalTable: "Plan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlanTag_Tag_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -491,6 +518,16 @@ namespace Kachok.Migrations
                 column: "PlanWorkoutId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PlanTag_PlanId",
+                table: "PlanTag",
+                column: "PlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanTag_TagId",
+                table: "PlanTag",
+                column: "TagId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PlanWorkout_PlanId",
                 table: "PlanWorkout",
                 column: "PlanId");
@@ -559,6 +596,9 @@ namespace Kachok.Migrations
 
             migrationBuilder.DropTable(
                 name: "PlanDay");
+
+            migrationBuilder.DropTable(
+                name: "PlanTag");
 
             migrationBuilder.DropTable(
                 name: "PlanWorkoutExerciseStep");

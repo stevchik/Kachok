@@ -27,9 +27,9 @@ namespace Kachok.ViewModel
         [Required]
         public ExerciseTarget Target { get; set; }
 
-        public IList<ExerciseEquipmentViewModel> ExerciseEquipments { get; set; }
+        public IList<ExerciseEquipmentViewModel> Equipments { get; set; }
         //public List<ExerciseTagViewModel> ExerciseTags { get; set; }
-        List<string> ExerciseTags { get; set; }
+        public List<string> Tags { get; set; }
         public List<ExerciseImage> ExerciseImages { get; set; }
 
         public string CreatedBy { get; set; }

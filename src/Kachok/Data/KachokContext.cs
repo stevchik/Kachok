@@ -67,13 +67,12 @@ namespace Kachok.Data
                 .IsRequired()
                 .HasMaxLength(1000);
 
-            modelBuilder.Entity<Plan>()
-              .Property(p => p.CreatedDate)
-                  .ValueGeneratedOnAdd();
+            //modelBuilder.Entity<Plan>()
+            //  .Property(p => p.CreatedDate)
+                  //.ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Plan>()
-             .Property(p => p.UpdatedDate)
-                 .ValueGeneratedOnAddOrUpdate()
+             .Property(p => p.UpdatedDate)            // .ValueGeneratedOnAddOrUpdate()    
                  .IsConcurrencyToken();
 
             modelBuilder.Entity<Plan>()                
@@ -186,13 +185,13 @@ namespace Kachok.Data
                 .IsRequired()
                 .HasMaxLength(1000);
 
-            modelBuilder.Entity<Exercise>()
-              .Property(p => p.CreatedDate)
-                  .ValueGeneratedOnAdd();
+            //modelBuilder.Entity<Exercise>()
+            //  .Property(p => p.CreatedDate)
+                  //.ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Exercise>()
              .Property(p => p.UpdatedDate)
-                 .ValueGeneratedOnAddOrUpdate()
+                // .ValueGeneratedOnAddOrUpdate()
                  .IsConcurrencyToken();
 
             modelBuilder.Entity<Exercise>()

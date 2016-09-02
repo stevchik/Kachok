@@ -8,8 +8,8 @@ using Kachok.Infrastructure.Logging;
 namespace Kachok.Migrations.KachokLogging
 {
     [DbContext(typeof(KachokLoggingContext))]
-    [Migration("20160605231344_InitialAudit")]
-    partial class InitialAudit
+    [Migration("20160902041512_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

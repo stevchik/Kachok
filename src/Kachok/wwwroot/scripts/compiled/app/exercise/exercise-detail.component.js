@@ -44,7 +44,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                         var name = params['name'];
                     });
                     this.exercise = new Exercise_1.Exercise();
-                    this.exercise.exerciseTags = ["one"];
+                    this.exercise.tags = ["one"];
                     if (!this.statusOptions) {
                         this.statusOptions = this.adminService.statusOptions;
                     }
@@ -73,7 +73,7 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                     var _this = this;
                     this.exercise = new Exercise_1.Exercise();
                     this.active = false;
-                    this.exercise.exerciseTags = ['1', '2', '3'];
+                    this.exercise.tags = ['1', '2', '3'];
                     setTimeout(function () { return _this.active = true; }, 0);
                 };
                 ;
@@ -94,15 +94,15 @@ System.register(['@angular/core', '@angular/router', "./Exercise", "./exercise.s
                 ;
                 ExerciseDetailCompoenent.prototype.selectEquipment = function (equipment) {
                     equipment.selected = (equipment.selected) ? false : true;
-                    var index = this.exercise.exerciseEquipments.findIndex(function (item) { return item === equipment; });
+                    var index = this.exercise.equipments.findIndex(function (item) { return item === equipment; });
                     if (equipment.selected) {
                         if (index < 0) {
-                            this.exercise.exerciseEquipments.push(equipment);
+                            this.exercise.equipments.push(equipment);
                         }
                     }
                     else {
                         if (index >= 0) {
-                            this.exercise.exerciseEquipments.splice(index);
+                            this.exercise.equipments.splice(index);
                         }
                     }
                 };

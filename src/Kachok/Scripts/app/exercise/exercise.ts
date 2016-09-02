@@ -4,8 +4,8 @@ export class Exercise {
 
     constructor() {
         this.id = 0;
-        this.exerciseEquipments = new Array<ExerciseEquipment>();
-        this.exerciseTags = new Array<string>();
+        this.equipments = new Array<ExerciseEquipment>();
+        this.tags = new Array<string>();
         this.exerciseImages = new Array<ExerciseImage>();
     }
 
@@ -18,8 +18,8 @@ export class Exercise {
     public experience: Experience = Experience.Unknown;
     public target: ExerciseTarget = ExerciseTarget.Unknown;
 
-    public exerciseEquipments: ExerciseEquipment[];
-    public exerciseTags: string[];
+    public equipments: ExerciseEquipment[];
+    public tags: string[];
     public exerciseImages: ExerciseImage[];
 
     public createdBy: string;

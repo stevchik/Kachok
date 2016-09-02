@@ -8,6 +8,13 @@ namespace Kachok.Model
 {
     public class Exercise : IHaveId
     {
+
+        public Exercise()
+        {
+            ExerciseEquipments = new List<ExerciseEquipment>();
+            ExerciseTags = new List<ExerciseTag>();
+            ExerciseImages = new List<ExerciseImage>();
+        }
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]

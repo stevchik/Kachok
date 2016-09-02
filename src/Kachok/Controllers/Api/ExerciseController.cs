@@ -11,6 +11,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Kachok.Data.Interfaces;
 using Kachok.Infrastructure;
+using Kachok.Data;
 
 namespace Kachok.Controllers.Api
 {
@@ -21,11 +22,15 @@ namespace Kachok.Controllers.Api
     {
         private ILogger<AdminController> _logger;
         private IExerciseRepository _repository;
+        private IAdminRepository _adminRepository;
+        private KachokContext _context;
 
-        public ExerciseController(IExerciseRepository repository, ILogger<AdminController> logger)
+        public ExerciseController(KachokContext context, IExerciseRepository repository, IAdminRepository adminRepository, ILogger<AdminController> logger)
         {
             this._repository = repository;
+            this._adminRepository = adminRepository;
             this._logger = logger;
+            this._context = context;
         }
         // GET: api/Exercises
         [HttpGet()]
@@ -42,7 +47,7 @@ namespace Kachok.Controllers.Api
                 Id = 1,
                 Status = Model.Enum.Status.Active,
                 Target = Model.Enum.ExerciseTarget.Compound,
-                ExerciseEquipments = list
+                Equipments = list
             });
 
             return list2;
@@ -57,9 +62,9 @@ namespace Kachok.Controllers.Api
             return Json(new ExerciseViewModel()
             {
                 Id = id,
-                Status=Model.Enum.Status.Active,
-                Target =Model.Enum.ExerciseTarget.Isolation,
-                ExerciseEquipments = list
+                Status = Model.Enum.Status.Active,
+                Target = Model.Enum.ExerciseTarget.Isolation,
+                Equipments = list
             });
         }
 
@@ -76,6 +81,31 @@ namespace Kachok.Controllers.Api
                     newExercise.UpdatedDate = DateTime.Now;
                     newExercise.UpdatedBy = User.Identity.Name;
 
+                    if (vm.Muscle > 0)
+                    {
+                        newExercise.TargetMuscleGroup = _adminRepository.GetAllMuscleGroups().First(m => m.Id.Equals(vm.Muscle));
+                        _context.MuscleGroups.Attach(newExercise.TargetMuscleGroup);
+                    }
+
+
+                    foreach (ExerciseEquipmentViewModel eeVM in vm.Equipments)
+                    {
+                        var ee = new ExerciseEquipment();
+
+                        ee.Equipment = _adminRepository.GetAllEquipment().First(m => m.Name.Equals(eeVM.EquipmentName));
+                        ee.EquipmentId = ee.Equipment.Id;
+                        ee.ExerciseId = newExercise.Id;
+                        _context.Equipments.Attach(ee.Equipment);
+                        newExercise.ExerciseEquipments.Add(ee);
+                    }
+
+                    foreach (string tag in vm.Tags)
+                    {
+                        var eTag = new ExerciseTag();
+                        eTag.Tag = _adminRepository.GetAllTags().First(m => m.Name.Equals(tag));
+                        eTag.TagId = eTag.Tag.Id;
+                    }
+
                     _repository.Add(newExercise);
                     _repository.SaveAll();
                     Response.StatusCode = (int)HttpStatusCode.Created;
@@ -87,7 +117,7 @@ namespace Kachok.Controllers.Api
             {
                 Exception exx = ex.InnerException;
 
-                if (exx!= null && exx is FieldMappingException)
+                if (exx != null && exx is FieldMappingException)
                 {
                     FieldMappingException fme = (FieldMappingException)ex.InnerException;
                     fme.LogException(_logger, $"TargetMuscleGroup({fme.FieldName}) - {fme.Message}");
